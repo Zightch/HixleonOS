@@ -17,7 +17,7 @@ out dx, byte al
 
 ;设置GDT
 xor dword edx, edx
-mov dword eax, am + 22
+mov dword eax, am + 63
 mov dword ecx, 0x1000
 div dword ecx
 cmp dword edx, 0
@@ -31,7 +31,7 @@ mov word [ebx], cx
 mov dword [ebx + 2], eax
 
 mov dword edi, eax
-mov dword eax, GDTSrc
+mov dword eax, am + 6
 mov dword esi, eax
 
 mov word cx, 14
@@ -59,33 +59,33 @@ beforeEntryKernel:
 
 ;切换完成, 准备进入Kernel
 ;解析Kernel的ELF32结构
-;am + 6(4) : 扇区号(33-64, 遍历根目录, 寻找"KERNEL"文件)
-;am + 10(2) : 读取扇区函数地址
-;am + 12(2) : 临时簇号保存
-;am + 14(4) : 上一次读取的扇区号
-;am + 18(4) : 文件断点续写地址
+;am(4)      : 扇区号(33-64, 遍历根目录, 寻找"KERNEL"文件)
+;am + 4(2)  : 读取扇区函数地址
+;am + 6(2)  : 临时簇号保存
+;am + 8(4) : 上一次读取的扇区号
+;am + 12(4) : 文件断点续写地址
 ;0x7E00 : 扇区缓存区
 ;0x100000 : Kernel文件区
 
 xor dword eax, eax
-mov dword ebx, am + 14
-mov dword [ebx], eax;初始化am + 14
+mov dword ebx, am + 8
+mov dword [ebx], eax;初始化am + 8(上一次读取扇区号)
 mov dword eax, 0x100000
-mov dword ebx, am + 18
-mov dword [ebx], eax;初始化am + 18
+mov dword ebx, am + 12
+mov dword [ebx], eax;初始化am + 12(文件断电续写地址)
 
 mov dword ebx, esp
 mov word ax, [ebx];取出readSector函数地址
-mov dword ebx, am + 10
-mov word [ebx], ax;把地址转写到am+10的地址上
+mov dword ebx, am + 4
+mov word [ebx], ax;把地址转写到am + 4的地址上
 
 mov dword eax, 33
-mov dword ebx, am + 6
+mov dword ebx, am
 mov dword [ebx], eax;写入扇区号
 
 ;遍历根目录
 rootDirTrvs:
-mov dword ebx, am + 6
+mov dword ebx, am
 mov dword ebx, [ebx]
 cmp dword ebx, 64
 ja fileNotFind
@@ -108,7 +108,7 @@ cmp dword ebx, 16
 jl nextDir ;如果bx < 16, 跳转到nextDir
 
 ;扇区号++
-mov dword ebx, am + 6
+mov dword ebx, am
 mov dword eax, [ebx]
 add dword eax, 1
 mov dword [ebx], eax
@@ -127,7 +127,7 @@ je fileError
 ;获取起始簇号
 xor dword eax, eax
 mov word ax, [ebx + 26] ;获取起始簇号
-mov dword ebx, am + 12
+mov dword ebx, am + 6
 mov word [ebx], ax ;保存在临时内存中
 
 readFileNext:
@@ -140,13 +140,13 @@ xor dword edx, edx
 mov dword ecx, 0xFF
 div dword ecx
 add dword eax, 1
-mov dword ebx, am + 14
+mov dword ebx, am + 8
 mov dword ebx, [ebx]
 cmp dword eax, ebx
 je skipReadFAT;如果上一次读的扇区号和这一次相同, 跳过读取扇区
 
 ;读取FAT1表到0x7e00中
-mov dword ebx, am + 14
+mov dword ebx, am + 8
 mov dword [ebx], eax
 mov dword edi, 0x7e00
 mov dword ebx, eax
@@ -154,22 +154,22 @@ call readSector32
 
 skipReadFAT:
 ;按簇号读取文件内容到0x100000中
-mov dword ebx, am + 18
-mov dword edi, [ebx];读取断点续写地址
 mov dword ebx, am + 12
+mov dword edi, [ebx];读取断点续写地址
+mov word bx, am + 6
 mov word bx, [ebx] ;从可用内存段里读取临时簇号
 add word bx, 63 ;bx += 63获取扇区号
 call readSector32
-mov dword ebx, am + 18
+mov dword ebx, am + 12
 mov dword [ebx], edi;更新断点续写地址
 
 ;读取下一个簇号
-mov dword ebx, am + 12
+mov dword ebx, am + 6
 mov word bx, [ebx] ;从可用内存段里读取临时簇号
 shl word bx, 1 ;乘以2
 add word bx, 0x7e00 ;指向下一个簇号的地址
 mov word ax, [ebx]
-mov dword ebx, am + 12
+mov dword ebx, am + 6
 mov word [ebx], ax ;临时保存簇号
 jmp readFileNext
 
@@ -212,7 +212,7 @@ hlt;暂停CPU
 jmp pause
 
 readSector32:
-    mov dword esi, am + 10
+    mov dword esi, am + 4
     mov word ax, [esi]
     jmp 0x0008 : .readSector16
     [bits 16]
@@ -232,7 +232,11 @@ db 'The kernel is not found. File in "/KERNEL".', 0x00
 kernelFileError:
 db 'The kernel file is error. File in "/KRENEL".', 0x00
 
-GDTSrc: ;GDT表数据
+am:
+;GDTR数据, 对齐之后和英语存放程序数据
+times 6 db 0
+
+;GDT表数据, 对齐之后可用于存放程序数据
     db 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 ; 0: (Base:0, Limit:0, Flags:0)
     db 0xff, 0xff, 0x00, 0x00, 0x00, 0x9a, 0x8f, 0x00 ; 1: (Base:0, Limit:0xFFFFF, Flags:SEG_R0_CODE16)
     db 0xff, 0xff, 0x00, 0x00, 0x00, 0x92, 0x8f, 0x00 ; 2: (Base:0, Limit:0xFFFFF, Flags:SEG_R0_DATA16)
@@ -241,5 +245,3 @@ GDTSrc: ;GDT表数据
     db 0xff, 0xff, 0x00, 0x00, 0x10, 0x9a, 0xcf, 0x00 ; 5: (Base:0x100000, Limit:0xFFFFF, Flags:SEG_R0_CODE32)
     db 0xff, 0xff, 0x00, 0x00, 0x10, 0x92, 0xcf, 0x00 ; 6: (Base:0x100000, Limit:0xFFFFF, Flags:SEG_R0_DATA32)
     db 0x00
-
-am:

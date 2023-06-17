@@ -1,9 +1,13 @@
+cd 006
+make clear
+make
+cd ..
 
-export src=005
+export src=006
 
 rm -rf HixleonOS.img
 rm -rf ${src}/LOADER
-rm -rf ${src}/mbr.bin
+rm -rf ${src}/mbr
 
 nasm ${src}/mbr.asm
 nasm ${src}/LOADER.ASM
@@ -13,5 +17,5 @@ dd conv=notrunc if=${src}/mbr of=HixleonOS.img
 
 mount HixleonOS.img tmp/
 cp ${src}/LOADER tmp/LOADER
-cp ${src}/KERNEL tmp/KERNEL
+cp ${src}/KERNEL.BIN tmp/KERNEL
 umount -R tmp

@@ -4129,3 +4129,1240 @@ Program received signal SIGINT, Interrupt.
 Detaching from pid process 1
 Ending remote debugging.
 [Inferior 1 (process 1) detached]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0x000e8390 in ?? ()
+=> 0x000e8390:	f3 a4	rep movs BYTE PTR es:[edi],BYTE PTR ds:[esi]
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x81e3
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x81e3
+Continuing.
+
+Breakpoint 1, 0x000081e3 in ?? ()
+=> 0x000081e3:	f4	hlt    
+0x100000:	0x7f	0x45	0x4c	0x46	0x01	0x01	0x01	0x00
+0x100008:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100010:	0x02	0x00	0x03	0x00	0x01	0x00	0x00	0x00
+0x100018:	0x0c	0x00	0x10	0x00	0x34	0x00	0x00	0x00
+0x7e00:	Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0x00100051 in ?? ()
+=> 0x00100051:	eb fd	jmp    0x100050
+0x100000:	0x02	0xb0	0xad	0x1b	0x03	0x00	0x00	0x00
+0x100008:	0xfb	0x4f	0x52	0xe4	0xbc	0xbe	0x4f	0x10
+0x100010:	0x00	0xe8	0x3d	0x00	0x00	0x00	0x83	0xec
+0x100018:	0x06	0xc7	0x44	0x24	0x02	0xc0	0x4f	0x10
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0x00100051 in ?? ()
+=> 0x00100051:	eb fd	jmp    0x100050
+$1 = 0x104fbc
+0x104fb0:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104fb8:	0x4f	0x00	0x10	0x00	0x00	0x00	0xaa	0x00
+0x104fc0:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104fc8:	0xff	0xff	0x00	0x00	0x00	0x9a	0xcf	0x00
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8000
+Continuing.
+
+Breakpoint 1, 0x00008000 in ?? ()
+=> 0x00008000:	ba 92 00 ec 0c	mov    edx,0xcec0092
+Dump of assembler code from 0x8000 to 0x8040:
+=> 0x00008000:	mov    edx,0xcec0092
+   0x00008005:	add    ch,dh
+   0x00008007:	xor    dx,dx
+   0x0000800a:	mov    ax,0x8543
+   0x0000800e:	add    BYTE PTR [eax],al
+   0x00008010:	mov    cx,0x1000
+   0x00008014:	add    BYTE PTR [eax],al
+   0x00008016:	div    cx
+   0x00008019:	cmp    dx,0x0
+   0x0000801d:	mul    cx
+   0x00008020:	je     0x8028
+   0x00008022:	add    ax,0x1000
+   0x00008026:	add    BYTE PTR [eax],al
+   0x00008028:	mov    bx,0x8343
+   0x0000802c:	add    BYTE PTR [eax],al
+   0x0000802e:	mov    cx,0x38
+   0x00008032:	add    BYTE PTR [eax],al
+   0x00008034:	mov    DWORD PTR [bp+di],ecx
+   0x00008037:	mov    WORD PTR [bp+di+0x2],ax
+   0x0000803c:	mov    di,ax
+   0x0000803f:	mov    ax,0x8349
+End of assembler dump.
+Dump of assembler code from 0x803c to 0x807c:
+   0x0000803c:	mov    di,ax
+   0x0000803f:	mov    ax,0x8349
+   0x00008043:	add    BYTE PTR [eax],al
+   0x00008045:	mov    si,ax
+   0x00008048:	mov    ecx,0x6766000e
+   0x0000804d:	mov    eax,DWORD PTR [esi]
+   0x0000804f:	mov    WORD PTR [bx],ax
+   0x00008053:	add    di,0x4
+   0x00008057:	add    si,0x4
+   0x0000805b:	loop   0x804b
+   0x0000805d:	mov    bx,0x8343
+   0x00008061:	add    BYTE PTR [eax],al
+   0x00008063:	lgdtd  [bp+di]
+   0x00008067:	mov    di,0x8357
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	mov    bx,0x0
+   0x00008071:	add    BYTE PTR [eax],al
+   0x00008073:	xor    ax,ax
+   0x00008076:	mov    ax,0xe820
+   0x0000807a:	add    BYTE PTR [eax],al
+End of assembler dump.
+Breakpoint 2 at 0x8067
+Continuing.
+
+Breakpoint 2, 0x00008067 in ?? ()
+=> 0x00008067:	66 bf 57 83	mov    di,0x8357
+0x0000806d in ?? ()
+=> 0x0000806d:	66 bb 00 00	mov    bx,0x0
+0x00008073 in ?? ()
+=> 0x00008073:	66 31 c0	xor    ax,ax
+0x00008076 in ?? ()
+=> 0x00008076:	66 b8 20 e8	mov    ax,0xe820
+0x0000807c in ?? ()
+=> 0x0000807c:	66 b9 14 00	mov    cx,0x14
+0x00008082 in ?? ()
+=> 0x00008082:	66 ba 50 41	mov    dx,0x4150
+0x00008088 in ?? ()
+=> 0x00008088:	cd 15	int    0x15
+Dump of assembler code from 0x8088 to 0x8092:
+=> 0x00008088:	int    0x15
+   0x0000808a:	jb     0x80a4
+   0x0000808c:	cmp    dx,0x4150
+   0x00008091:	dec    ebp
+End of assembler dump.
+Breakpoint 3 at 0x808a
+Continuing.
+
+Breakpoint 3, 0x0000808a in ?? ()
+=> 0x0000808a:	72 18	jb     0x80a4
+0x8350:	0x00	0xff	0xff	0x00	0x00	0x00	0x9a	0x00
+0x8358:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x8360:	0xfc	0x09	0x00	0x00	0x00	0x00	0x00	0x01
+0x8368:	0x00	0x00	0x00	0x00	0x00	0x00	0x92	0xcf
+$1 = 0x14
+$2 = 0x534d4150
+$3 = 0x1
+0x0000808c in ?? ()
+=> 0x0000808c:	66 81 fa 50 41	cmp    dx,0x4150
+0x00008093 in ?? ()
+=> 0x00008093:	75 0f	jne    0x80a4
+0x00008095 in ?? ()
+=> 0x00008095:	66 b8 14 00	mov    ax,0x14
+0x0000809b in ?? ()
+=> 0x0000809b:	66 01 c7	add    di,ax
+0x0000809e in ?? ()
+=> 0x0000809e:	66 83 fb 00	cmp    bx,0x0
+$4 = 0x836b
+0x000080a2 in ?? ()
+=> 0x000080a2:	75 d2	jne    0x8076
+0x00008076 in ?? ()
+=> 0x00008076:	66 b8 20 e8	mov    ax,0xe820
+0x0000807c in ?? ()
+=> 0x0000807c:	66 b9 14 00	mov    cx,0x14
+0x00008082 in ?? ()
+=> 0x00008082:	66 ba 50 41	mov    dx,0x4150
+0x00008088 in ?? ()
+=> 0x00008088:	cd 15	int    0x15
+0x0000f859 in ?? ()
+=> 0x0000f859:	00 00	add    BYTE PTR [eax],al
+Continuing.
+
+Breakpoint 3, 0x0000808a in ?? ()
+=> 0x0000808a:	72 18	jb     0x80a4
+0x8350:	0x00	0xff	0xff	0x00	0x00	0x00	0x9a	0x00
+0x8358:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x8360:	0xfc	0x09	0x00	0x00	0x00	0x00	0x00	0x01
+0x8368:	0x00	0x00	0x00	0x00	0xfc	0x09	0x00	0x00
+0x8370:	0x00	0x00	0x00	0x00	0x04	0x00	0x00	0x00
+0x8378:	0x00	0x00	0x00	0x02	0x00	0x00	0x00	0xcf
+0x8380:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x8388:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x8390:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x9000:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x9008:	0xff	0xff	0x00	0x00	0x00	0x9a	0x8f	0x00
+0x9010:	0xff	0xff	0x00	0x00	0x00	0x92	0x8f	0x00
+0x9018:	0xff	0xff	0x00	0x00	0x00	0x9a	0xcf	0x00
+0x0000808c in ?? ()
+=> 0x0000808c:	66 81 fa 50 41	cmp    dx,0x4150
+0x00008093 in ?? ()
+=> 0x00008093:	75 0f	jne    0x80a4
+0x00008095 in ?? ()
+=> 0x00008095:	66 b8 14 00	mov    ax,0x14
+0x0000809b in ?? ()
+=> 0x0000809b:	66 01 c7	add    di,ax
+0x0000809e in ?? ()
+=> 0x0000809e:	66 83 fb 00	cmp    bx,0x0
+0x000080a2 in ?? ()
+=> 0x000080a2:	75 d2	jne    0x8076
+0x00008076 in ?? ()
+=> 0x00008076:	66 b8 20 e8	mov    ax,0xe820
+0x0000807c in ?? ()
+=> 0x0000807c:	66 b9 14 00	mov    cx,0x14
+0x00008082 in ?? ()
+=> 0x00008082:	66 ba 50 41	mov    dx,0x4150
+0x00008088 in ?? ()
+=> 0x00008088:	cd 15	int    0x15
+Continuing.
+
+Breakpoint 3, 0x0000808a in ?? ()
+=> 0x0000808a:	72 18	jb     0x80a4
+0x8370:	0x00	0x00	0x00	0x00	0x04	0x00	0x00	0x00
+0x8378:	0x00	0x00	0x00	0x02	0x00	0x00	0x00	0x00
+0x8380:	0x00	0x0f	0x00	0x00	0x00	0x00	0x00	0x00
+0x8388:	0x00	0x01	0x00	0x00	0x00	0x00	0x00	0x02
+0x8390:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x8398:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x83a0:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x83a8:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x83b0:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8000
+Continuing.
+
+Breakpoint 1, 0x00008000 in ?? ()
+=> 0x00008000:	ba 92 00 ec 0c	mov    edx,0xcec0092
+Dump of assembler code from 0x8000 to 0x8048:
+=> 0x00008000:	mov    edx,0xcec0092
+   0x00008005:	add    ch,dh
+   0x00008007:	xor    dx,dx
+   0x0000800a:	mov    ax,0x85be
+   0x0000800e:	add    BYTE PTR [eax],al
+   0x00008010:	mov    cx,0x1000
+   0x00008014:	add    BYTE PTR [eax],al
+   0x00008016:	div    cx
+   0x00008019:	cmp    dx,0x0
+   0x0000801d:	mul    cx
+   0x00008020:	je     0x8028
+   0x00008022:	add    ax,0x1000
+   0x00008026:	add    BYTE PTR [eax],al
+   0x00008028:	mov    bx,0x83be
+   0x0000802c:	add    BYTE PTR [eax],al
+   0x0000802e:	mov    cx,0x38
+   0x00008032:	add    BYTE PTR [eax],al
+   0x00008034:	mov    DWORD PTR [bp+di],ecx
+   0x00008037:	mov    WORD PTR [bp+di+0x2],ax
+   0x0000803c:	mov    di,ax
+   0x0000803f:	mov    ax,0x83c4
+   0x00008043:	add    BYTE PTR [eax],al
+   0x00008045:	mov    si,ax
+End of assembler dump.
+Dump of assembler code from 0x803c to 0x8084:
+   0x0000803c:	mov    di,ax
+   0x0000803f:	mov    ax,0x83c4
+   0x00008043:	add    BYTE PTR [eax],al
+   0x00008045:	mov    si,ax
+   0x00008048:	mov    ecx,0x6766000e
+   0x0000804d:	mov    eax,DWORD PTR [esi]
+   0x0000804f:	mov    WORD PTR [bx],ax
+   0x00008053:	add    di,0x4
+   0x00008057:	add    si,0x4
+   0x0000805b:	loop   0x804b
+   0x0000805d:	mov    bx,0x83be
+   0x00008061:	add    BYTE PTR [eax],al
+   0x00008063:	lgdtd  [bp+di]
+   0x00008067:	mov    bx,0x83ce
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d2
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    bx,0x0
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    ax,0xe820
+End of assembler dump.
+Breakpoint 2 at 0x8067
+Continuing.
+
+Breakpoint 2, 0x00008067 in ?? ()
+=> 0x00008067:	66 bb ce 83	mov    bx,0x83ce
+0x0000806d in ?? ()
+=> 0x0000806d:	66 31 c0	xor    ax,ax
+0x00008070 in ?? ()
+=> 0x00008070:	66 67 89 03	mov    WORD PTR [bp+di],ax
+0x00008074 in ?? ()
+=> 0x00008074:	66 bf d2 83	mov    di,0x83d2
+0x83c0:	0x00	0x90	0x00	0x00	0x00	0x00	0x00	0x00
+0x83c8:	0x00	0x00	0x00	0x00	0xff	0xff	0x00	0x00
+0x83d0:	0x00	0x00	0x8f	0x00	0xff	0xff	0x00	0x00
+0x83d8:	0x00	0x92	0x8f	0x00	0xff	0xff	0x00	0x00
+$1 = 0x0
+$2 = 0x9038
+0x0000807a in ?? ()
+=> 0x0000807a:	66 bb 00 00	mov    bx,0x0
+0x00008080 in ?? ()
+=> 0x00008080:	66 b8 20 e8	mov    ax,0xe820
+0x00008086 in ?? ()
+=> 0x00008086:	66 b9 14 00	mov    cx,0x14
+0x0000808c in ?? ()
+=> 0x0000808c:	66 ba 50 41	mov    dx,0x4150
+0x00008092 in ?? ()
+=> 0x00008092:	cd 15	int    0x15
+Dump of assembler code from 0x8092 to 0x809c:
+=> 0x00008092:	int    0x15
+   0x00008094:	jb     0x81668121
+   0x0000809a:	cli    
+   0x0000809b:	push   eax
+End of assembler dump.
+Breakpoint 3 at 0x8094
+Continuing.
+
+Breakpoint 3, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 87 00 66 81	jb     0x81668121
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	75 7e	jne    0x811f
+0x000080a1 in ?? ()
+=> 0x000080a1:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080a6 in ?? ()
+=> 0x000080a6:	66 81 f9 00 00	cmp    cx,0x0
+$3 = 0x0
+0x000080ad in ?? ()
+=> 0x000080ad:	75 20	jne    0x80cf
+0x000080cf in ?? ()
+=> 0x000080cf:	66 b8 14 00	mov    ax,0x14
+0x000080d5 in ?? ()
+=> 0x000080d5:	66 01 c7	add    di,ax
+0x000080d8 in ?? ()
+=> 0x000080d8:	66 83 fb 00	cmp    bx,0x0
+0x000080dc in ?? ()
+=> 0x000080dc:	74 41	je     0x811f
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0x0000832b in ?? ()
+=> 0x0000832b:	eb fd	jmp    0x832a
+0x83c0:	0x00	0x00	0x69	0x7d	0xff	0xff	0x01	0x00
+0x83c8:	0x00	0x00	0x00	0x42	0x00	0x00	0xff	0xff
+0x83d0:	0xef	0xff	0x00	0x00	0x00	0x00	0x00	0x00
+0x83d8:	0x00	0x00	0x00	0xfc	0x09	0x00	0x00	0x00
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x803c
+Continuing.
+
+Breakpoint 1, 0x0000803c in ?? ()
+=> 0x0000803c:	66 89 c7	mov    di,ax
+Dump of assembler code from 0x803c to 0x8084:
+=> 0x0000803c:	mov    di,ax
+   0x0000803f:	mov    ax,0x83c4
+   0x00008043:	add    BYTE PTR [eax],al
+   0x00008045:	mov    si,ax
+   0x00008048:	mov    ecx,0x6766000e
+   0x0000804d:	mov    eax,DWORD PTR [esi]
+   0x0000804f:	mov    WORD PTR [bx],ax
+   0x00008053:	add    di,0x4
+   0x00008057:	add    si,0x4
+   0x0000805b:	loop   0x804b
+   0x0000805d:	mov    bx,0x83be
+   0x00008061:	add    BYTE PTR [eax],al
+   0x00008063:	lgdtd  [bp+di]
+   0x00008067:	mov    bx,0x83ce
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d2
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    bx,0x0
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    ax,0xe820
+End of assembler dump.
+Breakpoint 2 at 0x8067
+Dump of assembler code from 0x8067 to 0x80af:
+   0x00008067:	mov    bx,0x83ce
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d2
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    bx,0x0
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    ax,0xe820
+   0x00008084:	add    BYTE PTR [eax],al
+   0x00008086:	mov    cx,0x14
+   0x0000808a:	add    BYTE PTR [eax],al
+   0x0000808c:	mov    dx,0x4150
+   0x00008090:	dec    ebp
+   0x00008091:	push   ebx
+   0x00008092:	int    0x15
+   0x00008094:	jb     0x81668121
+   0x0000809a:	cli    
+   0x0000809b:	push   eax
+   0x0000809c:	inc    ecx
+   0x0000809d:	dec    ebp
+   0x0000809e:	push   ebx
+   0x0000809f:	jne    0x811f
+   0x000080a1:	mov    cx,WORD PTR es:[bx]
+   0x000080a6:	cmp    cx,0x0
+   0x000080ab:	adc    BYTE PTR [eax],al
+   0x000080ad:	jne    0x80cf
+End of assembler dump.
+Breakpoint 3 at 0x8094
+Continuing.
+
+Breakpoint 2, 0x00008067 in ?? ()
+=> 0x00008067:	66 bb ce 83	mov    bx,0x83ce
+Continuing.
+
+Breakpoint 3, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 87 00 66 81	jb     0x81668121
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+Breakpoint 4 at 0x808c
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8094
+Breakpoint 2 at 0x808c
+Continuing.
+
+Breakpoint 2, 0x0000808c in ?? ()
+=> 0x0000808c:	66 ba 50 41	mov    dx,0x4150
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 87 00 66 81	jb     0x81668121
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	75 7e	jne    0x811f
+0x000080a1 in ?? ()
+=> 0x000080a1:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+$1 = 0x83d2
+0x83d2:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x83da:	0x00	0xfc	0x09	0x00	0x00	0x00	0x00	0x00
+0x83e2:	0x01	0x00	0x00	0x00
+0x000080a6 in ?? ()
+=> 0x000080a6:	66 81 f9 00 00	cmp    cx,0x0
+0x000080ad in ?? ()
+=> 0x000080ad:	75 20	jne    0x80cf
+0x000080cf in ?? ()
+=> 0x000080cf:	66 b8 14 00	mov    ax,0x14
+0x000080d5 in ?? ()
+=> 0x000080d5:	66 01 c7	add    di,ax
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8094
+Breakpoint 2 at 0x808c
+Continuing.
+
+Breakpoint 2, 0x0000808c in ?? ()
+=> 0x0000808c:	66 ba 50 41	mov    dx,0x4150
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 8b 00 66 81	jb     0x81668125
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	0f 85 80 00 26 66	jne    0x66268125
+0x000080a3 in ?? ()
+=> 0x000080a3:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080a8 in ?? ()
+=> 0x000080a8:	66 81 f9 00 00	cmp    cx,0x0
+0x000080af in ?? ()
+=> 0x000080af:	75 20	jne    0x80d1
+0x000080d1 in ?? ()
+=> 0x000080d1:	66 b8 14 00	mov    ax,0x14
+0x000080d7 in ?? ()
+=> 0x000080d7:	66 01 c7	add    di,ax
+0x000080da in ?? ()
+=> 0x000080da:	66 83 fb 00	cmp    bx,0x0
+0x000080de in ?? ()
+=> 0x000080de:	74 43	je     0x8123
+0x000080e0 in ?? ()
+=> 0x000080e0:	eb 9e	jmp    0x8080
+0x00008080 in ?? ()
+=> 0x00008080:	66 b8 20 e8	mov    ax,0xe820
+Continuing.
+
+Breakpoint 2, 0x0000808c in ?? ()
+=> 0x0000808c:	66 ba 50 41	mov    dx,0x4150
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 8b 00 66 81	jb     0x81668125
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	0f 85 80 00 26 66	jne    0x66268125
+0x000080a3 in ?? ()
+=> 0x000080a3:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080a8 in ?? ()
+=> 0x000080a8:	66 81 f9 00 00	cmp    cx,0x0
+$1 = void
+$2 = 0x9fc00
+0x000080af in ?? ()
+=> 0x000080af:	75 20	jne    0x80d1
+0x000080d1 in ?? ()
+=> 0x000080d1:	66 b8 14 00	mov    ax,0x14
+0x000080d7 in ?? ()
+=> 0x000080d7:	66 01 c7	add    di,ax
+0x000080da in ?? ()
+=> 0x000080da:	66 83 fb 00	cmp    bx,0x0
+0x000080de in ?? ()
+=> 0x000080de:	74 43	je     0x8123
+0x000080e0 in ?? ()
+=> 0x000080e0:	eb 9e	jmp    0x8080
+0x00008080 in ?? ()
+=> 0x00008080:	66 b8 20 e8	mov    ax,0xe820
+Continuing.
+
+Breakpoint 2, 0x0000808c in ?? ()
+=> 0x0000808c:	66 ba 50 41	mov    dx,0x4150
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 8b 00 66 81	jb     0x81668125
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	0f 85 80 00 26 66	jne    0x66268125
+0x000080a3 in ?? ()
+=> 0x000080a3:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080a8 in ?? ()
+=> 0x000080a8:	66 81 f9 00 00	cmp    cx,0x0
+$3 = 0xf0000
+0x000080af in ?? ()
+=> 0x000080af:	75 20	jne    0x80d1
+0x000080d1 in ?? ()
+=> 0x000080d1:	66 b8 14 00	mov    ax,0x14
+Continuing.
+
+Breakpoint 2, 0x0000808c in ?? ()
+=> 0x0000808c:	66 ba 50 41	mov    dx,0x4150
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 8b 00 66 81	jb     0x81668125
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	0f 85 80 00 26 66	jne    0x66268125
+0x000080a3 in ?? ()
+=> 0x000080a3:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080a8 in ?? ()
+=> 0x000080a8:	66 81 f9 00 00	cmp    cx,0x0
+$4 = 0x100000
+0x000080af in ?? ()
+=> 0x000080af:	75 20	jne    0x80d1
+0x000080b1 in ?? ()
+=> 0x000080b1:	66 83 c7 04	add    di,0x4
+0x000080b5 in ?? ()
+=> 0x000080b5:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080ba in ?? ()
+=> 0x000080ba:	66 83 f9 00	cmp    cx,0x0
+$5 = 0x0
+0x000080be in ?? ()
+=> 0x000080be:	75 11	jne    0x80d1
+0x000080c0 in ?? ()
+=> 0x000080c0:	66 83 c7 0c	add    di,0xc
+0x8412:	0x00	0x00	0x10	0x00	0x00	0x00	0x00	0x00
+0x841a:	0x00	0x00	0xee	0x07	0x00	0x00	0x00	0x00
+0x8422:	0x01	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x842a:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x000080c4 in ?? ()
+=> 0x000080c4:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080c9 in ?? ()
+=> 0x000080c9:	66 83 f9 01	cmp    cx,0x1
+$6 = 0x1
+0x000080cd in ?? ()
+=> 0x000080cd:	75 54	jne    0x8123
+0x000080cf in ?? ()
+=> 0x000080cf:	eb 11	jmp    0x80e2
+0x000080e2 in ?? ()
+=> 0x000080e2:	66 83 ef 08	sub    di,0x8
+0x000080e6 in ?? ()
+=> 0x000080e6:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+0x000080eb in ?? ()
+=> 0x000080eb:	66 81 f9 ff ff	cmp    cx,0xffff
+$7 = 0x7ee0000
+0x000080f2 in ?? ()
+=> 0x000080f2:	77 0f	ja     0x8103
+0x000080f4 in ?? ()
+=> 0x000080f4:	66 83 c7 04	add    di,0x4
+0x000080f8 in ?? ()
+=> 0x000080f8:	26 66 67 8b 0f	mov    cx,WORD PTR es:[bx]
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8096
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+0x0000832f in ?? ()
+=> 0x0000832f:	eb fd	jmp    0x832e
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8067
+Continuing.
+
+Breakpoint 1, 0x00008067 in ?? ()
+=> 0x00008067:	66 bb d2 83	mov    bx,0x83d2
+Dump of assembler code from 0x8067 to 0x80af:
+=> 0x00008067:	mov    bx,0x83d2
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d6
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    bx,0x0
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    ax,0xe820
+   0x00008084:	add    BYTE PTR [eax],al
+   0x00008086:	mov    cx,0x14
+   0x0000808a:	add    BYTE PTR [eax],al
+   0x0000808c:	mov    dx,0x4150
+   0x00008090:	dec    ebp
+   0x00008091:	push   ebx
+   0x00008092:	int    0x15
+   0x00008094:	jb     0x81668125
+   0x0000809a:	cli    
+   0x0000809b:	push   eax
+   0x0000809c:	inc    ecx
+   0x0000809d:	dec    ebp
+   0x0000809e:	push   ebx
+   0x0000809f:	jne    0x66268125
+   0x000080a5:	mov    ecx,DWORD PTR [bx]
+   0x000080a8:	cmp    cx,0x0
+   0x000080ad:	adc    BYTE PTR [eax],al
+End of assembler dump.
+Dump of assembler code from 0x80a5 to 0x80ed:
+   0x000080a5:	mov    ecx,DWORD PTR [bx]
+   0x000080a8:	cmp    cx,0x0
+   0x000080ad:	adc    BYTE PTR [eax],al
+   0x000080af:	jne    0x80d1
+   0x000080b1:	add    di,0x4
+   0x000080b5:	mov    cx,WORD PTR es:[bx]
+   0x000080ba:	cmp    cx,0x0
+   0x000080be:	jne    0x80d1
+   0x000080c0:	add    di,0xc
+   0x000080c4:	mov    cx,WORD PTR es:[bx]
+   0x000080c9:	cmp    cx,0x1
+   0x000080cd:	jne    0x8123
+   0x000080cf:	jmp    0x80e2
+   0x000080d1:	mov    ax,0x14
+   0x000080d5:	add    BYTE PTR [eax],al
+   0x000080d7:	add    di,ax
+   0x000080da:	cmp    bx,0x0
+   0x000080de:	je     0x8123
+   0x000080e0:	jmp    0x8080
+   0x000080e2:	sub    di,0x8
+   0x000080e6:	mov    cx,WORD PTR es:[bx]
+   0x000080eb:	cmp    cx,0xffff
+End of assembler dump.
+Dump of assembler code from 0x80eb to 0x810b:
+   0x000080eb:	cmp    cx,0xffff
+   0x000080f0:	out    dx,eax
+   0x000080f1:	push   DWORD PTR [edi+0xf]
+   0x000080f4:	add    di,0x4
+   0x000080f8:	mov    ax,WORD PTR es:[bx]
+   0x000080fd:	cmp    ax,0x0
+   0x00008101:	je     0x8109
+   0x00008103:	mov    cx,0xffff
+   0x00008107:	out    dx,eax
+   0x00008108:	jmp    DWORD PTR [esi-0x45]
+End of assembler dump.
+Breakpoint 2 at 0x80eb
+Continuing.
+
+Breakpoint 2, 0x000080eb in ?? ()
+=> 0x000080eb:	66 81 f9 ff ff	cmp    cx,0xffff
+$1 = 0x7ee0000
+0x000080f2 in ?? ()
+=> 0x000080f2:	77 0f	ja     0x8103
+0x000080f4 in ?? ()
+=> 0x000080f4:	66 83 c7 04	add    di,0x4
+0x000080f8 in ?? ()
+=> 0x000080f8:	26 66 67 8b 07	mov    ax,WORD PTR es:[bx]
+0x000080fd in ?? ()
+=> 0x000080fd:	66 83 f8 00	cmp    ax,0x0
+$2 = 0x0
+0x00008101 in ?? ()
+=> 0x00008101:	74 06	je     0x8109
+0x00008109 in ?? ()
+=> 0x00008109:	66 bb d2 83	mov    bx,0x83d2
+0x0000810f in ?? ()
+=> 0x0000810f:	66 67 89 0b	mov    WORD PTR [bp+di],cx
+0x00008113 in ?? ()
+=> 0x00008113:	66 bb d2 83	mov    bx,0x83d2
+0x83d2:	0x00	0x00	0xee	0x07	0x00	0x00	0x00	0x00
+0x83da:	0x00	0x00	0x00	0x00	0x00	0xfc	0x09	0x00
+0x83e2:	0x00	0x00	0x00	0x00	0x01	0x00	0x00	0x00
+0x83ea:	0x00	0xfc	0x09	0x00	0x00	0x00	0x00	0x00
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8000
+Continuing.
+
+Breakpoint 1, 0x00008000 in ?? ()
+=> 0x00008000:	ba 92 00 ec 0c	mov    edx,0xcec0092
+Dump of assembler code from 0x8000 to 0x8080:
+=> 0x00008000:	mov    edx,0xcec0092
+   0x00008005:	add    ch,dh
+   0x00008007:	xor    dx,dx
+   0x0000800a:	mov    ax,0x85bc
+   0x0000800e:	add    BYTE PTR [eax],al
+   0x00008010:	mov    cx,0x1000
+   0x00008014:	add    BYTE PTR [eax],al
+   0x00008016:	div    cx
+   0x00008019:	cmp    dx,0x0
+   0x0000801d:	mul    cx
+   0x00008020:	je     0x8028
+   0x00008022:	add    ax,0x1000
+   0x00008026:	add    BYTE PTR [eax],al
+   0x00008028:	mov    bx,0x83bc
+   0x0000802c:	add    BYTE PTR [eax],al
+   0x0000802e:	mov    cx,0x38
+   0x00008032:	add    BYTE PTR [eax],al
+   0x00008034:	mov    DWORD PTR [bp+di],ecx
+   0x00008037:	mov    WORD PTR [bp+di+0x2],ax
+   0x0000803c:	mov    di,ax
+   0x0000803f:	mov    ax,0x83c2
+   0x00008043:	add    BYTE PTR [eax],al
+   0x00008045:	mov    si,ax
+   0x00008048:	mov    ecx,0x6766000e
+   0x0000804d:	mov    eax,DWORD PTR [esi]
+   0x0000804f:	mov    WORD PTR [bx],ax
+   0x00008053:	add    di,0x4
+   0x00008057:	add    si,0x4
+   0x0000805b:	loop   0x804b
+   0x0000805d:	mov    bx,0x83bc
+   0x00008061:	add    BYTE PTR [eax],al
+   0x00008063:	lgdtd  [bp+di]
+   0x00008067:	mov    bx,0x83cc
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d0
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    cx,0x14
+   0x0000807e:	add    BYTE PTR [eax],al
+End of assembler dump.
+Breakpoint 2 at 0x8067
+Continuing.
+
+Breakpoint 2, 0x00008067 in ?? ()
+=> 0x00008067:	66 bb cc 83	mov    bx,0x83cc
+Dump of assembler code from 0x8067 to 0x80af:
+=> 0x00008067:	mov    bx,0x83cc
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d0
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    cx,0x14
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    bx,0x0
+   0x00008084:	add    BYTE PTR [eax],al
+   0x00008086:	mov    ax,0xe820
+   0x0000808a:	add    BYTE PTR [eax],al
+   0x0000808c:	mov    dx,0x4150
+   0x00008090:	dec    ebp
+   0x00008091:	push   ebx
+   0x00008092:	int    0x15
+   0x00008094:	jb     0x8166811f
+   0x0000809a:	cli    
+   0x0000809b:	push   eax
+   0x0000809c:	inc    ecx
+   0x0000809d:	dec    ebp
+   0x0000809e:	push   ebx
+   0x0000809f:	jne    0x811d
+   0x000080a1:	mov    si,WORD PTR es:[bx]
+   0x000080a6:	cmp    si,0x0
+   0x000080ab:	adc    BYTE PTR [eax],al
+   0x000080ad:	jne    0x80cf
+End of assembler dump.
+Breakpoint 3 at 0x8094
+Continuing.
+
+Breakpoint 3, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 85 00 66 81	jb     0x8166811f
+$1 = 0x14
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	75 7c	jne    0x811d
+0x000080a1 in ?? ()
+=> 0x000080a1:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+0x000080a6 in ?? ()
+=> 0x000080a6:	66 81 fe 00 00	cmp    si,0x0
+No symbol table is loaded.  Use the "file" command.
+Breakpoint 4 at 0x80a6
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x80a6
+Continuing.
+
+Breakpoint 1, 0x000080a6 in ?? ()
+=> 0x000080a6:	66 81 fe 00 00	cmp    si,0x0
+$1 = 0x0
+0x000080ad in ?? ()
+=> 0x000080ad:	75 20	jne    0x80cf
+0x000080cf in ?? ()
+=> 0x000080cf:	66 83 fb 00	cmp    bx,0x0
+$2 = 0x1
+0x000080d3 in ?? ()
+=> 0x000080d3:	74 48	je     0x811d
+0x000080d5 in ?? ()
+=> 0x000080d5:	eb bb	jmp    0x8092
+0x00008092 in ?? ()
+=> 0x00008092:	cd 15	int    0x15
+Breakpoint 2 at 0x8094
+Continuing.
+
+Breakpoint 2, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 85 00 66 81	jb     0x8166811f
+0x0000811d in ?? ()
+=> 0x0000811d:	66 be a7 83	mov    si,0x83a7
+$3 = 0x14
+$4 = 0x83d0
+0x83d0:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x83d8:	0x00	0xfc	0x09	0x00	0x00	0x00	0x00	0x00
+0x83e0:	0x01	0x00	0x00	0x00	0x00	0x00	0x00
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8094
+Breakpoint 2 at 0x80a6
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 88 00 66 81	jb     0x81668122
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	75 7f	jne    0x8120
+0x000080a1 in ?? ()
+=> 0x000080a1:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+
+Breakpoint 2, 0x000080a6 in ?? ()
+=> 0x000080a6:	66 81 fe 00 00	cmp    si,0x0
+$1 = 0x0
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 88 00 66 81	jb     0x81668122
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8094
+Breakpoint 2 at 0x80a6
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 88 00 66 81	jb     0x81668122
+0x00008098 in ?? ()
+=> 0x00008098:	66 81 fa 50 41	cmp    dx,0x4150
+0x0000809f in ?? ()
+=> 0x0000809f:	75 7f	jne    0x8120
+Continuing.
+
+Breakpoint 2, 0x000080a6 in ?? ()
+=> 0x000080a6:	66 81 fe 00 00	cmp    si,0x0
+Continuing.
+
+Breakpoint 1, 0x00008094 in ?? ()
+=> 0x00008094:	0f 82 88 00 66 81	jb     0x81668122
+0x00008120 in ?? ()
+=> 0x00008120:	66 be aa 83	mov    si,0x83aa
+$1 = 0x83e7
+0x83e7:	0x00	0x00	0x00	0x92	0xcf	0x00	0xff	0xff
+0x83ef:	0x00	0x00	0x10	0x9a	0xcf	0x00	0xff	0xff
+0x83f7:	0x00	0x00	0x10	0x92
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8067
+Continuing.
+
+Breakpoint 1, 0x00008067 in ?? ()
+=> 0x00008067:	66 bb d2 83	mov    bx,0x83d2
+Dump of assembler code from 0x8067 to 0x80af:
+=> 0x00008067:	mov    bx,0x83d2
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d6
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    cx,0x14
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    bx,0x0
+   0x00008084:	add    BYTE PTR [eax],al
+   0x00008086:	mov    ax,0xe820
+   0x0000808a:	add    BYTE PTR [eax],al
+   0x0000808c:	mov    dx,0x4150
+   0x00008090:	dec    ebp
+   0x00008091:	push   ebx
+   0x00008092:	xor    si,si
+   0x00008095:	int    0x15
+   0x00008097:	jb     0x81668125
+   0x0000809d:	cli    
+   0x0000809e:	push   eax
+   0x0000809f:	inc    ecx
+   0x000080a0:	dec    ebp
+   0x000080a1:	push   ebx
+   0x000080a2:	jne    0x8123
+   0x000080a4:	mov    si,WORD PTR es:[bx]
+   0x000080a9:	cmp    si,0x0
+   0x000080ae:	adc    BYTE PTR [eax],al
+End of assembler dump.
+Breakpoint 2 at 0x8092
+Continuing.
+
+Breakpoint 2, 0x00008092 in ?? ()
+=> 0x00008092:	66 31 f6	xor    si,si
+Dump of assembler code from 0x8092 to 0x80da:
+=> 0x00008092:	xor    si,si
+   0x00008095:	int    0x15
+   0x00008097:	jb     0x81668125
+   0x0000809d:	cli    
+   0x0000809e:	push   eax
+   0x0000809f:	inc    ecx
+   0x000080a0:	dec    ebp
+   0x000080a1:	push   ebx
+   0x000080a2:	jne    0x8123
+   0x000080a4:	mov    si,WORD PTR es:[bx]
+   0x000080a9:	cmp    si,0x0
+   0x000080ae:	adc    BYTE PTR [eax],al
+   0x000080b0:	jne    0x80d2
+   0x000080b2:	add    di,0x4
+   0x000080b6:	mov    si,WORD PTR es:[bx]
+   0x000080bb:	cmp    si,0x0
+   0x000080bf:	jne    0x80d2
+   0x000080c1:	add    di,0xc
+   0x000080c5:	mov    si,WORD PTR es:[bx]
+   0x000080ca:	cmp    si,0x1
+   0x000080ce:	jne    0x8123
+   0x000080d0:	jmp    0x80dd
+   0x000080d2:	cmp    bx,0x0
+   0x000080d6:	je     0x8123
+   0x000080d8:	add    di,cx
+End of assembler dump.
+Breakpoint 3 at 0x8097
+Breakpoint 4 at 0x80a9
+Continuing.
+
+Breakpoint 3, 0x00008097 in ?? ()
+=> 0x00008097:	0f 82 88 00 66 81	jb     0x81668125
+0x0000809b in ?? ()
+=> 0x0000809b:	66 81 fa 50 41	cmp    dx,0x4150
+Continuing.
+
+Breakpoint 4, 0x000080a9 in ?? ()
+=> 0x000080a9:	66 81 fe 00 00	cmp    si,0x0
+$1 = 0x0
+Continuing.
+
+Breakpoint 2, 0x00008092 in ?? ()
+=> 0x00008092:	66 31 f6	xor    si,si
+0x00008095 in ?? ()
+=> 0x00008095:	cd 15	int    0x15
+$2 = 0x0
+Continuing.
+
+Breakpoint 3, 0x00008097 in ?? ()
+=> 0x00008097:	0f 82 88 00 66 81	jb     0x81668125
+0x00008123 in ?? ()
+=> 0x00008123:	66 be ad 83	mov    si,0x83ad
+$3 = 0x534d8650
+$4 = 0x534d4150
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+A syntax error in expression, near `b *0x80a9
+'.
+Invalid character '\' in expression.
+Breakpoint 1 at 0x8097
+Breakpoint 2 at 0x80a9
+Continuing.
+
+Breakpoint 1, 0x00008097 in ?? ()
+=> 0x00008097:	0f 82 88 00 66 81	jb     0x81668125
+$1 = 0x534d4150
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8067
+Continuing.
+
+Breakpoint 1, 0x00008067 in ?? ()
+=> 0x00008067:	66 bb d2 83	mov    bx,0x83d2
+Dump of assembler code from 0x8067 to 0x80af:
+=> 0x00008067:	mov    bx,0x83d2
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d6
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    cx,0x14
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    bx,0x0
+   0x00008084:	add    BYTE PTR [eax],al
+   0x00008086:	mov    dx,0x4150
+   0x0000808a:	dec    ebp
+   0x0000808b:	push   ebx
+   0x0000808c:	xor    si,si
+   0x0000808f:	mov    ax,0xe820
+   0x00008093:	add    BYTE PTR [eax],al
+   0x00008095:	int    0x15
+   0x00008097:	jb     0x81668125
+   0x0000809d:	cli    
+   0x0000809e:	push   eax
+   0x0000809f:	inc    ecx
+   0x000080a0:	dec    ebp
+   0x000080a1:	push   ebx
+   0x000080a2:	jne    0x8123
+   0x000080a4:	mov    si,WORD PTR es:[bx]
+   0x000080a9:	cmp    si,0x0
+   0x000080ae:	adc    BYTE PTR [eax],al
+End of assembler dump.
+Breakpoint 2 at 0x80a4
+Breakpoint 3 at 0x8097
+Continuing.
+
+Breakpoint 3, 0x00008097 in ?? ()
+=> 0x00008097:	0f 82 88 00 66 81	jb     0x81668125
+0x0000809b in ?? ()
+=> 0x0000809b:	66 81 fa 50 41	cmp    dx,0x4150
+$1 = 0x534d4150
+Continuing.
+
+Breakpoint 2, 0x000080a4 in ?? ()
+=> 0x000080a4:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+0x000080a9 in ?? ()
+=> 0x000080a9:	66 81 fe 00 00	cmp    si,0x0
+$2 = 0x0
+Continuing.
+
+Breakpoint 3, 0x00008097 in ?? ()
+=> 0x00008097:	0f 82 88 00 66 81	jb     0x81668125
+0x0000809b in ?? ()
+=> 0x0000809b:	66 81 fa 50 41	cmp    dx,0x4150
+Continuing.
+
+Breakpoint 2, 0x000080a4 in ?? ()
+=> 0x000080a4:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+0x000080a9 in ?? ()
+=> 0x000080a9:	66 81 fe 00 00	cmp    si,0x0
+$3 = 0x9fc00
+Continuing.
+
+Breakpoint 3, 0x00008097 in ?? ()
+=> 0x00008097:	0f 82 88 00 66 81	jb     0x81668125
+0x0000809b in ?? ()
+=> 0x0000809b:	66 81 fa 50 41	cmp    dx,0x4150
+Continuing.
+
+Breakpoint 2, 0x000080a4 in ?? ()
+=> 0x000080a4:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+0x000080a9 in ?? ()
+=> 0x000080a9:	66 81 fe 00 00	cmp    si,0x0
+$4 = 0xf0000
+0x000080b0 in ?? ()
+=> 0x000080b0:	75 20	jne    0x80d2
+Continuing.
+
+Breakpoint 3, 0x00008097 in ?? ()
+=> 0x00008097:	0f 82 88 00 66 81	jb     0x81668125
+0x0000809b in ?? ()
+=> 0x0000809b:	66 81 fa 50 41	cmp    dx,0x4150
+Continuing.
+
+Breakpoint 2, 0x000080a4 in ?? ()
+=> 0x000080a4:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+0x000080a9 in ?? ()
+=> 0x000080a9:	66 81 fe 00 00	cmp    si,0x0
+$5 = 0x100000
+0x000080b0 in ?? ()
+=> 0x000080b0:	75 20	jne    0x80d2
+0x000080b2 in ?? ()
+=> 0x000080b2:	66 83 c7 04	add    di,0x4
+0x000080b6 in ?? ()
+=> 0x000080b6:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+0x000080bb in ?? ()
+=> 0x000080bb:	66 83 fe 00	cmp    si,0x0
+0x000080bf in ?? ()
+=> 0x000080bf:	75 11	jne    0x80d2
+0x000080c1 in ?? ()
+=> 0x000080c1:	66 83 c7 0c	add    di,0xc
+0x000080c5 in ?? ()
+=> 0x000080c5:	26 66 67 8b 37	mov    si,WORD PTR es:[bx]
+0x000080ca in ?? ()
+=> 0x000080ca:	66 83 fe 01	cmp    si,0x1
+0x000080ce in ?? ()
+=> 0x000080ce:	75 53	jne    0x8123
+0x000080d0 in ?? ()
+=> 0x000080d0:	eb 0b	jmp    0x80dd
+0x000080dd in ?? ()
+=> 0x000080dd:	66 83 ef 08	sub    di,0x8
+0x000080e1 in ?? ()
+=> 0x000080e1:	26 66 67 8b 07	mov    ax,WORD PTR es:[bx]
+0x000080e6 in ?? ()
+=> 0x000080e6:	66 3d ff ff	cmp    ax,0xffff
+$6 = 0x7ee0000
+0x000080ec in ?? ()
+=> 0x000080ec:	77 0f	ja     0x80fd
+0x000080ee in ?? ()
+=> 0x000080ee:	66 83 c7 04	add    di,0x4
+0x000080f2 in ?? ()
+=> 0x000080f2:	26 66 67 8b 1f	mov    bx,WORD PTR es:[bx]
+0x000080f7 in ?? ()
+=> 0x000080f7:	66 83 fb 00	cmp    bx,0x0
+$7 = 0x0
+0x000080fb in ?? ()
+=> 0x000080fb:	74 06	je     0x8103
+0x00008103 in ?? ()
+=> 0x00008103:	66 05 00 00	add    ax,0x0
+0x00008109 in ?? ()
+=> 0x00008109:	66 bb d2 83	mov    bx,0x83d2
+$8 = 0x7fe0000
+0x0000810f in ?? ()
+=> 0x0000810f:	66 67 89 03	mov    WORD PTR [bp+di],ax
+Undefined command: "siq".  Try "help".
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x80dd
+Continuing.
+
+Breakpoint 1, 0x000080dd in ?? ()
+=> 0x000080dd:	eb ad	jmp    0x808c
+Dump of assembler code from 0x80dd to 0x80fd:
+=> 0x000080dd:	jmp    0x808c
+   0x000080df:	sub    di,0x8
+   0x000080e3:	mov    ax,WORD PTR es:[bx]
+   0x000080e8:	cmp    ax,0x0
+   0x000080ec:	lock push DWORD PTR [edi+0xf]
+   0x000080f0:	add    di,0x4
+   0x000080f4:	mov    bx,WORD PTR es:[bx]
+   0x000080f9:	cmp    bx,0x0
+End of assembler dump.
+Breakpoint 2 at 0x80df
+Continuing.
+
+Breakpoint 1, 0x000080dd in ?? ()
+=> 0x000080dd:	eb ad	jmp    0x808c
+Continuing.
+
+Breakpoint 1, 0x000080dd in ?? ()
+=> 0x000080dd:	eb ad	jmp    0x808c
+Continuing.
+
+Breakpoint 2, 0x000080df in ?? ()
+=> 0x000080df:	66 83 ef 08	sub    di,0x8
+0x000080e3 in ?? ()
+=> 0x000080e3:	26 66 67 8b 07	mov    ax,WORD PTR es:[bx]
+0x000080e8 in ?? ()
+=> 0x000080e8:	66 3d 00 00	cmp    ax,0x0
+$1 = 0x7ee0000
+0x000080ee in ?? ()
+=> 0x000080ee:	77 0f	ja     0x80ff
+0x000080f0 in ?? ()
+=> 0x000080f0:	66 83 c7 04	add    di,0x4
+0x000080f4 in ?? ()
+=> 0x000080f4:	26 66 67 8b 1f	mov    bx,WORD PTR es:[bx]
+0x000080f9 in ?? ()
+=> 0x000080f9:	66 83 fb 00	cmp    bx,0x0
+$2 = 0x0
+0x000080fd in ?? ()
+=> 0x000080fd:	74 06	je     0x8105
+0x00008105 in ?? ()
+=> 0x00008105:	66 83 e8 01	sub    ax,0x1
+0x00008109 in ?? ()
+=> 0x00008109:	66 05 00 00	add    ax,0x0
+$3 = 0x7edffff
+0x0000810f in ?? ()
+=> 0x0000810f:	66 bb d8 83	mov    bx,0x83d8
+$4 = 0x7fdffff
+A syntax error in expression, near `{0x7fdffff}=10'.
+A syntax error in expression, near `{*0x7fdffff}=10'.
+0x7fdffff:	0x0a
+0x7fdffff:	0x0a	0x00
+0x7fdffff:	0x0a	0x0a
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x810f
+Continuing.
+
+Breakpoint 1, 0x0000810f in ?? ()
+=> 0x0000810f:	66 bb d8 83	mov    bx,0x83d8
+$1 = 0x7ffdffff
+Detaching from pid process 1
+Remote connection closed

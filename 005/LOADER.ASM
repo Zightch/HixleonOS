@@ -1,13 +1,11 @@
 org 0x8000
 
 ;内存区段            大小                含义
-;0x0500 ~ 0x7bff    30463B              栈内存区
-;0x7c00 ~ 0x7dff    512B   (0.5KB)      MBR扇区
-;0x7e00 ~ 0x7FFF    512B   (0.5KB)      扇区缓存区
-;0x8000 ~ 0x9FBFF   621567B             LOADER文件内容和可用堆区
-;0x100000 ~ --      4GB - 1MB           系统内存区
-
-cli;关中断
+;0x0500 ~ 0x7bff     30463B              栈内存区
+;0x7c00 ~ 0x7dff     512B   (0.5KB)      MBR扇区
+;0x7e00 ~ 0x7FFF     512B   (0.5KB)      扇区缓存区
+;0x8000 ~ 0x9FBFF    621567B             LOADER文件内容和可用堆区
+;0x100000 ~ --       4GB - 1MB           系统内存区
 
 ;开启A20地址线
 mov word dx, 0x92
@@ -17,7 +15,7 @@ out dx, byte al
 
 ;设置GDT
 xor dword edx, edx
-mov dword eax, am + 63
+mov dword eax, am + 0x200;留512B大小内存
 mov dword ecx, 0x1000
 div dword ecx
 cmp dword edx, 0
@@ -46,6 +44,98 @@ loop setGDT.for
 mov dword ebx, am
 lgdt [ebx]
 
+;初始化am + 16
+mov dword ebx, am + 16
+xor dword eax, eax
+mov dword [ebx], eax
+;开始计算内存大小
+mov dword edi, am + 20;信息存放地址
+mov dword ecx, 20;表大小
+mov dword ebx, 0;下是否有下一个表
+mov dword edx, 0x534d4150;表标识符
+; 获取内存信息
+getMemorySize.for:
+xor dword esi, esi
+mov dword eax, 0xe820;中断号
+int 0x15
+jc memE
+cmp dword edx, 0x534d4150; 比较edx和内存映射表的签名是否相同
+jne memE ; 如果不相同，跳转到错误处理
+mov dword esi, [es : edi]
+cmp dword esi, 0x100000
+jne getMemorySize.continue
+add dword edi, 4
+mov dword esi, [es : edi]
+cmp dword esi, 0
+jne getMemorySize.continue
+add dword edi, 12
+mov dword esi, [es : edi]
+cmp dword esi, 1
+jne memE
+jmp getMemSize
+getMemorySize.continue:
+cmp dword ebx, 0
+je memE
+add dword edi, ecx
+jmp getMemorySize.for
+;内存大小结束计算
+
+getMemSize:
+sub edi, 8
+mov dword eax, [es : edi]
+cmp dword eax, 0xFF_F0_00_00
+ja .maxMemSize
+add edi, 4
+mov dword ebx, [es : edi]
+cmp dword ebx, 0
+je .setMemSize
+.maxMemSize:
+mov dword eax, 0xFF_F0_00_00
+.setMemSize:
+sub dword eax, 1
+add dword eax, 0x100000
+mov dword ebx, am + 16
+mov dword [ebx], eax
+
+mov dword ebx, am + 16
+mov dword eax, [ebx]
+cmp eax, 0
+jne toPM
+
+;----内存获取错误----
+memE:
+mov dword esi, memoryError
+jmp print16
+print16:
+mov dword ecx, esi
+mov dword edi, 0xB8000
+mov byte ah, 0x07 ;黑底白字
+.for:
+mov byte al, [esi] ;ds:si取出一个字节
+cmp byte al, 0 ;比较al与0
+jz .forEnd ;如果相等跳转到.end
+mov word [edi], ax
+add dword esi, 1
+add dword edi, 2
+jmp .for ;跳转到for
+.forEnd:
+
+mov dword edx, 0x03D4
+mov byte al, 0x0F
+out dx, byte al ; 设置为光标低8位
+
+mov dword edx, 0x03D5
+sub dword esi, ecx
+mov dword eax, esi
+out dx, byte al ; 设置光标低8位
+
+cli
+jmp pause
+;----内存获取错误----
+
+toPM:
+cli;关中断
+
 ;切换保护模式
 mov dword eax, cr0
 or dword eax, 0x00000001
@@ -57,6 +147,14 @@ jmp 0x0018 : beforeEntryKernel ; CS使用3号GDT描述符
 [bits 32];以下代码使用32bits编译
 beforeEntryKernel:
 
+;初始化所有段寄存器
+mov dword eax, 0x20
+mov word ds, ax
+mov word es, ax
+mov word gs, ax
+mov word fs, ax
+mov word ss, ax
+
 ;切换完成, 准备进入Kernel
 ;解析Kernel的ELF32结构
 ;am(4)      : 扇区号(33-64, 遍历根目录, 寻找"KERNEL"文件)
@@ -64,13 +162,14 @@ beforeEntryKernel:
 ;am + 6(2)  : 临时簇号保存
 ;am + 8(4) : 上一次读取的扇区号
 ;am + 12(4) : 文件断点续写地址
+;am + 16(4) : 从0x100000开始连续的内存大小
 ;0x7E00 : 扇区缓存区
 ;0x100000 : Kernel文件区
 
 xor dword eax, eax
 mov dword ebx, am + 8
 mov dword [ebx], eax;初始化am + 8(上一次读取扇区号)
-mov dword eax, 0x100000
+xor dword eax, eax
 mov dword ebx, am + 12
 mov dword [ebx], eax;初始化am + 12(文件断电续写地址)
 
@@ -148,7 +247,7 @@ je skipReadFAT;如果上一次读的扇区号和这一次相同, 跳过读取扇
 ;读取FAT1表到0x7e00中
 mov dword ebx, am + 8
 mov dword [ebx], eax
-mov dword edi, 0x7e00
+mov dword edi, 0x7E00
 mov dword ebx, eax
 call readSector32
 
@@ -159,7 +258,11 @@ mov dword edi, [ebx];读取断点续写地址
 mov word bx, am + 6
 mov word bx, [ebx] ;从可用内存段里读取临时簇号
 add word bx, 63 ;bx += 63获取扇区号
+mov dword eax, 0x30
+mov word es, ax
 call readSector32
+mov dword eax, 0x20
+mov word es, ax
 mov dword ebx, am + 12
 mov dword [ebx], edi;更新断点续写地址
 
@@ -176,15 +279,69 @@ jmp readFileNext
 readFileEnd:
 ;开始解析ELF32文件结构
 
+;ELF32文件头结构
+; 内存偏移   长度    名称        含义                     选项
+; 0 ~ 15      16    e_ident      Magic数字和其他信息
+; 16 ~ 17      2    e_type       对象文件类型             0: 未知, 1: 重定向, 2: 可执行, 3: 共享对象, 4: 核心
+; 18 ~ 19      2    e_machine    处理器架构               0: 未知, 1: AT&T WE 32100, 2: SPARC, 3: Intel Architecture, 4: Motorola 68000, 5: Motorola 88000, 7: Intel 80860, 8: MIPS RS3000 Big-Endian, 10: MIPS RS4000 Big-Endian
+; 20 ~ 23      4    e_version    文件版本号               必须是1
+; 24 ~ 27      4    e_entry      程序入口
+; 28 ~ 31      4    e_phoff      程序头表在文件中的偏移
+; 32 ~ 35      4    e_shoff      节头表在文件中的偏移
+; 36 ~ 39      4    e_flags
+; 40 ~ 41      2    e_ehsize
+; 42 ~ 43      2    e_phentsize
+; 44 ~ 45      2    e_phnum
+; 46 ~ 47      2    e_shentsize
+; 48 ~ 49      2    e_shnum
+; 50 ~ 51      2    e_shstrndx
+;共52个字节长度
+
+;在ELF32文件头中, Magic包含5个字段信息
+; 内存偏移   长度   名称        含义       选项
+; 0 ~ 3        4   EL_MAG       文件标识   7f 45 4c 46
+; 4            1   EL_CLASS     文件位数   0: 无效, 1: 32位, 2: 64位
+; 5            1   EL_DATA      数据编码   0: 无效编码, 1: 小端序, 2: 大端序
+; 6            1   EL_VERSION   文件版本   必须是1
+; 7 ~ 15       9   忽略
+
+;----确定Magic---
+mov dword eax, 0x30
+mov word ds, ax
+xor dword esi, esi
+mov dword eax, [ds : esi]
+cmp dword eax, 0x464C457F
+jne kernelFileError
+add dword esi, 4
+mov dword eax, [ds : esi]
+cmp dword eax, 0x00010101
+jne kernelFileError
+;----确定Magic----
+
+;----确定文件类型和处理器平台----
+add dword esi, 12
+mov dword eax, [ds : esi]
+cmp dword eax, 0x00030002
+jne kernelFileError
+;----确定文件类型和处理器平台----
+
+;----确定文件版本号必须是1----
+add dword esi, 4
+mov dword eax, [ds : esi]
+cmp dword eax, 0x00000001
+jne kernelFileError
+;----确定文件版本号必须是1----
+
 
 jmp pause
 
 fileNotFind:
 mov dword esi, kernelNotFind
-jmp print
+jmp print32
 fileError:
 mov dword esi, kernelFileError
-print:
+jmp print32
+print32:
 mov dword ecx, esi
 mov dword edi, 0xB8000
 mov byte ah, 0x07 ;黑底白字
@@ -232,8 +389,11 @@ db 'The kernel is not found. File in "/KERNEL".', 0x00
 kernelFileError:
 db 'The kernel file is error. File in "/KRENEL".', 0x00
 
+memoryError:
+db 'The memory is Error.', 0x00
+
 am:
-;GDTR数据, 对齐之后和英语存放程序数据
+;GDTR数据, 对齐之后和用于存放程序数据
 times 6 db 0
 
 ;GDT表数据, 对齐之后可用于存放程序数据

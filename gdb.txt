@@ -5366,3 +5366,1020 @@ Breakpoint 1, 0x0000810f in ?? ()
 $1 = 0x7ffdffff
 Detaching from pid process 1
 Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8067
+Continuing.
+
+Breakpoint 1, 0x00008067 in ?? ()
+=> 0x00008067:	66 bb d2 83	mov    bx,0x83d2
+Dump of assembler code from 0x8067 to 0x80af:
+=> 0x00008067:	mov    bx,0x83d2
+   0x0000806b:	add    BYTE PTR [eax],al
+   0x0000806d:	xor    ax,ax
+   0x00008070:	mov    WORD PTR [bp+di],ax
+   0x00008074:	mov    di,0x83d6
+   0x00008078:	add    BYTE PTR [eax],al
+   0x0000807a:	mov    cx,0x14
+   0x0000807e:	add    BYTE PTR [eax],al
+   0x00008080:	mov    bx,0x0
+   0x00008084:	add    BYTE PTR [eax],al
+   0x00008086:	mov    dx,0x4150
+   0x0000808a:	dec    ebp
+   0x0000808b:	push   ebx
+   0x0000808c:	xor    si,si
+   0x0000808f:	mov    ax,0xe820
+   0x00008093:	add    BYTE PTR [eax],al
+   0x00008095:	int    0x15
+   0x00008097:	jb     0x8116
+   0x00008099:	cmp    dx,0x4150
+   0x0000809e:	dec    ebp
+   0x0000809f:	push   ebx
+   0x000080a0:	jne    0x8116
+   0x000080a2:	mov    si,WORD PTR es:[bx]
+   0x000080a7:	cmp    si,0x0
+   0x000080ac:	adc    BYTE PTR [eax],al
+   0x000080ae:	jne    0x80ca
+End of assembler dump.
+Dump of assembler code from 0x80a7 to 0x80ef:
+   0x000080a7:	cmp    si,0x0
+   0x000080ac:	adc    BYTE PTR [eax],al
+   0x000080ae:	jne    0x80ca
+   0x000080b0:	mov    si,WORD PTR es:[bx+0x4]
+   0x000080b6:	cmp    si,0x0
+   0x000080ba:	jne    0x80ca
+   0x000080bc:	mov    si,WORD PTR es:[bx+0x10]
+   0x000080c2:	cmp    si,0x1
+   0x000080c6:	jne    0x8116
+   0x000080c8:	jmp    0x80d2
+   0x000080ca:	cmp    bx,0x0
+   0x000080ce:	je     0x8116
+   0x000080d0:	jmp    0x808c
+   0x000080d2:	mov    ax,WORD PTR es:[bx+0x8]
+   0x000080d8:	cmp    ax,0x0
+   0x000080dc:	lock push DWORD PTR [edi+0xc]
+   0x000080e0:	mov    bx,WORD PTR es:[bx+0xc]
+   0x000080e6:	cmp    bx,0x0
+   0x000080ea:	je     0x80f2
+   0x000080ec:	mov    ax,0x0
+End of assembler dump.
+Breakpoint 2 at 0x80e6
+Continuing.
+
+Breakpoint 2, 0x000080e6 in ?? ()
+=> 0x000080e6:	66 83 fb 00	cmp    bx,0x0
+$1 = 0x7fee0000
+$2 = 0x0
+0x000080ea in ?? ()
+=> 0x000080ea:	74 06	je     0x80f2
+0x000080f2 in ?? ()
+=> 0x000080f2:	66 83 e8 01	sub    ax,0x1
+0x000080f6 in ?? ()
+=> 0x000080f6:	66 05 00 00	add    ax,0x0
+0x000080fc in ?? ()
+=> 0x000080fc:	66 bb d2 83	mov    bx,0x83d2
+$3 = 0x7ffdffff
+0x00008102 in ?? ()
+=> 0x00008102:	66 67 89 03	mov    WORD PTR [bp+di],ax
+0x00008106 in ?? ()
+=> 0x00008106:	66 bb d2 83	mov    bx,0x83d2
+0x83d2:	0xff	0xff	0xfd	0x7f
+0x0000810c in ?? ()
+=> 0x0000810c:	66 67 8b 03	mov    ax,WORD PTR [bp+di]
+0x00008110 in ?? ()
+=> 0x00008110:	66 83 f8 00	cmp    ax,0x0
+0x00008114 in ?? ()
+=> 0x00008114:	75 41	jne    0x8157
+0x00008157 in ?? ()
+=> 0x00008157:	fa	cli    
+0x00008158 in ?? ()
+=> 0x00008158:	0f 20 c0	mov    eax,cr0
+0x0000815b in ?? ()
+=> 0x0000815b:	66 83 c8 01	or     ax,0x1
+0x0000815f in ?? ()
+=> 0x0000815f:	0f 22 c0	mov    cr0,eax
+0x00008162 in ?? ()
+=> 0x00008162:	ea 67 81 18 00 b8 20	jmp    0x20b8:0x188167
+source command requires file name of file to source.
+0x00008167 in ?? ()
+=> 0x00008167:	b8 20 00 00 00	mov    eax,0x20
+Dump of assembler code from 0x8167 to 0x81af:
+=> 0x00008167:	mov    eax,0x20
+   0x0000816c:	mov    ds,eax
+   0x0000816e:	mov    es,eax
+   0x00008170:	mov    gs,eax
+   0x00008172:	mov    fs,eax
+   0x00008174:	mov    ss,eax
+   0x00008176:	xor    eax,eax
+   0x00008178:	mov    ebx,0x83ca
+   0x0000817d:	mov    DWORD PTR [ebx],eax
+   0x0000817f:	xor    eax,eax
+   0x00008181:	mov    ebx,0x83ce
+   0x00008186:	mov    DWORD PTR [ebx],eax
+   0x00008188:	mov    ebx,esp
+   0x0000818a:	mov    ax,WORD PTR [ebx]
+   0x0000818d:	mov    ebx,0x83c6
+   0x00008192:	mov    WORD PTR [ebx],ax
+   0x00008195:	mov    eax,0x21
+   0x0000819a:	mov    ebx,0x83c2
+   0x0000819f:	mov    DWORD PTR [ebx],eax
+   0x000081a1:	mov    ebx,0x83c2
+   0x000081a6:	mov    ebx,DWORD PTR [ebx]
+   0x000081a8:	cmp    ebx,0x40
+   0x000081ab:	ja     0x82f4
+End of assembler dump.
+Dump of assembler code from 0x81ab to 0x81f3:
+   0x000081ab:	ja     0x82f4
+   0x000081b1:	mov    edi,0x7e00
+   0x000081b6:	call   0x8331
+   0x000081bb:	cld    
+   0x000081bc:	xor    ebx,ebx
+   0x000081be:	mov    esi,ebx
+   0x000081c0:	shl    esi,0x5
+   0x000081c3:	add    esi,0x7e00
+   0x000081c9:	mov    edi,0x8348
+   0x000081ce:	mov    ecx,0xb
+   0x000081d3:	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+   0x000081d5:	jcxz   0x81ee
+   0x000081d8:	add    ebx,0x1
+   0x000081db:	cmp    ebx,0x10
+   0x000081de:	jl     0x81be
+   0x000081e0:	mov    ebx,0x83c2
+   0x000081e5:	mov    eax,DWORD PTR [ebx]
+   0x000081e7:	add    eax,0x1
+   0x000081ea:	mov    DWORD PTR [ebx],eax
+   0x000081ec:	jmp    0x81a1
+   0x000081ee:	xor    eax,eax
+   0x000081f0:	shl    ebx,0x5
+End of assembler dump.
+Dump of assembler code from 0x81f0 to 0x8210:
+   0x000081f0:	shl    ebx,0x5
+   0x000081f3:	add    ebx,0x7e00
+   0x000081f9:	mov    esi,ebx
+   0x000081fb:	mov    eax,DWORD PTR [esi+0x1c]
+   0x000081fe:	cmp    eax,0x0
+   0x00008201:	je     0x82fb
+   0x00008207:	xor    edx,edx
+   0x00008209:	mov    ecx,0x200
+   0x0000820e:	div    ecx
+End of assembler dump.
+Breakpoint 3 at 0x81fe
+Continuing.
+
+Breakpoint 3, 0x000081fe in ?? ()
+=> 0x000081fe:	83 f8 00	cmp    eax,0x0
+$4 = 0x4154
+0x00008201 in ?? ()
+=> 0x00008201:	0f 84 f4 00 00 00	je     0x82fb
+0x00008207 in ?? ()
+=> 0x00008207:	31 d2	xor    edx,edx
+0x00008209 in ?? ()
+=> 0x00008209:	b9 00 02 00 00	mov    ecx,0x200
+0x0000820e in ?? ()
+=> 0x0000820e:	f7 f1	div    ecx
+0x00008210 in ?? ()
+=> 0x00008210:	83 fa 00	cmp    edx,0x0
+$5 = 0x154
+$6 = 0x20
+0x00008213 in ?? ()
+=> 0x00008213:	f7 e1	mul    ecx
+0x00008215 in ?? ()
+=> 0x00008215:	74 05	je     0x821c
+$7 = 0x4000
+0x00008217 in ?? ()
+=> 0x00008217:	05 00 02 00 00	add    eax,0x200
+0x0000821c in ?? ()
+=> 0x0000821c:	bb d2 83 00 00	mov    ebx,0x83d2
+$8 = 0x4200
+0x00008221 in ?? ()
+=> 0x00008221:	8b 0b	mov    ecx,DWORD PTR [ebx]
+0x83d2:	0xff	0xff	0xfd	0x7f
+0x00008223 in ?? ()
+=> 0x00008223:	29 c1	sub    ecx,eax
+$9 = 0x7ffdffff
+0x00008225 in ?? ()
+=> 0x00008225:	bb ce 83 00 00	mov    ebx,0x83ce
+$10 = 0x7ffdbdff
+0x0000822a in ?? ()
+=> 0x0000822a:	89 0b	mov    DWORD PTR [ebx],ecx
+0x0000822c in ?? ()
+=> 0x0000822c:	bb d6 83 00 00	mov    ebx,0x83d6
+0x00008231 in ?? ()
+=> 0x00008231:	89 0b	mov    DWORD PTR [ebx],ecx
+0x00008233 in ?? ()
+=> 0x00008233:	31 c0	xor    eax,eax
+0x83c0:	0x2e	0x00	0x21	0x00	0x00	0x00	0x69	0x7d
+0x83c8:	0x00	0x00	0x00	0x00	0x00	0x00	0xff	0xbd
+0x83d0:	0xfd	0x7f	0xff	0xff	0xfd	0x7f	0xff	0xbd
+0x83d8:	0xfd	0x7f	0x00	0x00	0x00	0x00	0x00	0x00
+Dump of assembler code from 0x8233 to 0x827b:
+=> 0x00008233:	xor    eax,eax
+   0x00008235:	mov    ax,WORD PTR [esi+0x1a]
+   0x00008239:	mov    ebx,0x83c8
+   0x0000823e:	mov    WORD PTR [ebx],ax
+   0x00008241:	cmp    ax,0xfff7
+   0x00008245:	ja     0x82b6
+   0x00008247:	cmp    ax,0x2000
+   0x0000824b:	jae    0x82fb
+   0x00008251:	xor    edx,edx
+   0x00008253:	mov    ecx,0xff
+   0x00008258:	div    ecx
+   0x0000825a:	add    eax,0x1
+   0x0000825d:	mov    ebx,0x83ca
+   0x00008262:	mov    ebx,DWORD PTR [ebx]
+   0x00008264:	cmp    eax,ebx
+   0x00008266:	je     0x827b
+   0x00008268:	mov    ebx,0x83ca
+   0x0000826d:	mov    DWORD PTR [ebx],eax
+   0x0000826f:	mov    edi,0x7e00
+   0x00008274:	mov    ebx,eax
+   0x00008276:	call   0x8331
+End of assembler dump.
+Dump of assembler code from 0x8276 to 0x82be:
+   0x00008276:	call   0x8331
+   0x0000827b:	mov    ebx,0x83ce
+   0x00008280:	mov    edi,DWORD PTR [ebx]
+   0x00008282:	mov    bx,0x83c8
+   0x00008286:	mov    bx,WORD PTR [ebx]
+   0x00008289:	add    bx,0x3f
+   0x0000828d:	call   0x8331
+   0x00008292:	mov    ebx,0x83ce
+   0x00008297:	mov    DWORD PTR [ebx],edi
+   0x00008299:	mov    ebx,0x83c8
+   0x0000829e:	mov    bx,WORD PTR [ebx]
+   0x000082a1:	shl    bx,1
+   0x000082a4:	add    bx,0x7e00
+   0x000082a9:	mov    ax,WORD PTR [ebx]
+   0x000082ac:	mov    ebx,0x83c8
+   0x000082b1:	mov    WORD PTR [ebx],ax
+   0x000082b4:	jmp    0x8241
+   0x000082b6:	mov    ebx,0x83d6
+   0x000082bb:	mov    esi,DWORD PTR [ebx]
+   0x000082bd:	mov    eax,DWORD PTR [esi]
+End of assembler dump.
+Breakpoint 4 at 0x82b6
+Continuing.
+
+Breakpoint 4, 0x000082b6 in ?? ()
+=> 0x000082b6:	bb d6 83 00 00	mov    ebx,0x83d6
+0x7ffdbdff:	0x7f	0x45	0x4c	0x46	0x01	0x01	0x01	0x00
+0x7ffdbe07:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x7ffdbe0f:	0x02	0x00	0x03	0x00	0x01	0x00	0x00	0x00
+0x7ffdbe17:	0x0c	0x00	0x10	0x00	0x34	0x00	0x00	0x00
+0x7ffdfb9f:	0x63	0x00	0x62	0x75	0x66	0x66	0x00	0x6b
+0x7ffdfba7:	0x65	0x72	0x6e	0x65	0x6c	0x49	0x6e	0x69
+0x7ffdfbaf:	0x74	0x5f	0x00	0x5f	0x5a	0x38	0x74	0x74
+0x7ffdfbb7:	0x79	0x54	0x68	0x65	0x6d	0x65	0x63	0x63
+0x000082bb in ?? ()
+=> 0x000082bb:	8b 33	mov    esi,DWORD PTR [ebx]
+0x000082bd in ?? ()
+=> 0x000082bd:	8b 06	mov    eax,DWORD PTR [esi]
+$11 = 0x7ffdbdff
+0x000082bf in ?? ()
+=> 0x000082bf:	3d 7f 45 4c 46	cmp    eax,0x464c457f
+$12 = 0x464c457f
+0x000082c4 in ?? ()
+=> 0x000082c4:	0f 85 b6 00 00 00	jne    0x8380
+0x000082ca in ?? ()
+=> 0x000082ca:	8b 46 04	mov    eax,DWORD PTR [esi+0x4]
+0x000082cd in ?? ()
+=> 0x000082cd:	3d 01 01 01 00	cmp    eax,0x10101
+$13 = 0x10101
+0x000082d2 in ?? ()
+=> 0x000082d2:	0f 85 a8 00 00 00	jne    0x8380
+0x000082d8 in ?? ()
+=> 0x000082d8:	8b 46 10	mov    eax,DWORD PTR [esi+0x10]
+0x000082db in ?? ()
+=> 0x000082db:	3d 02 00 03 00	cmp    eax,0x30002
+$14 = 0x30002
+0x000082e0 in ?? ()
+=> 0x000082e0:	0f 85 9a 00 00 00	jne    0x8380
+0x000082e6 in ?? ()
+=> 0x000082e6:	8b 46 14	mov    eax,DWORD PTR [esi+0x14]
+0x000082e9 in ?? ()
+=> 0x000082e9:	83 f8 01	cmp    eax,0x1
+$15 = 0x1
+0x000082ec in ?? ()
+=> 0x000082ec:	0f 85 8e 00 00 00	jne    0x8380
+0x000082f2 in ?? ()
+=> 0x000082f2:	eb 3a	jmp    0x832e
+0x0000832e in ?? ()
+=> 0x0000832e:	f4	hlt    
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x82e9
+Continuing.
+
+Breakpoint 1, 0x000082e9 in ?? ()
+=> 0x000082e9:	83 f8 01	cmp    eax,0x1
+0x000082ec in ?? ()
+=> 0x000082ec:	0f 85 07 01 00 00	jne    0x83f9
+0x000082f2 in ?? ()
+=> 0x000082f2:	8b 5e 20	mov    ebx,DWORD PTR [esi+0x20]
+$1 = 0x7ffdbdff
+0x7ffdbdff:	0x7f	0x45	0x4c	0x46	0x01	0x01	0x01	0x00
+0x7ffdbe07:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x7ffdbe0f:	0x02	0x00	0x03	0x00	0x01	0x00	0x00	0x00
+0x7ffdbe17:	0x0c	0x00	0x10	0x00	0x34	0x00	0x00	0x00
+0x000082f5 in ?? ()
+=> 0x000082f5:	31 c9	xor    ecx,ecx
+$2 = 0x3ed4
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x82e9
+Continuing.
+
+Breakpoint 1, 0x000082e9 in ?? ()
+=> 0x000082e9:	83 f8 01	cmp    eax,0x1
+0x000082ec in ?? ()
+=> 0x000082ec:	0f 85 07 01 00 00	jne    0x83f9
+0x000082f2 in ?? ()
+=> 0x000082f2:	8b 5e 20	mov    ebx,DWORD PTR [esi+0x20]
+0x000082f5 in ?? ()
+=> 0x000082f5:	31 c9	xor    ecx,ecx
+$1 = 0x7ffd99ff
+0x000082f7 in ?? ()
+=> 0x000082f7:	66 8b 4e 30	mov    cx,WORD PTR [esi+0x30]
+0x000082fb in ?? ()
+=> 0x000082fb:	83 e9 01	sub    ecx,0x1
+$2 = 0x6380
+$3 = 0xe
+$4 = 14
+0x000082fe in ?? ()
+=> 0x000082fe:	01 f3	add    ebx,esi
+$5 = 13
+0x00008300 in ?? ()
+=> 0x00008300:	83 c3 28	add    ebx,0x28
+0x00008303 in ?? ()
+=> 0x00008303:	8b 43 08	mov    eax,DWORD PTR [ebx+0x8]
+$6 = 0x7ffdfda7
+0x00008306 in ?? ()
+=> 0x00008306:	83 e0 02	and    eax,0x2
+$7 = 0x6
+0x00008309 in ?? ()
+=> 0x00008309:	83 f8 02	cmp    eax,0x2
+$8 = 0x2
+0x0000830c in ?? ()
+=> 0x0000830c:	75 58	jne    0x8366
+0x0000830e in ?? ()
+=> 0x0000830e:	8b 43 0c	mov    eax,DWORD PTR [ebx+0xc]
+0x00008311 in ?? ()
+=> 0x00008311:	83 f8 00	cmp    eax,0x0
+$9 = 0x100000
+0x00008314 in ?? ()
+=> 0x00008314:	0f 84 df 00 00 00	je     0x83f9
+0x0000831a in ?? ()
+=> 0x0000831a:	89 cf	mov    edi,ecx
+$10 = 0x7ffdffff
+$11 = 0xd
+0x0000831c in ?? ()
+=> 0x0000831c:	8b 4b 20	mov    ecx,DWORD PTR [ebx+0x20]
+$12 = 0xd
+0x0000831f in ?? ()
+=> 0x0000831f:	31 d2	xor    edx,edx
+$13 = 0x1
+0x00008321 in ?? ()
+=> 0x00008321:	f7 f1	div    ecx
+0x00008323 in ?? ()
+=> 0x00008323:	83 fa 00	cmp    edx,0x0
+$14 = 0x100000
+$15 = 0x0
+0x00008326 in ?? ()
+=> 0x00008326:	0f 85 cd 00 00 00	jne    0x83f9
+0x0000832c in ?? ()
+=> 0x0000832c:	f7 e1	mul    ecx
+0x0000832e in ?? ()
+=> 0x0000832e:	89 f9	mov    ecx,edi
+$16 = 0xd
+0x00008330 in ?? ()
+=> 0x00008330:	89 c7	mov    edi,eax
+0x00008332 in ?? ()
+=> 0x00008332:	89 ca	mov    edx,ecx
+$17 = 0x100000
+0x00008334 in ?? ()
+=> 0x00008334:	8b 4b 14	mov    ecx,DWORD PTR [ebx+0x14]
+0x00008337 in ?? ()
+=> 0x00008337:	8b 43 04	mov    eax,DWORD PTR [ebx+0x4]
+$18 = 0x13
+0x0000833a in ?? ()
+=> 0x0000833a:	83 f8 08	cmp    eax,0x8
+Undefined command: "ir".  Try "help".
+eax            0x1                 1
+ecx            0x13                19
+edx            0xd                 13
+ebx            0x7ffdfda7          2147351975
+esp            0x7bfc              0x7bfc
+ebp            0x7bfe              0x7bfe
+esi            0x7ffd99ff          2147326463
+edi            0x100000            1048576
+eip            0x833a              0x833a
+eflags         0x6                 [ IOPL=0 PF ]
+cs             0x18                24
+ss             0x20                32
+ds             0x20                32
+es             0x20                32
+fs             0x20                32
+gs             0x20                32
+fs_base        0x0                 0
+gs_base        0x0                 0
+k_gs_base      0x0                 0
+cr0            0x11                [ ET PE ]
+cr2            0x0                 0
+cr3            0x0                 [ PDBR=0 PCID=0 ]
+cr4            0x0                 [ ]
+cr8            0x0                 0
+efer           0x0                 [ ]
+xmm0           {v4_float = {0x0, 0x0, 0x0, 0x0}, v2_double = {0x0, 0x0}, v16_int8 = {0x0 <repeats 16 times>}, v8_int16 = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}, v4_int32 = {0x0, 0x0, 0x0, 0x0}, v2_int64 = {0x0, 0x0}, uint128 = 0x0}
+xmm1           {v4_float = {0x0, 0x0, 0x0, 0x0}, v2_double = {0x0, 0x0}, v16_int8 = {0x0 <repeats 16 times>}, v8_int16 = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}, v4_int32 = {0x0, 0x0, 0x0, 0x0}, v2_int64 = {0x0, 0x0}, uint128 = 0x0}
+Quit
+0x0000833d in ?? ()
+=> 0x0000833d:	74 1c	je     0x835b
+0x0000833f in ?? ()
+=> 0x0000833f:	be 4f 84 00 00	mov    esi,0x844f
+0x00008344 in ?? ()
+=> 0x00008344:	8b 36	mov    esi,DWORD PTR [esi]
+0x00008346 in ?? ()
+=> 0x00008346:	8b 43 10	mov    eax,DWORD PTR [ebx+0x10]
+$19 = 0x7ffd99ff
+0x00008349 in ?? ()
+=> 0x00008349:	01 c6	add    esi,eax
+Invalid character '#' in expression.
+$20 = 0x1000
+0x0000834b in ?? ()
+=> 0x0000834b:	31 c0	xor    eax,eax
+0x0000834d in ?? ()
+=> 0x0000834d:	8a 06	mov    al,BYTE PTR [esi]
+0x0000834f in ?? ()
+=> 0x0000834f:	88 07	mov    BYTE PTR [edi],al
+$21 = 0xbc
+0x00008351 in ?? ()
+=> 0x00008351:	83 c7 01	add    edi,0x1
+$22 = 0x100000
+0x100000:	0xbc	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100008:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100010:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100018:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x00008354 in ?? ()
+=> 0x00008354:	83 c6 01	add    esi,0x1
+0x00008357 in ?? ()
+=> 0x00008357:	e2 f2	loop   0x834b
+0x0000834b in ?? ()
+=> 0x0000834b:	31 c0	xor    eax,eax
+$23 = 0x12
+0x0000834d in ?? ()
+=> 0x0000834d:	8a 06	mov    al,BYTE PTR [esi]
+0x0000834f in ?? ()
+=> 0x0000834f:	88 07	mov    BYTE PTR [edi],al
+0x00008351 in ?? ()
+=> 0x00008351:	83 c7 01	add    edi,0x1
+0x00008354 in ?? ()
+=> 0x00008354:	83 c6 01	add    esi,0x1
+0x00008357 in ?? ()
+=> 0x00008357:	e2 f2	loop   0x834b
+Dump of assembler code from 0x8357 to 0x8361:
+=> 0x00008357:	loop   0x834b
+   0x00008359:	jmp    0x8366
+   0x0000835b:	xor    eax,eax
+   0x0000835d:	mov    BYTE PTR [edi],al
+   0x0000835f:	add    edi,0x1
+End of assembler dump.
+Breakpoint 2 at 0x8359
+Continuing.
+
+Breakpoint 2, 0x00008359 in ?? ()
+=> 0x00008359:	eb 0b	jmp    0x8366
+0x100000:	0xbc	0xbe	0x4f	0x10	0x00	0xe8	0x03	0x00
+0x100008:	0x00	0x00	0xf4	0xeb	0xfd	0x55	0x89	0xe5
+0x100010:	0x90	0x5d	0xc3	0x00	0x00	0x00	0x00	0x00
+0x100018:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x00008366 in ?? ()
+=> 0x00008366:	83 c3 28	add    ebx,0x28
+0x00008369 in ?? ()
+=> 0x00008369:	e2 98	loop   0x8303
+0x00008303 in ?? ()
+=> 0x00008303:	8b 43 08	mov    eax,DWORD PTR [ebx+0x8]
+0x00008306 in ?? ()
+=> 0x00008306:	83 e0 02	and    eax,0x2
+Invalid character '#' in expression.
+$24 = 0x3
+0x00008309 in ?? ()
+=> 0x00008309:	83 f8 02	cmp    eax,0x2
+0x0000830c in ?? ()
+=> 0x0000830c:	75 58	jne    0x8366
+0x0000830e in ?? ()
+=> 0x0000830e:	8b 43 0c	mov    eax,DWORD PTR [ebx+0xc]
+0x00008311 in ?? ()
+=> 0x00008311:	83 f8 00	cmp    eax,0x0
+$25 = 0x101000
+0x00008314 in ?? ()
+=> 0x00008314:	0f 84 df 00 00 00	je     0x83f9
+0x0000831a in ?? ()
+=> 0x0000831a:	89 cf	mov    edi,ecx
+0x0000831c in ?? ()
+=> 0x0000831c:	8b 4b 20	mov    ecx,DWORD PTR [ebx+0x20]
+0x0000831f in ?? ()
+=> 0x0000831f:	31 d2	xor    edx,edx
+$26 = 16
+0x00008321 in ?? ()
+=> 0x00008321:	f7 f1	div    ecx
+0x00008323 in ?? ()
+=> 0x00008323:	83 fa 00	cmp    edx,0x0
+$27 = 0x0
+0x00008326 in ?? ()
+=> 0x00008326:	0f 85 cd 00 00 00	jne    0x83f9
+$28 = 0x10100
+0x0000832c in ?? ()
+=> 0x0000832c:	f7 e1	mul    ecx
+0x0000832e in ?? ()
+=> 0x0000832e:	89 f9	mov    ecx,edi
+$29 = 0x101000
+0x00008330 in ?? ()
+=> 0x00008330:	89 c7	mov    edi,eax
+0x00008332 in ?? ()
+=> 0x00008332:	89 ca	mov    edx,ecx
+$30 = -1
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x8000
+Continuing.
+
+Breakpoint 1, 0x00008000 in ?? ()
+=> 0x00008000:	ba 92 00 ec 0c	mov    edx,0xcec0092
+Dump of assembler code from 0x8357 to 0x8361:
+   0x00008357:	loop   0x834b
+   0x00008359:	mov    ecx,edx
+   0x0000835b:	jmp    0x8368
+   0x0000835d:	xor    eax,eax
+   0x0000835f:	mov    BYTE PTR [edi],al
+End of assembler dump.
+Breakpoint 2 at 0x8359
+Continuing.
+
+Breakpoint 2, 0x00008359 in ?? ()
+=> 0x00008359:	89 d1	mov    ecx,edx
+0x100000:	0xbc	0xbe	0x4f	0x10	0x00	0xe8	0x03	0x00
+0x100008:	0x00	0x00	0xf4	0xeb	0xfd	0x55	0x89	0xe5
+0x100010:	0x90	0x5d	0xc3	0x00	0x00	0x00	0x00	0x00
+0x100018:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x0000835b in ?? ()
+=> 0x0000835b:	eb 0b	jmp    0x8368
+$1 = 0xd
+$2 = 0xd
+$3 = 13
+0x00008368 in ?? ()
+=> 0x00008368:	83 c3 28	add    ebx,0x28
+0x0000836b in ?? ()
+=> 0x0000836b:	e2 96	loop   0x8303
+0x00008303 in ?? ()
+=> 0x00008303:	8b 43 08	mov    eax,DWORD PTR [ebx+0x8]
+$4 = 12
+0x00008306 in ?? ()
+=> 0x00008306:	83 e0 02	and    eax,0x2
+0x00008309 in ?? ()
+=> 0x00008309:	83 f8 02	cmp    eax,0x2
+0x0000830c in ?? ()
+=> 0x0000830c:	75 5a	jne    0x8368
+0x0000830e in ?? ()
+=> 0x0000830e:	8b 43 0c	mov    eax,DWORD PTR [ebx+0xc]
+0x00008311 in ?? ()
+=> 0x00008311:	83 f8 00	cmp    eax,0x0
+0x00008314 in ?? ()
+=> 0x00008314:	0f 84 e1 00 00 00	je     0x83fb
+0x0000831a in ?? ()
+=> 0x0000831a:	89 cf	mov    edi,ecx
+0x0000831c in ?? ()
+=> 0x0000831c:	8b 4b 20	mov    ecx,DWORD PTR [ebx+0x20]
+0x0000831f in ?? ()
+=> 0x0000831f:	31 d2	xor    edx,edx
+0x00008321 in ?? ()
+=> 0x00008321:	f7 f1	div    ecx
+0x00008323 in ?? ()
+=> 0x00008323:	83 fa 00	cmp    edx,0x0
+0x00008326 in ?? ()
+=> 0x00008326:	0f 85 cf 00 00 00	jne    0x83fb
+0x0000832c in ?? ()
+=> 0x0000832c:	f7 e1	mul    ecx
+0x0000832e in ?? ()
+=> 0x0000832e:	89 f9	mov    ecx,edi
+$5 = 0x101000
+0x00008330 in ?? ()
+=> 0x00008330:	89 c7	mov    edi,eax
+0x00008332 in ?? ()
+=> 0x00008332:	89 ca	mov    edx,ecx
+0x00008334 in ?? ()
+=> 0x00008334:	8b 4b 14	mov    ecx,DWORD PTR [ebx+0x14]
+0x00008337 in ?? ()
+=> 0x00008337:	8b 43 04	mov    eax,DWORD PTR [ebx+0x4]
+$6 = 0x3fbe
+0x0000833a in ?? ()
+=> 0x0000833a:	83 f8 08	cmp    eax,0x8
+$7 = 0x8
+0x0000833d in ?? ()
+=> 0x0000833d:	74 1e	je     0x835d
+0x0000835d in ?? ()
+=> 0x0000835d:	31 c0	xor    eax,eax
+0x0000835f in ?? ()
+=> 0x0000835f:	88 07	mov    BYTE PTR [edi],al
+0x00008361 in ?? ()
+=> 0x00008361:	83 c7 01	add    edi,0x1
+Dump of assembler code from 0x8361 to 0x8371:
+=> 0x00008361:	add    edi,0x1
+   0x00008364:	loop   0x835d
+   0x00008366:	mov    ecx,edx
+   0x00008368:	add    ebx,0x28
+   0x0000836b:	loop   0x8303
+   0x0000836d:	jmp    0x83a9
+   0x0000836f:	mov    esi,0x83cf
+End of assembler dump.
+Breakpoint 3 at 0x8366
+Continuing.
+
+Breakpoint 3, 0x00008366 in ?? ()
+=> 0x00008366:	89 d1	mov    ecx,edx
+$8 = 12
+0x00008368 in ?? ()
+=> 0x00008368:	83 c3 28	add    ebx,0x28
+0x0000836b in ?? ()
+=> 0x0000836b:	e2 96	loop   0x8303
+0x00008303 in ?? ()
+=> 0x00008303:	8b 43 08	mov    eax,DWORD PTR [ebx+0x8]
+0x00008306 in ?? ()
+=> 0x00008306:	83 e0 02	and    eax,0x2
+0x00008309 in ?? ()
+=> 0x00008309:	83 f8 02	cmp    eax,0x2
+$9 = 0x2
+Continuing.
+
+Breakpoint 2, 0x00008359 in ?? ()
+=> 0x00008359:	89 d1	mov    ecx,edx
+0x104fc0:	0x14	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104fc8:	0x01	0x7a	0x52	0x00	0x01	0x7c	0x08	0x01
+0x104fd0:	0x1b	0x0c	0x04	0x04	0x88	0x01	0x00	0x00
+0x104fd8:	0x1c	0x00	0x00	0x00	0x1c	0x00	0x00	0x00
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x82e9
+Continuing.
+
+Breakpoint 1, 0x000082e9 in ?? ()
+=> 0x000082e9:	83 f8 01	cmp    eax,0x1
+Dump of assembler code from 0x82e9 to 0x8331:
+=> 0x000082e9:	cmp    eax,0x1
+   0x000082ec:	jne    0x8416
+   0x000082f2:	mov    ebx,DWORD PTR [esi+0x20]
+   0x000082f5:	xor    ecx,ecx
+   0x000082f7:	mov    cx,WORD PTR [esi+0x30]
+   0x000082fb:	sub    ecx,0x1
+   0x000082fe:	add    ebx,esi
+   0x00008300:	add    ebx,0x28
+   0x00008303:	mov    eax,DWORD PTR [ebx+0x8]
+   0x00008306:	and    eax,0x2
+   0x00008309:	cmp    eax,0x2
+   0x0000830c:	jne    0x8368
+   0x0000830e:	mov    eax,DWORD PTR [ebx+0xc]
+   0x00008311:	cmp    eax,0x0
+   0x00008314:	je     0x8416
+   0x0000831a:	mov    edi,ecx
+   0x0000831c:	mov    ecx,DWORD PTR [ebx+0x20]
+   0x0000831f:	xor    edx,edx
+   0x00008321:	div    ecx
+   0x00008323:	cmp    edx,0x0
+   0x00008326:	jne    0x8416
+   0x0000832c:	mul    ecx
+   0x0000832e:	mov    ecx,edi
+   0x00008330:	mov    edi,eax
+End of assembler dump.
+Dump of assembler code from 0x8330 to 0x8378:
+   0x00008330:	mov    edi,eax
+   0x00008332:	mov    edx,ecx
+   0x00008334:	mov    ecx,DWORD PTR [ebx+0x14]
+   0x00008337:	mov    eax,DWORD PTR [ebx+0x4]
+   0x0000833a:	cmp    eax,0x8
+   0x0000833d:	xor    eax,eax
+   0x0000833f:	je     0x835f
+   0x00008341:	mov    esi,0x846c
+   0x00008346:	mov    esi,DWORD PTR [esi]
+   0x00008348:	mov    eax,DWORD PTR [ebx+0x10]
+   0x0000834b:	add    esi,eax
+   0x0000834d:	xor    eax,eax
+   0x0000834f:	mov    al,BYTE PTR [esi]
+   0x00008351:	mov    BYTE PTR [edi],al
+   0x00008353:	add    edi,0x1
+   0x00008356:	add    esi,0x1
+   0x00008359:	loop   0x834d
+   0x0000835b:	mov    ecx,edx
+   0x0000835d:	jmp    0x8368
+   0x0000835f:	mov    BYTE PTR [edi],al
+   0x00008361:	add    edi,0x1
+   0x00008364:	loop   0x835f
+   0x00008366:	mov    ecx,edx
+   0x00008368:	add    ebx,0x28
+   0x0000836b:	loop   0x8303
+   0x0000836d:	mov    esi,0x846c
+   0x00008372:	mov    esi,DWORD PTR [esi]
+   0x00008374:	mov    eax,DWORD PTR [esi+0x18]
+   0x00008377:	mov    esi,0x8468
+End of assembler dump.
+Dump of assembler code from 0x8377 to 0x83bf:
+   0x00008377:	mov    esi,0x8468
+   0x0000837c:	mov    ebx,DWORD PTR [esi]
+   0x0000837e:	xor    ecx,ecx
+   0x00008380:	xor    edx,edx
+   0x00008382:	xor    esi,esi
+   0x00008384:	xor    edi,edi
+   0x00008386:	jmp    eax
+   0x00008388:	jmp    0x83c4
+   0x0000838a:	mov    esi,0x83ea
+   0x0000838f:	jmp    0x8398
+   0x00008391:	mov    esi,0x8416
+   0x00008396:	jmp    0x8398
+   0x00008398:	mov    ecx,esi
+   0x0000839a:	mov    edi,0xb8000
+   0x0000839f:	mov    ah,0x7
+   0x000083a1:	mov    al,BYTE PTR [esi]
+   0x000083a3:	cmp    al,0x0
+   0x000083a5:	je     0x83b2
+   0x000083a7:	mov    WORD PTR [edi],ax
+   0x000083aa:	add    esi,0x1
+   0x000083ad:	add    edi,0x2
+   0x000083b0:	jmp    0x83a1
+   0x000083b2:	mov    edx,0x3d4
+   0x000083b7:	mov    al,0xf
+   0x000083b9:	out    dx,al
+   0x000083ba:	mov    edx,0x3d5
+End of assembler dump.
+Breakpoint 2 at 0x8386
+Continuing.
+
+Breakpoint 2, 0x00008386 in ?? ()
+=> 0x00008386:	ff e0	jmp    eax
+$1 = 0x100000
+$2 = 0x7ffdffff
+0x00100000 in ?? ()
+=> 0x00100000:	00 00	add    BYTE PTR [eax],al
+0x100000:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100008:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100010:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100018:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x10000:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x10008:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x10010:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x10018:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x1000000:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x1000008:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x1000010:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x1000018:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+Detaching from pid process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x836b
+Continuing.
+
+Breakpoint 1, 0x0000836b in ?? ()
+=> 0x0000836b:	e2 96	loop   0x8303
+0x100000:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100008:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100010:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x100018:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x82e9
+Continuing.
+
+Breakpoint 1, 0x000082e9 in ?? ()
+=> 0x000082e9:	83 f8 01	cmp    eax,0x1
+Dump of assembler code from 0x82e9 to 0x8331:
+=> 0x000082e9:	cmp    eax,0x1
+   0x000082ec:	jne    0x8416
+   0x000082f2:	mov    ebx,DWORD PTR [esi+0x20]
+   0x000082f5:	xor    ecx,ecx
+   0x000082f7:	mov    cx,WORD PTR [esi+0x30]
+   0x000082fb:	sub    ecx,0x1
+   0x000082fe:	add    ebx,esi
+   0x00008300:	add    ebx,0x28
+   0x00008303:	mov    eax,DWORD PTR [ebx+0x8]
+   0x00008306:	and    eax,0x2
+   0x00008309:	cmp    eax,0x2
+   0x0000830c:	jne    0x8368
+   0x0000830e:	mov    eax,DWORD PTR [ebx+0xc]
+   0x00008311:	cmp    eax,0x0
+   0x00008314:	je     0x8416
+   0x0000831a:	mov    edi,ecx
+   0x0000831c:	mov    ecx,DWORD PTR [ebx+0x20]
+   0x0000831f:	xor    edx,edx
+   0x00008321:	div    ecx
+   0x00008323:	cmp    edx,0x0
+   0x00008326:	jne    0x8416
+   0x0000832c:	mul    ecx
+   0x0000832e:	mov    ecx,edi
+   0x00008330:	mov    edi,eax
+End of assembler dump.
+Dump of assembler code from 0x830 to 0x878:
+   0x00000830:	add    BYTE PTR [eax],al
+   0x00000832:	add    BYTE PTR [eax],al
+   0x00000834:	add    BYTE PTR [eax],al
+   0x00000836:	add    BYTE PTR [eax],al
+   0x00000838:	add    BYTE PTR [eax],al
+   0x0000083a:	add    BYTE PTR [eax],al
+   0x0000083c:	add    BYTE PTR [eax],al
+   0x0000083e:	add    BYTE PTR [eax],al
+   0x00000840:	add    BYTE PTR [eax],al
+   0x00000842:	add    BYTE PTR [eax],al
+   0x00000844:	add    BYTE PTR [eax],al
+   0x00000846:	add    BYTE PTR [eax],al
+   0x00000848:	add    BYTE PTR [eax],al
+   0x0000084a:	add    BYTE PTR [eax],al
+   0x0000084c:	add    BYTE PTR [eax],al
+   0x0000084e:	add    BYTE PTR [eax],al
+   0x00000850:	add    BYTE PTR [eax],al
+   0x00000852:	add    BYTE PTR [eax],al
+   0x00000854:	add    BYTE PTR [eax],al
+   0x00000856:	add    BYTE PTR [eax],al
+   0x00000858:	add    BYTE PTR [eax],al
+   0x0000085a:	add    BYTE PTR [eax],al
+   0x0000085c:	add    BYTE PTR [eax],al
+   0x0000085e:	add    BYTE PTR [eax],al
+   0x00000860:	add    BYTE PTR [eax],al
+   0x00000862:	add    BYTE PTR [eax],al
+   0x00000864:	add    BYTE PTR [eax],al
+   0x00000866:	add    BYTE PTR [eax],al
+   0x00000868:	add    BYTE PTR [eax],al
+   0x0000086a:	add    BYTE PTR [eax],al
+   0x0000086c:	add    BYTE PTR [eax],al
+   0x0000086e:	add    BYTE PTR [eax],al
+   0x00000870:	add    BYTE PTR [eax],al
+   0x00000872:	add    BYTE PTR [eax],al
+   0x00000874:	add    BYTE PTR [eax],al
+   0x00000876:	add    BYTE PTR [eax],al
+End of assembler dump.
+Dump of assembler code from 0x8330 to 0x8378:
+   0x00008330:	mov    edi,eax
+   0x00008332:	mov    edx,ecx
+   0x00008334:	mov    ecx,DWORD PTR [ebx+0x14]
+   0x00008337:	mov    eax,DWORD PTR [ebx+0x4]
+   0x0000833a:	cmp    eax,0x8
+   0x0000833d:	je     0x835d
+   0x0000833f:	mov    esi,0x846c
+   0x00008344:	mov    esi,DWORD PTR [esi]
+   0x00008346:	mov    eax,DWORD PTR [ebx+0x10]
+   0x00008349:	add    esi,eax
+   0x0000834b:	xor    eax,eax
+   0x0000834d:	mov    al,BYTE PTR [esi]
+   0x0000834f:	mov    BYTE PTR [edi],al
+   0x00008351:	add    edi,0x1
+   0x00008354:	add    esi,0x1
+   0x00008357:	loop   0x834b
+   0x00008359:	mov    ecx,edx
+   0x0000835b:	jmp    0x8368
+   0x0000835d:	xor    eax,eax
+   0x0000835f:	mov    BYTE PTR [edi],al
+   0x00008361:	add    edi,0x1
+   0x00008364:	loop   0x835f
+   0x00008366:	mov    ecx,edx
+   0x00008368:	add    ebx,0x28
+   0x0000836b:	loop   0x8303
+   0x0000836d:	mov    esi,0x846c
+   0x00008372:	mov    esi,DWORD PTR [esi]
+   0x00008374:	mov    eax,DWORD PTR [esi+0x18]
+   0x00008377:	mov    esi,0x8468
+End of assembler dump.
+Dump of assembler code from 0x8377 to 0x83bf:
+   0x00008377:	mov    esi,0x8468
+   0x0000837c:	mov    ebx,DWORD PTR [esi]
+   0x0000837e:	xor    ecx,ecx
+   0x00008380:	xor    edx,edx
+   0x00008382:	xor    esi,esi
+   0x00008384:	xor    edi,edi
+   0x00008386:	jmp    eax
+   0x00008388:	jmp    0x83c4
+   0x0000838a:	mov    esi,0x83ea
+   0x0000838f:	jmp    0x8398
+   0x00008391:	mov    esi,0x8416
+   0x00008396:	jmp    0x8398
+   0x00008398:	mov    ecx,esi
+   0x0000839a:	mov    edi,0xb8000
+   0x0000839f:	mov    ah,0x7
+   0x000083a1:	mov    al,BYTE PTR [esi]
+   0x000083a3:	cmp    al,0x0
+   0x000083a5:	je     0x83b2
+   0x000083a7:	mov    WORD PTR [edi],ax
+   0x000083aa:	add    esi,0x1
+   0x000083ad:	add    edi,0x2
+   0x000083b0:	jmp    0x83a1
+   0x000083b2:	mov    edx,0x3d4
+   0x000083b7:	mov    al,0xf
+   0x000083b9:	out    dx,al
+   0x000083ba:	mov    edx,0x3d5
+End of assembler dump.
+Breakpoint 2 at 0x8386
+Continuing.
+
+Breakpoint 2, 0x00008386 in ?? ()
+=> 0x00008386:	ff e0	jmp    eax
+0x00100000 in ?? ()
+=> 0x00100000:	bc be 4f 10 00	mov    esp,0x104fbe
+0x00100005 in ?? ()
+=> 0x00100005:	e8 03 00 00 00	call   0x10000d
+0x0010000d in ?? ()
+=> 0x0010000d:	55	push   ebp
+0x0010000e in ?? ()
+=> 0x0010000e:	89 e5	mov    ebp,esp
+0x00100010 in ?? ()
+=> 0x00100010:	90	nop
+0x00100011 in ?? ()
+=> 0x00100011:	5d	pop    ebp
+0x00100012 in ?? ()
+=> 0x00100012:	c3	ret    
+0x0010000a in ?? ()
+=> 0x0010000a:	f4	hlt    
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100067: file kernel/kernel.cpp, line 13.
+Continuing.
+
+Breakpoint 1, kernelMain_ (grubInfoTable=0x7ffdffff) at kernel/kernel.cpp:13
+13	    ttyClear();
+=> 0x00100067 <kernelMain_(void*)+6>:	e8 4c 01 00 00	call   0x1001b8 <_Z8ttyClearv>
+ttyClear () at kernel/tty/tty.cpp:46
+46	    for (unsigned short i = 0; i < TTY_HEIGHT * TTY_WIDTH; i++) {
+=> 0x001001be <_Z8ttyClearv+6>:	66 c7 45 fe 00 00	mov    WORD PTR [ebp-0x2],0x0
+47	        buff[2 * i] = '\0';
+=> 0x001001c6 <_Z8ttyClearv+14>:	a1 00 50 10 00	mov    eax,ds:0x105000
+48	        buff[2 * i + 1] = theme;
+=> 0x001001d6 <_Z8ttyClearv+30>:	a1 00 50 10 00	mov    eax,ds:0x105000
+46	    for (unsigned short i = 0; i < TTY_HEIGHT * TTY_WIDTH; i++) {
+=> 0x001001ef <_Z8ttyClearv+55>:	0f b7 45 fe	movzx  eax,WORD PTR [ebp-0x2]
+   0x001001f3 <_Z8ttyClearv+59>:	83 c0 01	add    eax,0x1
+   0x001001f6 <_Z8ttyClearv+62>:	66 89 45 fe	mov    WORD PTR [ebp-0x2],ax
+   0x001001fa <_Z8ttyClearv+66>:	66 81 7d fe cf 07	cmp    WORD PTR [ebp-0x2],0x7cf
+   0x00100200 <_Z8ttyClearv+72>:	76 c4	jbe    0x1001c6 <_Z8ttyClearv+14>
+47	        buff[2 * i] = '\0';
+=> 0x001001c6 <_Z8ttyClearv+14>:	a1 00 50 10 00	mov    eax,ds:0x105000
+48	        buff[2 * i + 1] = theme;
+=> 0x001001d6 <_Z8ttyClearv+30>:	a1 00 50 10 00	mov    eax,ds:0x105000
+46	    for (unsigned short i = 0; i < TTY_HEIGHT * TTY_WIDTH; i++) {
+=> 0x001001ef <_Z8ttyClearv+55>:	0f b7 45 fe	movzx  eax,WORD PTR [ebp-0x2]
+   0x001001f3 <_Z8ttyClearv+59>:	83 c0 01	add    eax,0x1
+   0x001001f6 <_Z8ttyClearv+62>:	66 89 45 fe	mov    WORD PTR [ebp-0x2],ax
+   0x001001fa <_Z8ttyClearv+66>:	66 81 7d fe cf 07	cmp    WORD PTR [ebp-0x2],0x7cf
+   0x00100200 <_Z8ttyClearv+72>:	76 c4	jbe    0x1001c6 <_Z8ttyClearv+14>
+$1 = 0xb8000 ""
+Breakpoint 2 at 0x10006c: file kernel/kernel.cpp, line 14.
+Continuing.
+
+Breakpoint 2, kernelMain_ (grubInfoTable=0xffff) at kernel/kernel.cpp:14
+14	    ttyPutStr((char *) "Hello, HixleonOS!\nLine Test1\nLine Test2");
+=> 0x0010006c <kernelMain_(void*)+11>:	83 ec 0c	sub    esp,0xc
+   0x0010006f <kernelMain_(void*)+14>:	68 00 60 10 00	push   0x106000
+   0x00100074 <kernelMain_(void*)+19>:	e8 0a 01 00 00	call   0x100183 <_Z9ttyPutStrPc>
+   0x00100079 <kernelMain_(void*)+24>:	83 c4 10	add    esp,0x10
+ttyPutStr (str=0x106000 "Hello, HixleonOS!\nLine Test1\nLine Test2") at kernel/tty/tty.cpp:33
+33	    while (str[0] != '\0') {
+=> 0x00100189 <_Z9ttyPutStrPc+6>:	eb 19	jmp    0x1001a4 <_Z9ttyPutStrPc+33>
+34	        ttyPutChar(str[0]);
+=> 0x0010018b <_Z9ttyPutStrPc+8>:	8b 45 08	mov    eax,DWORD PTR [ebp+0x8]
+   0x0010018e <_Z9ttyPutStrPc+11>:	0f b6 00	movzx  eax,BYTE PTR [eax]
+ttyPutChar (ch=72 'H') at kernel/tty/tty.cpp:13
+13	    if (ch == '\n') {
+=> 0x0010008b <_Z10ttyPutCharc+12>:	80 7d f4 0a	cmp    BYTE PTR [ebp-0xc],0xa
+   0x0010008f <_Z10ttyPutCharc+16>:	75 49	jne    0x1000da <_Z10ttyPutCharc+91>
+17	    } else if (ch == '\r') {
+=> 0x001000da <_Z10ttyPutCharc+91>:	80 7d f4 0d	cmp    BYTE PTR [ebp-0xc],0xd
+   0x001000de <_Z10ttyPutCharc+95>:	75 36	jne    0x100116 <_Z10ttyPutCharc+151>
+21	        (buff + (2 * offset))[0] = ch;
+=> 0x00100116 <_Z10ttyPutCharc+151>:	a1 00 50 10 00	mov    eax,ds:0x105000
+22	        (buff + (2 * offset))[1] = theme;
+=> 0x0010012f <_Z10ttyPutCharc+176>:	a1 00 50 10 00	mov    eax,ds:0x105000
+23	        offset++;
+=> 0x0010014e <_Z10ttyPutCharc+207>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100155 <_Z10ttyPutCharc+214>:	83 c0 01	add    eax,0x1
+   0x00100158 <_Z10ttyPutCharc+217>:	66 a3 be 4f 10 00	mov    ds:0x104fbe,ax
+25	    if (offset >= 1999) {
+=> 0x0010015e <_Z10ttyPutCharc+223>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+29	}
+=> 0x00100180 <_Z10ttyPutCharc+257>:	90	nop
+   0x00100181 <_Z10ttyPutCharc+258>:	c9	leave  
+   0x00100182 <_Z10ttyPutCharc+259>:	c3	ret    
+Continuing.
+[Inferior 1 (process 1) exited normally]

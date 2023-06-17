@@ -1,11 +1,11 @@
 org 0x8000
 
-;内存区段            大小                含义
-;0x0500 ~ 0x7bff     30463B              栈内存区
-;0x7c00 ~ 0x7dff     512B   (0.5KB)      MBR扇区
-;0x7e00 ~ 0x7FFF     512B   (0.5KB)      扇区缓存区
-;0x8000 ~ 0x9FBFF    621567B             LOADER文件内容和可用堆区
-;0x100000 ~ --       4GB - 1MB           系统内存区
+;内存区段            大小         含义
+;0x0500 ~ 0x7bff     30463B       栈内存区
+;0x7c00 ~ 0x7dff     512B         MBR扇区
+;0x7e00 ~ 0x7FFF     512B         扇区缓存区
+;0x8000 ~ 0x9FBFF    621567B      LOADER文件内容和可用堆区
+;0x100000 ~ --       4095MB       系统内存区
 
 ;开启A20地址线
 mov word dx, 0x92
@@ -61,32 +61,27 @@ int 0x15
 jc memE
 cmp dword edx, 0x534d4150; 比较edx和内存映射表的签名是否相同
 jne memE ; 如果不相同，跳转到错误处理
-mov dword esi, [es : edi]
+mov dword esi, es : [edi]
 cmp dword esi, 0x100000
 jne getMemorySize.continue
-add dword edi, 4
-mov dword esi, [es : edi]
+mov dword esi, es : [edi + 4]
 cmp dword esi, 0
 jne getMemorySize.continue
-add dword edi, 12
-mov dword esi, [es : edi]
+mov dword esi, es : [edi + 16]
 cmp dword esi, 1
 jne memE
 jmp getMemSize
 getMemorySize.continue:
 cmp dword ebx, 0
 je memE
-add dword edi, ecx
 jmp getMemorySize.for
 ;内存大小结束计算
 
 getMemSize:
-sub edi, 8
-mov dword eax, [es : edi]
+mov dword eax, es : [edi + 8]
 cmp dword eax, 0xFF_F0_00_00
 ja .maxMemSize
-add edi, 4
-mov dword ebx, [es : edi]
+mov dword ebx, es : [edi + 12]
 cmp dword ebx, 0
 je .setMemSize
 .maxMemSize:
@@ -162,7 +157,8 @@ mov word ss, ax
 ;am + 6(2)  : 临时簇号保存
 ;am + 8(4) : 上一次读取的扇区号
 ;am + 12(4) : 文件断点续写地址
-;am + 16(4) : 从0x100000开始连续的内存大小
+;am + 16(4) : 最大访问到的内存条地址
+;am + 20(4) : Kernel文件的起始地址
 ;0x7E00 : 扇区缓存区
 ;0x100000 : Kernel文件区
 
@@ -171,7 +167,7 @@ mov dword ebx, am + 8
 mov dword [ebx], eax;初始化am + 8(上一次读取扇区号)
 xor dword eax, eax
 mov dword ebx, am + 12
-mov dword [ebx], eax;初始化am + 12(文件断电续写地址)
+mov dword [ebx], eax;初始化am + 12(文件断点续写地址)
 
 mov dword ebx, esp
 mov word ax, [ebx];取出readSector函数地址
@@ -219,13 +215,30 @@ fileFind:
 xor dword eax, eax
 shl dword ebx, 5 ;乘以32
 add dword ebx, 0x7e00
-mov dword eax, [ebx + 28] ;获取文件长度
+mov dword esi, ebx
+mov dword eax, [esi + 28] ;获取文件长度
 cmp dword eax, 0
 je fileError
+;计算文件写入地址:内存的最后一块区域
+xor dword edx, edx
+mov dword ecx, 512
+div dword ecx
+cmp dword edx, 0
+mul dword ecx
+je skipAdd512
+add dword eax, 512
+skipAdd512:
+mov dword ebx, am + 16
+mov dword ecx, [ebx]
+sub ecx, eax
+mov dword ebx, am + 12
+mov dword [ebx], ecx
+mov dword ebx, am + 20
+mov dword [ebx], ecx
 
 ;获取起始簇号
 xor dword eax, eax
-mov word ax, [ebx + 26] ;获取起始簇号
+mov word ax, [esi + 26] ;获取起始簇号
 mov dword ebx, am + 6
 mov word [ebx], ax ;保存在临时内存中
 
@@ -252,17 +265,13 @@ mov dword ebx, eax
 call readSector32
 
 skipReadFAT:
-;按簇号读取文件内容到0x100000中
+;按簇号读取文件内容到目标内存中
 mov dword ebx, am + 12
 mov dword edi, [ebx];读取断点续写地址
 mov word bx, am + 6
 mov word bx, [ebx] ;从可用内存段里读取临时簇号
 add word bx, 63 ;bx += 63获取扇区号
-mov dword eax, 0x30
-mov word es, ax
 call readSector32
-mov dword eax, 0x20
-mov word es, ax
 mov dword ebx, am + 12
 mov dword [ebx], edi;更新断点续写地址
 
@@ -280,58 +289,138 @@ readFileEnd:
 ;开始解析ELF32文件结构
 
 ;ELF32文件头结构
-; 内存偏移   长度    名称        含义                     选项
-; 0 ~ 15      16    e_ident      Magic数字和其他信息
-; 16 ~ 17      2    e_type       对象文件类型             0: 未知, 1: 重定向, 2: 可执行, 3: 共享对象, 4: 核心
-; 18 ~ 19      2    e_machine    处理器架构               0: 未知, 1: AT&T WE 32100, 2: SPARC, 3: Intel Architecture, 4: Motorola 68000, 5: Motorola 88000, 7: Intel 80860, 8: MIPS RS3000 Big-Endian, 10: MIPS RS4000 Big-Endian
-; 20 ~ 23      4    e_version    文件版本号               必须是1
-; 24 ~ 27      4    e_entry      程序入口
-; 28 ~ 31      4    e_phoff      程序头表在文件中的偏移
-; 32 ~ 35      4    e_shoff      节头表在文件中的偏移
-; 36 ~ 39      4    e_flags
-; 40 ~ 41      2    e_ehsize
-; 42 ~ 43      2    e_phentsize
-; 44 ~ 45      2    e_phnum
-; 46 ~ 47      2    e_shentsize
-; 48 ~ 49      2    e_shnum
-; 50 ~ 51      2    e_shstrndx
+; 内存偏移   长度    名称           含义                        选项
+; 0 ~ 15      16     e_ident        Magic数字和其他信息
+; 16 ~ 17      2     e_type         对象文件类型                0: 未知, 1: 重定向, 2: 可执行, 3: 共享对象, 4: 核心
+; 18 ~ 19      2     e_machine      处理器架构                  0: 未知, 1: AT&T WE 32100, 2: SPARC, 3: Intel Architecture, 4: Motorola 68000, 5: Motorola 88000, 7: Intel 80860, 8: MIPS RS3000 Big-Endian, 10: MIPS RS4000 Big-Endian
+; 20 ~ 23      4     e_version      文件版本号                  1
+; 24 ~ 27      4     e_entry        程序入口
+; 28 ~ 31      4     e_phoff        程序头表在文件中的偏移
+; 32 ~ 35      4     e_shoff        节头表在文件中的偏移
+; 36 ~ 39      4     e_flags        标志                        (暂不知道用法)
+; 40 ~ 41      2     e_ehsize       ELF头大小
+; 42 ~ 43      2     e_phentsize    程序头表中一个元素的大小
+; 44 ~ 45      2     e_phnum        程序头表元素数量
+; 46 ~ 47      2     e_shentsize    节头表中一个元素的大小
+; 48 ~ 49      2     e_shnum        节头表中元素数量
+; 50 ~ 51      2     e_shstrndx     节名称字符串表关联的条目的节头表索引
 ;共52个字节长度
 
-;在ELF32文件头中, Magic包含5个字段信息
-; 内存偏移   长度   名称        含义       选项
-; 0 ~ 3        4   EL_MAG       文件标识   7f 45 4c 46
-; 4            1   EL_CLASS     文件位数   0: 无效, 1: 32位, 2: 64位
-; 5            1   EL_DATA      数据编码   0: 无效编码, 1: 小端序, 2: 大端序
-; 6            1   EL_VERSION   文件版本   必须是1
-; 7 ~ 15       9   忽略
+;在ELF32文件头中, Magic包含4个字段信息
+; 内存偏移   长度   名称         含义       选项
+; 0 ~ 3        4    EL_MAG       文件标识   7f 45 4c 46
+; 4            1    EL_CLASS     文件位数   0: 无效, 1: 32位, 2: 64位
+; 5            1    EL_DATA      数据编码   0: 无效编码, 1: 小端序, 2: 大端序
+; 6            1    EL_VERSION   文件版本   1
+; 7 ~ 15       9    忽略
 
 ;----确定Magic---
-mov dword eax, 0x30
-mov word ds, ax
-xor dword esi, esi
-mov dword eax, [ds : esi]
+mov dword ebx, am + 20
+mov dword esi, [ebx];获取文件开始地址
+mov dword eax, [esi]
 cmp dword eax, 0x464C457F
 jne kernelFileError
-add dword esi, 4
-mov dword eax, [ds : esi]
+mov dword eax, [esi + 4]
 cmp dword eax, 0x00010101
 jne kernelFileError
 ;----确定Magic----
 
 ;----确定文件类型和处理器平台----
-add dword esi, 12
-mov dword eax, [ds : esi]
+mov dword eax, [esi + 16]
 cmp dword eax, 0x00030002
 jne kernelFileError
 ;----确定文件类型和处理器平台----
 
 ;----确定文件版本号必须是1----
-add dword esi, 4
-mov dword eax, [ds : esi]
+mov dword eax, [esi + 20]
 cmp dword eax, 0x00000001
 jne kernelFileError
 ;----确定文件版本号必须是1----
 
+;----遍历节头表, 为Kernel程序分配内存----
+;节头表
+; 内存偏移   长度   名称            含义           选项
+; 0 ~ 3        4    sh_name         节名           节名在节名字符表中的偏移
+; 4 ~ 7        4    sh_type         节类型
+; 8 ~ 11       4    sh_flags        段标志
+; 12 ~ 15      4    sh_addr         虚拟地址       如果是需要分配内存的节, 表示该段需要被加载到的内存虚拟基地址
+; 16 ~ 19      4    sh_offset       偏移           节在文件中的偏移
+; 20 ~ 23      4    sh_size         节长度
+; 24 ~ 27      4    sh_link         链接下标
+; 28 ~ 31      4    sh_info         其他信息
+; 32 ~ 35      4    sh_addralign    对齐
+; 36 ~ 39      4    sh_entsize      节内成员大小   如果节内成员参差不齐, 该项为0
+;共40个字节
+
+mov dword ebx, [esi + 32];获取节头表在文件中的偏移
+xor dword ecx, ecx
+mov word cx, [esi + 48];获取一个节头表元素个数
+sub dword ecx, 1;去掉第一个空节头表
+add dword ebx, esi;文件基地址+节头在文件中的偏移
+add dword ebx, 40;跳过第一个空节头表
+
+;开始遍历, 如果需要分配内存, 并且不是NOBITS, 则把文件内容复制到对应虚拟内存中
+;如果是NOBITS, 全0填充, 不读取文件内容
+sectionTrvs:
+;先判断标志是否需要分配内存
+mov dword eax, [ebx + 8]
+and dword eax, 0x02
+cmp dword eax, 0x02;是否需要分配内存
+jne .continue;如果不需要则跳过
+mov dword eax, [ebx + 12];获取虚拟地址
+cmp dword eax, 0
+je kernelFileError;如果需要分配内存且虚拟地址为0, kernel文件错误
+mov dword edi, ecx;暂存ecx的值到edi
+mov dword ecx, [ebx + 32];获取对齐整数
+xor dword edx, edx;清空edx
+div dword ecx;eax / ecx = eax ... edx
+cmp dword edx, 0;确保地址能被对齐整除
+jne kernelFileError;如果不能被整除, 否则kernel文件错误
+mul dword ecx;eax * ecx = edx eax
+mov dword ecx, edi;从edi还原ecx的值
+mov dword edi, eax;将虚拟内存地址放入目标指针寄存器
+mov dword edx, ecx;暂存ecx的值到edx
+mov dword ecx, [ebx + 20];获取节长度
+mov dword eax, [ebx + 4];获取节类型
+cmp dword eax, 8
+je .skipCopyFile;如果是NOBITS, 跳过复制文件
+mov dword esi, am + 20
+mov dword esi, [esi];获取文件起始地址
+mov dword eax, [ebx + 16];获取文件偏移
+add dword esi, eax;偏移
+.copyFile:
+xor dword eax, eax
+mov byte al, [esi]
+mov byte [edi], al
+add dword edi, 1
+add dword esi, 1
+loop .copyFile
+mov dword ecx, edx;从edx还原ecx的值
+jmp .continue
+.skipCopyFile:;全部填0
+xor dword eax, eax
+.fill0:
+mov byte [edi], al
+add dword edi, 1
+loop .fill0
+mov dword ecx, edx;从edx还原ecx的值
+.continue:
+add dword ebx, 40
+loop sectionTrvs
+;----遍历节头表, 为Kernel程序分配内存----
+
+;分配完成后进入kernel
+mov dword esi, am + 20
+mov dword esi, [esi]
+mov dword eax, [esi + 24]
+mov dword esi, am + 16
+mov dword ebx, [esi]
+;清空寄存器
+xor dword ecx, ecx
+xor dword edx, edx
+xor dword esi, esi
+xor dword edi, edi
+jmp eax;跳转到Kernel
 
 jmp pause
 

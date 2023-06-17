@@ -259,7 +259,7 @@ mov word dx, 0x01f0
 mov word cx, 256
 .readData:
 in word ax, dx
-mov word [es : edi], ax
+mov word es : [edi], ax
 add dword edi, 2
 loop .readData
 ret

@@ -6567,3 +6567,23 @@ Breakpoint 2, ttyClear () at kernel/tty/tty.cpp:50
 0x104fe8:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
 Detaching from pid process 1
 Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100060: file kernel/kernel.cpp, line 13.
+Breakpoint 2 at 0x100065: file kernel/kernel.cpp, line 14.
+Continuing.
+
+Breakpoint 1, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:13
+13	    ttyClear();
+=> 0x00100060 <kernelMain_(void*)+6>:	e8 4c 01 00 00	call   0x1001b1 <_Z8ttyClearv>
+Continuing.
+
+Breakpoint 2, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:14
+14	    ttyPutStr((char *) "Hello, HixleonOS!\nLine Test1\nLine Test2");
+=> 0x00100065 <kernelMain_(void*)+11>:	83 ec 0c	sub    esp,0xc
+   0x00100068 <kernelMain_(void*)+14>:	68 00 60 10 00	push   0x106000
+   0x0010006d <kernelMain_(void*)+19>:	e8 0a 01 00 00	call   0x10017c <_Z9ttyPutStrPc>
+   0x00100072 <kernelMain_(void*)+24>:	83 c4 10	add    esp,0x10
+Continuing.
+[Inferior 1 (process 1) exited normally]

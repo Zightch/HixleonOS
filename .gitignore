@@ -1,3 +1,2 @@
 .idea
-.gdb*
-gdb*
+.vscode

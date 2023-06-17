@@ -1,9 +1,10 @@
-cd 006
+
+export src=006
+
+cd ${src}
 make clear
 make
 cd ..
-
-export src=006
 
 rm -rf HixleonOS.img
 rm -rf ${src}/LOADER

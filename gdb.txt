@@ -7058,3 +7058,464 @@ Breakpoint 2, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:15
    0x00100088 <kernelMain_(void*)+44>:	83 c4 10	add    esp,0x10
 Continuing.
 [Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x1002b9: file src/kernel/kernel.cpp, line 17.
+Breakpoint 2 at 0x100238: file src/arch/x86/interrupts/intTable.cpp, line 5.
+Continuing.
+[Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x10025a: file src/kernel/kernel.cpp, line 8.
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+warning: Error detected on fd 13
+Remote communication error.  Target disconnected.: 资源暂时不可用.
+Ignoring packet error, continuing...
+warning: unrecognized item "timeout" in "qSupported" response
+Quit
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x10025a: file src/kernel/kernel.cpp, line 8.
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+initIDT_ () at src/arch/x86/IDT.cpp:17
+17	    setIDT(FAULT_DIVISION_ERROR, 0x08, asmIsr0, 0);
+=> 0x001001ee <_Z8initIDT_v+3>:	6a 00	push   0x0
+   0x001001f0 <_Z8initIDT_v+5>:	68 ef 08 10 00	push   0x1008ef
+   0x001001f5 <_Z8initIDT_v+10>:	6a 08	push   0x8
+   0x001001f7 <_Z8initIDT_v+12>:	6a 00	push   0x0
+   0x001001f9 <_Z8initIDT_v+14>:	e8 28 ff ff ff	call   0x100126 <_Z6setIDTttPFvvEh>
+   0x001001fe <_Z8initIDT_v+19>:	83 c4 10	add    esp,0x10
+setIDT (vector=0, segSelector=8, isr=0x1008ef <asmIsr0>, dpl=0 '\000') at src/arch/x86/IDT.cpp:10
+10	    unsigned int offset = ((unsigned long) isr);
+=> 0x00100143 <_Z6setIDTttPFvvEh+29>:	8b 45 10	mov    eax,DWORD PTR [ebp+0x10]
+   0x00100146 <_Z6setIDTttPFvvEh+32>:	89 45 ec	mov    DWORD PTR [ebp-0x14],eax
+11	    idt_[vector] = ((offset & 0xFFFF0000 | IDT_ATTR(dpl)));
+=> 0x00100149 <_Z6setIDTttPFvvEh+35>:	8b 45 ec	mov    eax,DWORD PTR [ebp-0x14]
+   0x0010014c <_Z6setIDTttPFvvEh+38>:	66 b8 00 00	mov    ax,0x0
+   0x00100150 <_Z6setIDTttPFvvEh+42>:	89 c2	mov    edx,eax
+12	    idt_[vector] <<= 32;
+=> 0x0010017a <_Z6setIDTttPFvvEh+84>:	0f b7 45 dc	movzx  eax,WORD PTR [ebp-0x24]
+   0x0010017e <_Z6setIDTttPFvvEh+88>:	8b 14 c5 44 10 10 00	mov    edx,DWORD PTR [eax*8+0x101044]
+   0x00100185 <_Z6setIDTttPFvvEh+95>:	8b 04 c5 40 10 10 00	mov    eax,DWORD PTR [eax*8+0x101040]
+   0x0010018c <_Z6setIDTttPFvvEh+102>:	0f b7 4d dc	movzx  ecx,WORD PTR [ebp-0x24]
+13	    idt_[vector] |= ((segSelector << 16) | (offset & 0x0000FFFF));
+=> 0x001001a2 <_Z6setIDTttPFvvEh+124>:	0f b7 45 dc	movzx  eax,WORD PTR [ebp-0x24]
+   0x001001a6 <_Z6setIDTttPFvvEh+128>:	8b 14 c5 44 10 10 00	mov    edx,DWORD PTR [eax*8+0x101044]
+   0x001001ad <_Z6setIDTttPFvvEh+135>:	8b 04 c5 40 10 10 00	mov    eax,DWORD PTR [eax*8+0x101040]
+$1 = 0
+14	}
+=> 0x001001e2 <_Z6setIDTttPFvvEh+188>:	90	nop
+   0x001001e3 <_Z6setIDTttPFvvEh+189>:	83 c4 24	add    esp,0x24
+   0x001001e6 <_Z6setIDTttPFvvEh+192>:	5b	pop    ebx
+   0x001001e7 <_Z6setIDTttPFvvEh+193>:	5e	pop    esi
+   0x001001e8 <_Z6setIDTttPFvvEh+194>:	5f	pop    edi
+   0x001001e9 <_Z6setIDTttPFvvEh+195>:	5d	pop    ebp
+   0x001001ea <_Z6setIDTttPFvvEh+196>:	c3	ret    
+initIDT_ () at src/arch/x86/IDT.cpp:18
+18	}
+=> 0x00100201 <_Z8initIDT_v+22>:	90	nop
+   0x00100202 <_Z8initIDT_v+23>:	c9	leave  
+   0x00100203 <_Z8initIDT_v+24>:	c3	ret    
+kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:9
+9	}
+=> 0x0010025f <kernelInit_(void*)+16>:	90	nop
+   0x00100260 <kernelInit_(void*)+17>:	c9	leave  
+   0x00100261 <kernelInit_(void*)+18>:	c3	ret    
+start () at src/arch/x86/boot.S:17
+17	        subl $0x06, %esp
+=> 0x0010091c <start+16>:	83 ec 06	sub    esp,0x6
+start () at src/arch/x86/boot.S:19
+19	        movl $gdt_, 2(%esp)
+=> 0x0010091f <start+19>:	c7 44 24 02 00 10 10 00	mov    DWORD PTR [esp+0x2],0x101000
+20	        movw gdtLimit_, %ax
+=> 0x00100927 <start+27>:	66 a1 00 60 10 00	mov    ax,ds:0x106000
+21	        movw %ax, (%esp)
+=> 0x0010092d <start+33>:	66 89 04 24	mov    WORD PTR [esp],ax
+22	        lgdt (%esp)
+=> 0x00100931 <start+37>:	0f 01 14 24	lgdtd  [esp]
+24	        movl $idt_, 2(%esp)
+=> 0x00100935 <start+41>:	c7 44 24 02 40 10 10 00	mov    DWORD PTR [esp+0x2],0x101040
+25	        movw idtLimit_, %ax
+=> 0x0010093d <start+49>:	66 a1 02 60 10 00	mov    ax,ds:0x106002
+26	        movw %ax, (%esp)
+=> 0x00100943 <start+55>:	66 89 04 24	mov    WORD PTR [esp],ax
+27	        lgdt (%esp)
+=> 0x00100947 <start+59>:	0f 01 14 24	lgdtd  [esp]
+29	        addl $0x06, %esp
+=> 0x0010094b <start+63>:	83 c4 06	add    esp,0x6
+Breakpoint 2 at 0x1002b9: file src/kernel/kernel.cpp, line 17.
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+Breakpoint 3 at 0x100238: file src/arch/x86/interrupts/intTable.cpp, line 5.
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+Num     Type           Disp Enb Address    What
+1       breakpoint     keep y   0x0010025a in kernelInit_(void*) at src/kernel/kernel.cpp:8
+	breakpoint already hit 6 times
+2       breakpoint     keep y   0x001002b9 in kernelMain_() at src/kernel/kernel.cpp:17
+3       breakpoint     keep y   0x00100238 in isr0(IsrParam*) at src/arch/x86/interrupts/intTable.cpp:5
+Breakpoint 4 at 0x100268: file src/kernel/kernel.cpp, line 12.
+Continuing.
+
+Breakpoint 1, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:8
+8	    initIDT_();
+=> 0x0010025a <kernelInit_(void*)+11>:	e8 8c ff ff ff	call   0x1001eb <_Z8initIDT_v>
+initIDT_ () at src/arch/x86/IDT.cpp:17
+17	    setIDT(FAULT_DIVISION_ERROR, 0x08, asmIsr0, 0);
+=> 0x001001ee <_Z8initIDT_v+3>:	6a 00	push   0x0
+   0x001001f0 <_Z8initIDT_v+5>:	68 ef 08 10 00	push   0x1008ef
+   0x001001f5 <_Z8initIDT_v+10>:	6a 08	push   0x8
+   0x001001f7 <_Z8initIDT_v+12>:	6a 00	push   0x0
+   0x001001f9 <_Z8initIDT_v+14>:	e8 28 ff ff ff	call   0x100126 <_Z6setIDTttPFvvEh>
+   0x001001fe <_Z8initIDT_v+19>:	83 c4 10	add    esp,0x10
+setIDT (vector=0, segSelector=8, isr=0x1008ef <asmIsr0>, dpl=0 '\000') at src/arch/x86/IDT.cpp:10
+10	    unsigned int offset = ((unsigned long) isr);
+=> 0x00100143 <_Z6setIDTttPFvvEh+29>:	8b 45 10	mov    eax,DWORD PTR [ebp+0x10]
+   0x00100146 <_Z6setIDTttPFvvEh+32>:	89 45 ec	mov    DWORD PTR [ebp-0x14],eax
+11	    idt_[vector] = ((offset & 0xFFFF0000 | IDT_ATTR(dpl)));
+=> 0x00100149 <_Z6setIDTttPFvvEh+35>:	8b 45 ec	mov    eax,DWORD PTR [ebp-0x14]
+   0x0010014c <_Z6setIDTttPFvvEh+38>:	66 b8 00 00	mov    ax,0x0
+   0x00100150 <_Z6setIDTttPFvvEh+42>:	89 c2	mov    edx,eax
+12	    idt_[vector] <<= 32;
+=> 0x0010017a <_Z6setIDTttPFvvEh+84>:	0f b7 45 dc	movzx  eax,WORD PTR [ebp-0x24]
+   0x0010017e <_Z6setIDTttPFvvEh+88>:	8b 14 c5 44 10 10 00	mov    edx,DWORD PTR [eax*8+0x101044]
+   0x00100185 <_Z6setIDTttPFvvEh+95>:	8b 04 c5 40 10 10 00	mov    eax,DWORD PTR [eax*8+0x101040]
+   0x0010018c <_Z6setIDTttPFvvEh+102>:	0f b7 4d dc	movzx  ecx,WORD PTR [ebp-0x24]
+13	    idt_[vector] |= ((segSelector << 16) | (offset & 0x0000FFFF));
+=> 0x001001a2 <_Z6setIDTttPFvvEh+124>:	0f b7 45 dc	movzx  eax,WORD PTR [ebp-0x24]
+   0x001001a6 <_Z6setIDTttPFvvEh+128>:	8b 14 c5 44 10 10 00	mov    edx,DWORD PTR [eax*8+0x101044]
+   0x001001ad <_Z6setIDTttPFvvEh+135>:	8b 04 c5 40 10 10 00	mov    eax,DWORD PTR [eax*8+0x101040]
+14	}
+=> 0x001001e2 <_Z6setIDTttPFvvEh+188>:	90	nop
+   0x001001e3 <_Z6setIDTttPFvvEh+189>:	83 c4 24	add    esp,0x24
+   0x001001e6 <_Z6setIDTttPFvvEh+192>:	5b	pop    ebx
+   0x001001e7 <_Z6setIDTttPFvvEh+193>:	5e	pop    esi
+   0x001001e8 <_Z6setIDTttPFvvEh+194>:	5f	pop    edi
+   0x001001e9 <_Z6setIDTttPFvvEh+195>:	5d	pop    ebp
+   0x001001ea <_Z6setIDTttPFvvEh+196>:	c3	ret    
+initIDT_ () at src/arch/x86/IDT.cpp:18
+18	}
+=> 0x00100201 <_Z8initIDT_v+22>:	90	nop
+   0x00100202 <_Z8initIDT_v+23>:	c9	leave  
+   0x00100203 <_Z8initIDT_v+24>:	c3	ret    
+kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:9
+9	}
+=> 0x0010025f <kernelInit_(void*)+16>:	90	nop
+   0x00100260 <kernelInit_(void*)+17>:	c9	leave  
+   0x00100261 <kernelInit_(void*)+18>:	c3	ret    
+start () at src/arch/x86/boot.S:17
+17	        subl $0x06, %esp
+=> 0x0010091c <start+16>:	83 ec 06	sub    esp,0x6
+start () at src/arch/x86/boot.S:19
+19	        movl $gdt_, 2(%esp)
+=> 0x0010091f <start+19>:	c7 44 24 02 00 10 10 00	mov    DWORD PTR [esp+0x2],0x101000
+20	        movw gdtLimit_, %ax
+=> 0x00100927 <start+27>:	66 a1 00 60 10 00	mov    ax,ds:0x106000
+21	        movw %ax, (%esp)
+=> 0x0010092d <start+33>:	66 89 04 24	mov    WORD PTR [esp],ax
+22	        lgdt (%esp)
+=> 0x00100931 <start+37>:	0f 01 14 24	lgdtd  [esp]
+24	        movl $idt_, 2(%esp)
+=> 0x00100935 <start+41>:	c7 44 24 02 40 10 10 00	mov    DWORD PTR [esp+0x2],0x101040
+25	        movw idtLimit_, %ax
+=> 0x0010093d <start+49>:	66 a1 02 60 10 00	mov    ax,ds:0x106002
+26	        movw %ax, (%esp)
+=> 0x00100943 <start+55>:	66 89 04 24	mov    WORD PTR [esp],ax
+27	        lgdt (%esp)
+=> 0x00100947 <start+59>:	0f 01 14 24	lgdtd  [esp]
+29	        addl $0x06, %esp
+=> 0x0010094b <start+63>:	83 c4 06	add    esp,0x6
+start () at src/arch/x86/boot.S:31
+31	        movw $0x10, %cx
+=> 0x0010094e <start+66>:	66 b9 10 00	mov    cx,0x10
+32	        movw %cx, %es
+=> 0x00100952 <start+70>:	8e c1	mov    es,ecx
+0x0000e05b in ?? ()
+=> 0x0000e05b:	00 00	add    BYTE PTR [eax],al
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100238: file src/arch/x86/interrupts/intTable.cpp, line 5.
+Breakpoint 2 at 0x100255: file src/kernel/kernel.cpp, line 7.
+Breakpoint 3 at 0x1002b9: file src/kernel/kernel.cpp, line 17.
+Continuing.
+
+Breakpoint 2, kernelInit_ (memoryMax=0x7ffdffff) at src/kernel/kernel.cpp:7
+7	    initGDT_();
+=> 0x00100255 <kernelInit_(void*)+6>:	e8 5e fe ff ff	call   0x1000b8 <_Z8initGDT_v>
+Continuing.
+
+Breakpoint 3, kernelMain_ () at src/kernel/kernel.cpp:17
+17	    int a = 1/0;
+=> 0x001002b9 <kernelMain_()+87>:	b8 01 00 00 00	mov    eax,0x1
+   0x001002be <kernelMain_()+92>:	b9 00 00 00 00	mov    ecx,0x0
+   0x001002c3 <kernelMain_()+97>:	99	cdq    
+   0x001002c4 <kernelMain_()+98>:	f7 f9	idiv   ecx
+   0x001002c6 <kernelMain_()+100>:	89 45 f4	mov    DWORD PTR [ebp-0xc],eax
+Continuing.
+
+Breakpoint 1, isr0 () at src/arch/x86/interrupts/intTable.cpp:5
+5	    ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, (char*)"The divisor is 0!\n");
+=> 0x00100238 <_Z4isr0P8IsrParam+6>:	83 ec 04	sub    esp,0x4
+   0x0010023b <_Z4isr0P8IsrParam+9>:	68 00 70 10 00	push   0x107000
+   0x00100240 <_Z4isr0P8IsrParam+14>:	6a 00	push   0x0
+   0x00100242 <_Z4isr0P8IsrParam+16>:	6a 0c	push   0xc
+   0x00100244 <_Z4isr0P8IsrParam+18>:	e8 a3 01 00 00	call   0x1003ec <_Z9ttyPutStrhhPc>
+   0x00100249 <_Z4isr0P8IsrParam+23>:	83 c4 10	add    esp,0x10
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100268: file src/kernel/kernel.cpp, line 12.
+Continuing.
+
+Breakpoint 1, kernelMain_ () at src/kernel/kernel.cpp:12
+12	    ttyClear();
+=> 0x00100268 <kernelMain_()+6>:	e8 5f 05 00 00	call   0x1007cc <_Z8ttyClearv>
+ttyClear () at src/kernel/tty/tty.cpp:113
+113	    for (unsigned short i = 0; i < TTY_HEIGHT * TTY_WIDTH; i++)
+=> 0x001007d2 <_Z8ttyClearv+6>:	66 c7 45 f6 00 00	mov    WORD PTR [ebp-0xa],0x0
+$1 = 0
+Breakpoint 2 at 0x1007fd: file src/kernel/tty/tty.cpp, line 115.
+Continuing.
+
+Breakpoint 2, ttyClear () at src/kernel/tty/tty.cpp:115
+115	    ttySetCursor(1, 1);
+=> 0x001007fd <_Z8ttyClearv+49>:	83 ec 08	sub    esp,0x8
+   0x00100800 <_Z8ttyClearv+52>:	6a 01	push   0x1
+   0x00100802 <_Z8ttyClearv+54>:	6a 01	push   0x1
+   0x00100804 <_Z8ttyClearv+56>:	e8 65 01 00 00	call   0x10096e <_Z12ttySetCursorhh>
+   0x00100809 <_Z8ttyClearv+61>:	83 c4 10	add    esp,0x10
+$2 = 0
+ttySetCursor(unsigned char, unsigned char) () at src/kernel/tty/ttySetCursor.S:6
+6	        pushl %ebp
+=> 0x0010096e <_Z12ttySetCursorhh+0>:	55	push   ebp
+eax            0x7d0               2000
+ecx            0x10                16
+edx            0xf9e               3998
+ebx            0x7ffdffff          2147352575
+esp            0x1050b8            0x1050b8
+ebp            0x1050e4            0x1050e4
+esi            0x0                 0
+edi            0x0                 0
+eip            0x10096e            0x10096e <ttySetCursor(unsigned char, unsigned char)>
+eflags         0x2                 [ IOPL=0 ]
+cs             0x8                 8
+ss             0x10                16
+ds             0x10                16
+es             0x10                16
+fs             0x10                16
+gs             0x10                16
+fs_base        0x0                 0
+gs_base        0x0                 0
+k_gs_base      0x0                 0
+cr0            0x11                [ ET PE ]
+cr2            0x0                 0
+cr3            0x0                 [ PDBR=0 PCID=0 ]
+cr4            0x0                 [ ]
+cr8            0x0                 0
+efer           0x0                 [ ]
+xmm0           {v4_float = {0x0, 0x0, 0x0, 0x0}, v2_double = {0x0, 0x0}, v16_int8 = {0x0 <repeats 16 times>}, v8_int16 = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}, v4_int32 = {0x0, 0x0, 0x0, 0x0}, v2_int64 = {0x0, 0x0}, uint128 = 0x0}
+xmm1           {v4_float = {0x0, 0x0, 0x0, 0x0}, v2_double = {0x0, 0x0}, v16_int8 = {0x0 <repeats 16 times>}, v8_int16 = {0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0}, v4_int32 = {0x0, 0x0, 0x0, 0x0}, v2_int64 = {0x0, 0x0}, uint128 = 0x0}
+Quit
+$3 = 0x1050b8
+0x1050b0:	0x00	0x00	0x08	0x00	0x00	0x00	0x00	0x00
+0x1050b8:	0x09	0x08	0x10	0x00	0x01	0x00	0x00	0x00
+0x1050c0:	0x01	0x00	0x00	0x00	0x00	0x00	0xef	0x08
+0x1050c8:	0x10	0x00	0x00	0x00	0x00	0x00	0xff	0xff
+0x1050b0:	0x00	0x00	0x08	0x00	0x00	0x00	0x00	0x00
+0x1050b8:	0x09	0x08	0x10	0x00	0x01	0x00	0x00	0x00
+0x1050c0:	0x01	0x00	0x00	0x00	0x00	0x00	0xef	0x08
+0x1050c8:	0x10	0x00	0x00	0x00	0x00	0x00	0xff	0xff
+0x1050d0:	0xfd	0x7f	0x00	0x00	0x00	0x00	0x00	0x00
+0x1050d8:	0x00	0x00	0xd0	0x07	0x10	0x00	0xfe	0x01
+0x1050e0:	0x10	0x00	0x00	0x00	0x04	0x51	0x10	0x00
+0x1050e8:	0x6d	0x02	0x10	0x00	0x10	0x00	0x00	0x00
+7	        movl %esp, %ebp
+=> 0x0010096f <_Z12ttySetCursorhh+1>:	89 e5	mov    ebp,esp
+9	        xorl %eax, %eax
+=> 0x00100971 <_Z12ttySetCursorhh+3>:	31 c0	xor    eax,eax
+10	        xorl %ecx, %ecx
+=> 0x00100973 <_Z12ttySetCursorhh+5>:	31 c9	xor    ecx,ecx
+12	        movb 12(%ebp), %al
+=> 0x00100975 <_Z12ttySetCursorhh+7>:	8a 45 0c	mov    al,BYTE PTR [ebp+0xc]
+13	        subb $1, %al
+=> 0x00100978 <_Z12ttySetCursorhh+10>:	2c 01	sub    al,0x1
+$4 = 0x1
+14	        movb $TTY_WIDTH, %cl
+=> 0x0010097a <_Z12ttySetCursorhh+12>:	b1 50	mov    cl,0x50
+15	        mulw %cx
+=> 0x0010097c <_Z12ttySetCursorhh+14>:	66 f7 e1	mul    cx
+17	        movb 8(%ebp), %bl
+=> 0x0010097f <_Z12ttySetCursorhh+17>:	8a 5d 08	mov    bl,BYTE PTR [ebp+0x8]
+$5 = 0x0
+18	        subb $1, %bl
+=> 0x00100982 <_Z12ttySetCursorhh+20>:	80 eb 01	sub    bl,0x1
+$6 = 0xff01
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x1002b9: file src/kernel/kernel.cpp, line 17.
+Continuing.
+
+Breakpoint 1, kernelMain_ () at src/kernel/kernel.cpp:17
+17	    int a = 1/0;
+=> 0x001002b9 <kernelMain_()+87>:	b8 01 00 00 00	mov    eax,0x1
+   0x001002be <kernelMain_()+92>:	b9 00 00 00 00	mov    ecx,0x0
+   0x001002c3 <kernelMain_()+97>:	99	cdq    
+   0x001002c4 <kernelMain_()+98>:	f7 f9	idiv   ecx
+   0x001002c6 <kernelMain_()+100>:	89 45 f4	mov    DWORD PTR [ebp-0xc],eax
+Breakpoint 2 at 0x100238: file src/arch/x86/interrupts/intTable.cpp, line 5.
+Continuing.
+
+Breakpoint 2, isr0 () at src/arch/x86/interrupts/intTable.cpp:5
+5	    ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, (char*)"The divisor is 0!\n");
+=> 0x00100238 <_Z4isr0P8IsrParam+6>:	83 ec 04	sub    esp,0x4
+   0x0010023b <_Z4isr0P8IsrParam+9>:	68 00 70 10 00	push   0x107000
+   0x00100240 <_Z4isr0P8IsrParam+14>:	6a 00	push   0x0
+   0x00100242 <_Z4isr0P8IsrParam+16>:	6a 0c	push   0xc
+   0x00100244 <_Z4isr0P8IsrParam+18>:	e8 a3 01 00 00	call   0x1003ec <_Z9ttyPutStrhhPc>
+   0x00100249 <_Z4isr0P8IsrParam+23>:	83 c4 10	add    esp,0x10
+Breakpoint 3 at 0x10024c: file src/arch/x86/interrupts/intTable.cpp, line 6.
+Continuing.
+
+Breakpoint 3, isr0 () at src/arch/x86/interrupts/intTable.cpp:6
+6	}
+=> 0x0010024c <_Z4isr0P8IsrParam+26>:	90	nop
+   0x0010024d <_Z4isr0P8IsrParam+27>:	c9	leave  
+   0x0010024e <_Z4isr0P8IsrParam+28>:	c3	ret    
+interruptHandler (ipp=0x1050d8) at src/arch/x86/interrupts/intFacade.cpp:12
+12	}
+=> 0x0010022f <interruptHandler(IsrParam*)+43>:	90	nop
+   0x00100230 <interruptHandler(IsrParam*)+44>:	c9	leave  
+   0x00100231 <interruptHandler(IsrParam*)+45>:	c3	ret    
+interruptWrapper () at src/arch/x86/asmIsr.S:21
+21	        popl %eax
+=> 0x00100905 <interruptWrapper+16>:	58	pop    eax
+interruptWrapper () at src/arch/x86/asmIsr.S:22
+22	        movl %eax, %esp
+=> 0x00100906 <interruptWrapper+17>:	89 c4	mov    esp,eax
+interruptWrapper () at src/arch/x86/asmIsr.S:23
+23	        addl $8, %esp
+=> 0x00100908 <interruptWrapper+19>:	83 c4 08	add    esp,0x8
+interruptWrapper () at src/arch/x86/asmIsr.S:25
+25	        iret
+=> 0x0010090b <interruptWrapper+22>:	cf	iret   
+asmIsr0 () at src/arch/x86/asmIsr.S:13
+13	    isrTemplate 0
+=> 0x001008ef <asmIsr0+0>:	6a 00	push   0x0
+   0x001008f1 <asmIsr0+2>:	6a 00	push   0x0
+   0x001008f3 <asmIsr0+4>:	eb 00	jmp    0x1008f5 <interruptWrapper>
+interruptWrapper () at src/arch/x86/asmIsr.S:16
+16	        movl %esp, %eax
+=> 0x001008f5 <interruptWrapper+0>:	89 e0	mov    eax,esp
+17	        andl $0xFFFFFFF0, %esp
+=> 0x001008f7 <interruptWrapper+2>:	83 e4 f0	and    esp,0xfffffff0
+interruptWrapper () at src/arch/x86/asmIsr.S:18
+18	        subl $0x10, %esp
+=> 0x001008fa <interruptWrapper+5>:	83 ec 10	sub    esp,0x10
+interruptWrapper () at src/arch/x86/asmIsr.S:19
+19	        movl %eax, (%esp)
+=> 0x001008fd <interruptWrapper+8>:	89 04 24	mov    DWORD PTR [esp],eax
+20	        call interruptHandler
+=> 0x00100900 <interruptWrapper+11>:	e8 ff f8 ff ff	call   0x100204 <interruptHandler(IsrParam*)>
+interruptHandler (ipp=0x1050d8) at src/arch/x86/interrupts/intFacade.cpp:10
+10	    if (ipp->vector < intTableSize)
+=> 0x0010020a <interruptHandler(IsrParam*)+6>:	8b 45 08	mov    eax,DWORD PTR [ebp+0x8]
+   0x0010020d <interruptHandler(IsrParam*)+9>:	8b 10	mov    edx,DWORD PTR [eax]
+11	        intTable[ipp->vector](ipp);
+=> 0x00100218 <interruptHandler(IsrParam*)+20>:	8b 45 08	mov    eax,DWORD PTR [ebp+0x8]
+   0x0010021b <interruptHandler(IsrParam*)+23>:	8b 00	mov    eax,DWORD PTR [eax]
+
+Breakpoint 2, isr0 () at src/arch/x86/interrupts/intTable.cpp:5
+5	    ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, (char*)"The divisor is 0!\n");
+=> 0x00100238 <_Z4isr0P8IsrParam+6>:	83 ec 04	sub    esp,0x4
+   0x0010023b <_Z4isr0P8IsrParam+9>:	68 00 70 10 00	push   0x107000
+   0x00100240 <_Z4isr0P8IsrParam+14>:	6a 00	push   0x0
+   0x00100242 <_Z4isr0P8IsrParam+16>:	6a 0c	push   0xc
+   0x00100244 <_Z4isr0P8IsrParam+18>:	e8 a3 01 00 00	call   0x1003ec <_Z9ttyPutStrhhPc>
+   0x00100249 <_Z4isr0P8IsrParam+23>:	83 c4 10	add    esp,0x10
+ttyPutStr (fg=12 '\f', bg=0 '\000', str=0x107000 "The divisor is 0!\n") at src/kernel/tty/tty.cpp:30
+30	    while (str[0] != '\0') {
+=> 0x001003fe <_Z9ttyPutStrhhPc+18>:	eb 23	jmp    0x100423 <_Z9ttyPutStrhhPc+55>
+Continuing.
+
+Breakpoint 3, isr0 () at src/arch/x86/interrupts/intTable.cpp:6
+6	}
+=> 0x0010024c <_Z4isr0P8IsrParam+26>:	90	nop
+   0x0010024d <_Z4isr0P8IsrParam+27>:	c9	leave  
+   0x0010024e <_Z4isr0P8IsrParam+28>:	c3	ret    
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x1002b9: file src/kernel/kernel.cpp, line 17.
+Breakpoint 2 at 0x100238: file src/arch/x86/interrupts/intTable.cpp, line 5.
+Continuing.
+
+Breakpoint 1, kernelMain_ () at src/kernel/kernel.cpp:17
+17	    int a = 1/0;
+=> 0x001002b9 <kernelMain_()+87>:	b8 01 00 00 00	mov    eax,0x1
+   0x001002be <kernelMain_()+92>:	b9 00 00 00 00	mov    ecx,0x0
+   0x001002c3 <kernelMain_()+97>:	99	cdq    
+   0x001002c4 <kernelMain_()+98>:	f7 f9	idiv   ecx
+   0x001002c6 <kernelMain_()+100>:	89 45 f4	mov    DWORD PTR [ebp-0xc],eax
+Continuing.
+
+Breakpoint 2, isr0 () at src/arch/x86/interrupts/intTable.cpp:5
+5	    ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, (char*)"The divisor is 0!\n");
+=> 0x00100238 <_Z4isr0P8IsrParam+6>:	83 ec 04	sub    esp,0x4
+   0x0010023b <_Z4isr0P8IsrParam+9>:	68 00 70 10 00	push   0x107000
+   0x00100240 <_Z4isr0P8IsrParam+14>:	6a 00	push   0x0
+   0x00100242 <_Z4isr0P8IsrParam+16>:	6a 0c	push   0xc
+   0x00100244 <_Z4isr0P8IsrParam+18>:	e8 a3 01 00 00	call   0x1003ec <_Z9ttyPutStrhhPc>
+   0x00100249 <_Z4isr0P8IsrParam+23>:	83 c4 10	add    esp,0x10
+Breakpoint 3 at 0x10024c: file src/arch/x86/interrupts/intTable.cpp, line 6.
+Continuing.
+
+Breakpoint 3, isr0 () at src/arch/x86/interrupts/intTable.cpp:6
+6	}
+=> 0x0010024c <_Z4isr0P8IsrParam+26>:	90	nop
+   0x0010024d <_Z4isr0P8IsrParam+27>:	c9	leave  
+   0x0010024e <_Z4isr0P8IsrParam+28>:	c3	ret    
+warning: Error detected on fd 0
+error detected on stdin
+[Inferior 1 (process 1) detached]

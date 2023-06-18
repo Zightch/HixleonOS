@@ -7,7 +7,9 @@
         movl %esp, %ebp
 
         xorl %eax, %eax
+        xorl %ebx, %ebx
         xorl %ecx, %ecx
+        xorl %edx, %edx
         /* ebp+8: x, ebp+12: y */
         movb 12(%ebp), %al
         subb $1, %al

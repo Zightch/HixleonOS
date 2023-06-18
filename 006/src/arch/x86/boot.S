@@ -11,7 +11,7 @@
     start:
         movl $stackTop, %esp
         movl $stackTop, %ebp
-        pushl $ebx
+        pushl %ebx
         call kernelInit_
 
         subl $0x06, %esp
@@ -24,7 +24,7 @@
         movl $idt_, 2(%esp)
         movw idtLimit_, %ax
         movw %ax, (%esp)
-        lgdt (%esp)
+        lidt (%esp)
 
         addl $0x06, %esp
 

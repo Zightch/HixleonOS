@@ -1,24 +1,31 @@
-oArgs+=-g -O0 -I ./includes -nostdlib
+oArgs+=-g -O0 -I ./src/includes -nostdlib
 eArgs+=-g -nostdlib -O0 -T linker.ld
+oDir:=o
+cmd:=i686-elf-g++
 
-Kernel: kernel.o tty.o boot.o GDT.o ttySetCursor.o
-	i686-elf-g++ build/boot.o build/kernel.o build/tty.o build/GDT.o build/ttySetCursor.o -o KERNEL.BIN ${eArgs}
+src := $(shell find ./src/ -maxdepth 7 -type d)
 
-kernel.o: kernel/kernel.cpp
-	i686-elf-g++ -c kernel/kernel.cpp -o build/kernel.o ${oArgs}
+allCpp += $(foreach dir,${src}, $(wildcard ${dir}/*.cpp))
+allS += $(foreach dir,${src}, $(wildcard ${dir}/*.S))
 
-ttySetCursor.o:
-	i686-elf-g++ -c kernel/tty/ttySetCursor.S -o build/ttySetCursor.o ${oArgs}
+oCpp += $(patsubst %.cpp, %.o, ${allCpp})
+oS += $(patsubst %.S, %.o, ${allS})
 
-tty.o: kernel/tty/tty.cpp
-	i686-elf-g++ -c kernel/tty/tty.cpp -o build/tty.o ${oArgs}
+OBJS += $(addprefix ${oDir}/, ${oCpp})
+OBJS += $(addprefix ${oDir}/, ${oS})
 
-boot.o: arch/x86/boot.S
-	i686-elf-g++ -c arch/x86/boot.S -o build/boot.o ${oArgs}
+Kernel: mkdir ${OBJS}
+	${cmd} ${OBJS} -o KERNEL.BIN ${eArgs}
 
-GDT.o: arch/x86/GDT.cpp
-	i686-elf-g++ -c arch/x86/GDT.cpp -o build/GDT.o ${oArgs}
+${oDir}/%.o: %.cpp
+	${cmd} -c $< -o $@ ${oArgs}
+
+${oDir}/%.o: %.S
+	${cmd} -c $< -o $@ ${oArgs}
+
+mkdir: ${oDir}
+	mkdir $(addprefix ${oDir}/, ${src})
 
 clear:
-	rm -rf build/*
+	rm -rf ${oDir}/*
 	rm -rf KERNEL.BIN

@@ -1,4 +1,4 @@
-#include "includes/Hixleon/arch/GDT.h"
+#include "Hixleon/arch/GDT.h"
 
 #define GDT_ENTRY 5
 

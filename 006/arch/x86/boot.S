@@ -33,6 +33,7 @@
 
     GDTDone:
         pushl %ebx
+        xorl %ebx, %ebx
         call kernelMain_
         cli
     pause:

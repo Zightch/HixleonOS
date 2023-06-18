@@ -6587,3 +6587,474 @@ Breakpoint 2, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:14
    0x00100072 <kernelMain_(void*)+24>:	83 c4 10	add    esp,0x10
 Continuing.
 [Inferior 1 (process 1) exited normally]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+No symbol table is loaded.  Use the "file" command.
+Detaching from pid process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+.gdbinit:4: Error in sourced command file:
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100179: file kernel/tty/tty.cpp, line 29.
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=72 'H') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+$1 = 0x104f58
+0x104f50:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f58:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f60:	0x00	0x00	0x00	0x00	0x48	0x00	0x00	0x00
+0x104f68:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x00100180	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+=> 0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+0x00100183	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+=> 0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+0x00100186	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+=> 0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+$2 = 0x104f4c
+0x104f40:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f48:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f50:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f58:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x00100187	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+=> 0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+0x104f40:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f48:	0x01	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f50:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+0x104f58:	0x00	0x00	0x00	0x00	0x00	0x00	0x00	0x00
+ttySetCursor(unsigned short) () at kernel/tty/ttySetCursor.S:6
+6	        pushl %ebp
+=> 0x00100371 <_Z12ttySetCursort+0>:	55	push   ebp
+7	        movl %esp, %ebp
+=> 0x00100372 <_Z12ttySetCursort+1>:	89 e5	mov    ebp,esp
+9	        xor %eax, %eax
+=> 0x00100374 <_Z12ttySetCursort+3>:	31 c0	xor    eax,eax
+$3 = 0x104f40
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100179: file kernel/tty/tty.cpp, line 29.
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=72 'H') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+0x00100180	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+=> 0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+0x00100183	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+=> 0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+0x00100186	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+=> 0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+0x00100187	29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+=> 0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+ttySetCursor(unsigned short) () at kernel/tty/ttySetCursor.S:6
+6	        pushl %ebp
+=> 0x00100371 <_Z12ttySetCursort+0>:	55	push   ebp
+7	        movl %esp, %ebp
+=> 0x00100372 <_Z12ttySetCursort+1>:	89 e5	mov    ebp,esp
+9	        xor %eax, %eax
+=> 0x00100374 <_Z12ttySetCursort+3>:	31 c0	xor    eax,eax
+10	        xor %ecx, %ecx
+=> 0x00100376 <_Z12ttySetCursort+5>:	31 c9	xor    ecx,ecx
+11	        movw 8(%ebp), %cx
+=> 0x00100378 <_Z12ttySetCursort+7>:	66 8b 4d 08	mov    cx,WORD PTR [ebp+0x8]
+13	        movw $0x03D4, %dx
+=> 0x0010037c <_Z12ttySetCursort+11>:	66 ba d4 03	mov    dx,0x3d4
+$1 = 0x1
+14	        movb $0x0F, %al
+=> 0x00100380 <_Z12ttySetCursort+15>:	b0 0f	mov    al,0xf
+15	        outb %al, %dx /* 设置为光标低8位 */
+=> 0x00100382 <_Z12ttySetCursort+17>:	ee	out    dx,al
+17	        movw $0x03D5, %dx
+=> 0x00100383 <_Z12ttySetCursort+18>:	66 ba d5 03	mov    dx,0x3d5
+18	        movb %cl, %al
+=> 0x00100387 <_Z12ttySetCursort+22>:	88 c8	mov    al,cl
+19	        outb %al, %dx /* 设置为光标低8位 */
+=> 0x00100389 <_Z12ttySetCursort+24>:	ee	out    dx,al
+$2 = 1 '\001'
+21	        shrl $8, %ecx
+=> 0x0010038a <_Z12ttySetCursort+25>:	c1 e9 08	shr    ecx,0x8
+23	        movw $0x03D4, %dx
+=> 0x0010038d <_Z12ttySetCursort+28>:	66 ba d4 03	mov    dx,0x3d4
+24	        movb $0x0E, %al
+=> 0x00100391 <_Z12ttySetCursort+32>:	b0 0e	mov    al,0xe
+25	        outb %al, %dx /* 设置为光标高8位 */
+=> 0x00100393 <_Z12ttySetCursort+34>:	ee	out    dx,al
+27	        movw $0x03D5, %dx
+=> 0x00100394 <_Z12ttySetCursort+35>:	66 ba d5 03	mov    dx,0x3d5
+28	        movb %cl, %al
+=> 0x00100398 <_Z12ttySetCursort+39>:	88 c8	mov    al,cl
+29	        outb %al, %dx /* 设置为光标高8位 */
+=> 0x0010039a <_Z12ttySetCursort+41>:	ee	out    dx,al
+$3 = 0x0
+31	        leave
+=> 0x0010039b <_Z12ttySetCursort+42>:	c9	leave  
+32	        ret
+=> 0x0010039c <_Z12ttySetCursort+43>:	c3	ret    
+0x0010018c in ttyPutChar (ch=72 'H') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+   0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+=> 0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+30	}
+=> 0x0010018f <_Z10ttyPutCharc+279>:	90	nop
+   0x00100190 <_Z10ttyPutCharc+280>:	c9	leave  
+   0x00100191 <_Z10ttyPutCharc+281>:	c3	ret    
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=101 'e') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=108 'l') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=108 'l') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=111 'o') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=44 ',') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=32 ' ') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Breakpoint 1, ttyPutChar (ch=72 'H') at kernel/tty/tty.cpp:29
+29	    ttySetCursor(offset);
+=> 0x00100179 <_Z10ttyPutCharc+257>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100180 <_Z10ttyPutCharc+264>:	0f b7 c0	movzx  eax,ax
+   0x00100183 <_Z10ttyPutCharc+267>:	83 ec 0c	sub    esp,0xc
+   0x00100186 <_Z10ttyPutCharc+270>:	50	push   eax
+   0x00100187 <_Z10ttyPutCharc+271>:	e8 e5 01 00 00	call   0x100371 <_Z12ttySetCursort>
+   0x0010018c <_Z10ttyPutCharc+276>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Program received signal SIGINT, Interrupt.
+pause () at arch/x86/boot.S:40
+40	        jmp pause
+=> 0x0010004a <pause+1>:	eb fd	jmp    0x100049 <pause>
+Detaching from pid process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100060: file kernel/kernel.cpp, line 13.
+Breakpoint 2 at 0x100065: file kernel/kernel.cpp, line 14.
+Breakpoint 3 at 0x100075: file kernel/kernel.cpp, line 15.
+Breakpoint 4 at 0x100089: file kernel/kernel.cpp, line 16.
+Continuing.
+
+Breakpoint 1, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:13
+13	    ttyClear();
+=> 0x00100060 <kernelMain_(void*)+6>:	e8 f6 04 00 00	call   0x10055b <_Z8ttyClearv>
+Continuing.
+
+Breakpoint 2, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:14
+14	    ttyPutStr((char *) "Hello, HixleonOS!\nLine Test1\nLine Test2\n");
+=> 0x00100065 <kernelMain_(void*)+11>:	83 ec 0c	sub    esp,0xc
+   0x00100068 <kernelMain_(void*)+14>:	68 00 60 10 00	push   0x106000
+   0x0010006d <kernelMain_(void*)+19>:	e8 03 04 00 00	call   0x100475 <_Z9ttyPutStrPc>
+   0x00100072 <kernelMain_(void*)+24>:	83 c4 10	add    esp,0x10
+ttyPutStr (str=0x106000 "Hello, HixleonOS!\nLine Test1\nLine Test2\n") at kernel/tty/tty.cpp:86
+86	    while (str[0] != '\0') {
+=> 0x0010047b <_Z9ttyPutStrPc+6>:	eb 19	jmp    0x100496 <_Z9ttyPutStrPc+33>
+87	        ttyPutChar(str[0]);
+=> 0x0010047d <_Z9ttyPutStrPc+8>:	8b 45 08	mov    eax,DWORD PTR [ebp+0x8]
+   0x00100480 <_Z9ttyPutStrPc+11>:	0f b6 00	movzx  eax,BYTE PTR [eax]
+ttyPutChar (ch=72 'H') at kernel/tty/tty.cpp:64
+64	    if (ch == '\n') {
+=> 0x00100371 <_Z10ttyPutCharc+12>:	80 7d e4 0a	cmp    BYTE PTR [ebp-0x1c],0xa
+   0x00100375 <_Z10ttyPutCharc+16>:	75 46	jne    0x1003bd <_Z10ttyPutCharc+88>
+68	    } else if (ch == '\r') {
+=> 0x001003bd <_Z10ttyPutCharc+88>:	80 7d e4 0d	cmp    BYTE PTR [ebp-0x1c],0xd
+   0x001003c1 <_Z10ttyPutCharc+92>:	75 36	jne    0x1003f9 <_Z10ttyPutCharc+148>
+72	        ttyBase[2 * ttyOffset] = ch;
+=> 0x001003f9 <_Z10ttyPutCharc+148>:	a1 00 50 10 00	mov    eax,ds:0x105000
+73	        ttyOffset++;
+=> 0x00100412 <_Z10ttyPutCharc+173>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100419 <_Z10ttyPutCharc+180>:	83 c0 01	add    eax,0x1
+   0x0010041c <_Z10ttyPutCharc+183>:	66 a3 be 4f 10 00	mov    ds:0x104fbe,ax
+75	    if (ttyOffset >= 1999) {
+=> 0x00100422 <_Z10ttyPutCharc+189>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+$1 = 1
+80	    ttyGetCursor(x, y);
+=> 0x00100444 <_Z10ttyPutCharc+223>:	83 ec 08	sub    esp,0x8
+   0x00100447 <_Z10ttyPutCharc+226>:	8d 45 f6	lea    eax,[ebp-0xa]
+   0x0010044a <_Z10ttyPutCharc+229>:	50	push   eax
+   0x0010044b <_Z10ttyPutCharc+230>:	8d 45 f7	lea    eax,[ebp-0x9]
+   0x0010044e <_Z10ttyPutCharc+233>:	50	push   eax
+   0x0010044f <_Z10ttyPutCharc+234>:	e8 b8 01 00 00	call   0x10060c <_Z12ttyGetCursorRhS_>
+   0x00100454 <_Z10ttyPutCharc+239>:	83 c4 10	add    esp,0x10
+ttyGetCursor (x=@0x104f67: 0 '\000', y=@0x104f66: 0 '\000') at kernel/tty/tty.cpp:123
+123	    x = ttyOffset % TTY_WIDTH;
+=> 0x0010060f <_Z12ttyGetCursorRhS_+3>:	0f b7 0d be 4f 10 00	movzx  ecx,WORD PTR ds:0x104fbe
+   0x00100616 <_Z12ttyGetCursorRhS_+10>:	0f b7 c1	movzx  eax,cx
+   0x00100619 <_Z12ttyGetCursorRhS_+13>:	69 c0 cd cc 00 00	imul   eax,eax,0xcccd
+   0x0010061f <_Z12ttyGetCursorRhS_+19>:	c1 e8 10	shr    eax,0x10
+   0x00100622 <_Z12ttyGetCursorRhS_+22>:	89 c2	mov    edx,eax
+   0x00100624 <_Z12ttyGetCursorRhS_+24>:	66 c1 ea 06	shr    dx,0x6
+   0x00100628 <_Z12ttyGetCursorRhS_+28>:	89 d0	mov    eax,edx
+   0x0010062a <_Z12ttyGetCursorRhS_+30>:	c1 e0 02	shl    eax,0x2
+   0x0010062d <_Z12ttyGetCursorRhS_+33>:	01 d0	add    eax,edx
+   0x0010062f <_Z12ttyGetCursorRhS_+35>:	c1 e0 04	shl    eax,0x4
+   0x00100632 <_Z12ttyGetCursorRhS_+38>:	29 c1	sub    ecx,eax
+   0x00100634 <_Z12ttyGetCursorRhS_+40>:	89 ca	mov    edx,ecx
+$2 = 1
+$3 = (unsigned char &) @0x104f67: 0 '\000'
+$4 = (unsigned char &) @0x104f66: 0 '\000'
+124	    x += 1;
+=> 0x0010063b <_Z12ttyGetCursorRhS_+47>:	8b 45 08	mov    eax,DWORD PTR [ebp+0x8]
+   0x0010063e <_Z12ttyGetCursorRhS_+50>:	0f b6 00	movzx  eax,BYTE PTR [eax]
+125	    y = ttyOffset / TTY_WIDTH;
+=> 0x00100649 <_Z12ttyGetCursorRhS_+61>:	0f b7 05 be 4f 10 00	movzx  eax,WORD PTR ds:0x104fbe
+   0x00100650 <_Z12ttyGetCursorRhS_+68>:	0f b7 c0	movzx  eax,ax
+   0x00100653 <_Z12ttyGetCursorRhS_+71>:	69 c0 cd cc 00 00	imul   eax,eax,0xcccd
+   0x00100659 <_Z12ttyGetCursorRhS_+77>:	c1 e8 10	shr    eax,0x10
+   0x0010065c <_Z12ttyGetCursorRhS_+80>:	66 c1 e8 06	shr    ax,0x6
+126	    y += 1;
+=> 0x00100667 <_Z12ttyGetCursorRhS_+91>:	8b 45 0c	mov    eax,DWORD PTR [ebp+0xc]
+   0x0010066a <_Z12ttyGetCursorRhS_+94>:	0f b6 00	movzx  eax,BYTE PTR [eax]
+127	}
+=> 0x00100675 <_Z12ttyGetCursorRhS_+105>:	90	nop
+   0x00100676 <_Z12ttyGetCursorRhS_+106>:	5d	pop    ebp
+   0x00100677 <_Z12ttyGetCursorRhS_+107>:	c3	ret    
+ttyPutChar (ch=72 'H') at kernel/tty/tty.cpp:81
+81	    ttySetCursor(x, y);
+=> 0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+   0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+   0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+   0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+   0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+   0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+   0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+   0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+$5 = 2 '\002'
+$6 = 1 '\001'
+0x0010045b	81	    ttySetCursor(x, y);
+   0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+=> 0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+   0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+   0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+   0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+   0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+   0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+   0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+0x0010045e	81	    ttySetCursor(x, y);
+   0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+   0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+=> 0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+   0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+   0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+   0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+   0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+   0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+0x00100462	81	    ttySetCursor(x, y);
+   0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+   0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+   0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+=> 0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+   0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+   0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+   0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+   0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+0x00100465	81	    ttySetCursor(x, y);
+   0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+   0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+   0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+   0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+=> 0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+   0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+   0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+   0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+0x00100468	81	    ttySetCursor(x, y);
+   0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+   0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+   0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+   0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+   0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+=> 0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+   0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+   0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+0x00100469	81	    ttySetCursor(x, y);
+   0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+   0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+   0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+   0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+   0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+   0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+=> 0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+   0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+0x0010046a	81	    ttySetCursor(x, y);
+   0x00100457 <_Z10ttyPutCharc+242>:	0f b6 45 f6	movzx  eax,BYTE PTR [ebp-0xa]
+   0x0010045b <_Z10ttyPutCharc+246>:	0f b6 d0	movzx  edx,al
+   0x0010045e <_Z10ttyPutCharc+249>:	0f b6 45 f7	movzx  eax,BYTE PTR [ebp-0x9]
+   0x00100462 <_Z10ttyPutCharc+253>:	0f b6 c0	movzx  eax,al
+   0x00100465 <_Z10ttyPutCharc+256>:	83 ec 08	sub    esp,0x8
+   0x00100468 <_Z10ttyPutCharc+259>:	52	push   edx
+   0x00100469 <_Z10ttyPutCharc+260>:	50	push   eax
+=> 0x0010046a <_Z10ttyPutCharc+261>:	e8 19 03 00 00	call   0x100788 <_Z12ttySetCursorhh>
+   0x0010046f <_Z10ttyPutCharc+266>:	83 c4 10	add    esp,0x10
+ttySetCursor(unsigned char, unsigned char) () at kernel/tty/ttySetCursor.S:6
+6	        pushl %ebp
+=> 0x00100788 <_Z12ttySetCursorhh+0>:	55	push   ebp
+7	        movl %esp, %ebp
+=> 0x00100789 <_Z12ttySetCursorhh+1>:	89 e5	mov    ebp,esp
+9	        xorl %eax, %eax
+=> 0x0010078b <_Z12ttySetCursorhh+3>:	31 c0	xor    eax,eax
+10	        xorl %ecx, %ecx
+=> 0x0010078d <_Z12ttySetCursorhh+5>:	31 c9	xor    ecx,ecx
+12	        movb 12(%ebp), %al
+=> 0x0010078f <_Z12ttySetCursorhh+7>:	8a 45 0c	mov    al,BYTE PTR [ebp+0xc]
+13	        subb $1, %al
+=> 0x00100792 <_Z12ttySetCursorhh+10>:	2c 01	sub    al,0x1
+$7 = 0x1
+14	        movb $TTY_WIDTH, %cl
+=> 0x00100794 <_Z12ttySetCursorhh+12>:	b1 50	mov    cl,0x50
+15	        mulw %cx
+=> 0x00100796 <_Z12ttySetCursorhh+14>:	66 f7 e1	mul    cx
+17	        movb 8(%ebp), %bl
+=> 0x00100799 <_Z12ttySetCursorhh+17>:	8a 5d 08	mov    bl,BYTE PTR [ebp+0x8]
+$8 = 0x0
+18	        subb $1, %bl
+=> 0x0010079c <_Z12ttySetCursorhh+20>:	80 eb 01	sub    bl,0x1
+19	        addw %bx, %ax
+=> 0x0010079f <_Z12ttySetCursorhh+23>:	66 01 d8	add    ax,bx
+$9 = 0x7ffdff01
+Detaching from pid process 1
+Remote connection closed
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x100067: file kernel/kernel.cpp, line 14.
+Breakpoint 2 at 0x100077: file kernel/kernel.cpp, line 15.
+Continuing.
+
+Breakpoint 1, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:14
+14	    ttyPutStr((char *) "Hello, HixleonOS!\nLine Test1\nLine Test2\n");
+=> 0x00100067 <kernelMain_(void*)+11>:	83 ec 0c	sub    esp,0xc
+   0x0010006a <kernelMain_(void*)+14>:	68 00 60 10 00	push   0x106000
+   0x0010006f <kernelMain_(void*)+19>:	e8 03 04 00 00	call   0x100477 <_Z9ttyPutStrPc>
+   0x00100074 <kernelMain_(void*)+24>:	83 c4 10	add    esp,0x10
+Continuing.
+
+Breakpoint 2, kernelMain_ (memoryMax=0x7ffdffff) at kernel/kernel.cpp:15
+15	    ttyPutStr(VGA_COLOR_GREEN, VGA_COLOR_BLACK, (char *) "Color Test1\n");
+=> 0x00100077 <kernelMain_(void*)+27>:	83 ec 04	sub    esp,0x4
+   0x0010007a <kernelMain_(void*)+30>:	68 29 60 10 00	push   0x106029
+   0x0010007f <kernelMain_(void*)+35>:	6a 00	push   0x0
+   0x00100081 <kernelMain_(void*)+37>:	6a 02	push   0x2
+   0x00100083 <kernelMain_(void*)+39>:	e8 3a 01 00 00	call   0x1001c2 <_Z9ttyPutStrhhPc>
+   0x00100088 <kernelMain_(void*)+44>:	83 c4 10	add    esp,0x10
+Continuing.
+[Inferior 1 (process 1) exited normally]

@@ -1,4 +1,4 @@
-#include "Hixleon/tty/ttyDefine.h"
+#include <Hixleon/tty/ttyDefine.h>
 .section .text
     .global _Z12ttySetCursorhh
     .type _Z12ttySetCursorhh, @function

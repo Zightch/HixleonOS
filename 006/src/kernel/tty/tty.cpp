@@ -1,4 +1,4 @@
-#include "Hixleon/tty/tty.h"
+#include <Hixleon/tty/tty.h>
 
 char *ttyBase = (char*)0xB8000;
 unsigned char ttyTheme = 0x07;

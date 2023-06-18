@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Hixleon/tty/ttyDefine.h"
+#include <Hixleon/tty/ttyDefine.h>
 
 #define VGA_COLOR_BLACK          ((unsigned char)0)
 #define VGA_COLOR_BLUE           ((unsigned char)1)

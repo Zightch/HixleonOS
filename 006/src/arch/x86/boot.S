@@ -9,15 +9,23 @@
     .global start
     .type start, @function
     start:
-        movl $stackTop - 4, %esp
+        movl $stackTop, %esp
         movl $stackTop, %ebp
+        pushl $ebx
         call kernelInit_
 
         subl $0x06, %esp
+
         movl $gdt_, 2(%esp)
         movw gdtLimit_, %ax
         movw %ax, (%esp)
         lgdt (%esp)
+
+        movl $idt_, 2(%esp)
+        movw idtLimit_, %ax
+        movw %ax, (%esp)
+        lgdt (%esp)
+
         addl $0x06, %esp
 
         movw $0x10, %cx
@@ -32,8 +40,6 @@
         retf
 
     GDTDone:
-        pushl %ebx
-        xorl %ebx, %ebx
         call kernelMain_
         cli
     pause:

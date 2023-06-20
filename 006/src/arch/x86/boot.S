@@ -9,8 +9,9 @@
     .global start
     .type start, @function
     start:
-        movl $stackTop, %esp
+        movl $stackTop - 4, %esp
         movl $stackTop, %ebp
+        pushl %ecx
         pushl %ebx
         call kernelInit_
 

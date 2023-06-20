@@ -3,12 +3,15 @@ export src=006
 
 cd ${src}
 make clear
-make
 cd ..
 
 rm -rf HixleonOS.img
 rm -rf ${src}/LOADER
 rm -rf ${src}/mbr
+
+cd ${src}
+make
+cd ..
 
 nasm ${src}/mbr.asm
 nasm ${src}/LOADER.ASM

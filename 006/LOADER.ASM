@@ -44,58 +44,28 @@ loop setGDT.for
 mov dword ebx, am
 lgdt [ebx]
 
-;初始化am + 16
-mov dword ebx, am + 16
-xor dword eax, eax
-mov dword [ebx], eax
-;开始计算内存大小
-mov dword edi, am + 20;信息存放地址
+;开始获取内存地图
+xor dword esi, esi
+xor dword ebx, ebx;下是否有下一个表
+mov dword edi, am + 22;信息存放地址
 mov dword ecx, 20;表大小
-mov dword ebx, 0;下是否有下一个表
 mov dword edx, 0x534d4150;表标识符
+mov dword eax, 0xe820;中断号
 ; 获取内存信息
 getMemorySize.for:
-xor dword esi, esi
-mov dword eax, 0xe820;中断号
 int 0x15
 jc memE
 cmp dword edx, 0x534d4150; 比较edx和内存映射表的签名是否相同
 jne memE ; 如果不相同，跳转到错误处理
-mov dword esi, es : [edi]
-cmp dword esi, 0x100000
-jne getMemorySize.continue
-mov dword esi, es : [edi + 4]
-cmp dword esi, 0
-jne getMemorySize.continue
-mov dword esi, es : [edi + 16]
-cmp dword esi, 1
-jne memE
-jmp getMemSize
-getMemorySize.continue:
+mov dword eax, 0xe820;中断号
+add dword esi, 1
+add dword edi, ecx
 cmp dword ebx, 0
-je memE
-jmp getMemorySize.for
-;内存大小结束计算
-
-getMemSize:
-mov dword eax, es : [edi + 8]
-cmp dword eax, 0xFF_F0_00_00
-ja .maxMemSize
-mov dword ebx, es : [edi + 12]
-cmp dword ebx, 0
-je .setMemSize
-.maxMemSize:
-mov dword eax, 0xFF_F0_00_00
-.setMemSize:
-sub dword eax, 1
-add dword eax, 0x100000
-mov dword ebx, am + 16
-mov dword [ebx], eax
-
-mov dword ebx, am + 16
-mov dword eax, [ebx]
-cmp eax, 0
-jne toPM
+jne getMemorySize.for
+mov dword ebx, am + 20
+mov word [ebx], si;写入内存地图长度
+jmp toPM
+;内存地图获取结束
 
 ;----内存获取错误----
 memE:
@@ -157,10 +127,9 @@ mov word ss, ax
 ;am + 6(2)  : 临时簇号保存
 ;am + 8(4) : 上一次读取的扇区号
 ;am + 12(4) : 文件断点续写地址
-;am + 16(4) : 最大访问到的内存条地址
-;am + 20(4) : Kernel文件的起始地址
-;0x7E00 : 扇区缓存区
-;0x100000 : Kernel文件区
+;am + 16(4) : Kernel文件的起始地址
+;am + 20(2) : 内存地图长度
+;am + 22 : 内存地图
 
 xor dword eax, eax
 mov dword ebx, am + 8
@@ -219,22 +188,53 @@ mov dword esi, ebx
 mov dword eax, [esi + 28] ;获取文件长度
 cmp dword eax, 0
 je fileError
+
+;文件起始位置
 ;计算文件写入地址:内存的最后一块区域
+;先找到0x100000开始的内存长度, 并计算
+get1MBLimit:
+xor dword ecx, ecx
+mov dword ebx, am + 20
+mov word cx, [ebx]
+mov dword ebx, am + 22
+.find1MB:
+mov dword edx, [ebx]
+cmp dword edx, 0x100000
+jne .continue
+mov dword edx, [ebx + 4]
+cmp dword edx, 0
+jne .continue
+jmp .break
+.continue:
+add dword ebx, 20
+loop .find1MB
+jmp 0x0008 : memE;如果没有0x100000内存段
+.break:
+
+mov dword edi, eax;暂存eax的值到edi
+
+mov dword eax, [ebx + 8]
+cmp dword eax, 0xFF_F0_00_00
+ja .maxMemSize
+mov dword ecx, [ebx + 12]
+cmp dword ecx, 0
+je .setMemSize
+.maxMemSize:
+mov dword eax, 0xFF_F0_00_00
+.setMemSize:
+sub dword eax, 1
+add dword eax, 0x100000
+
+sub dword eax, edi
+
 xor dword edx, edx
 mov dword ecx, 512
 div dword ecx
-cmp dword edx, 0
 mul dword ecx
-je skipAdd512
-add dword eax, 512
-skipAdd512:
 mov dword ebx, am + 16
-mov dword ecx, [ebx]
-sub ecx, eax
+mov dword [ebx], eax
 mov dword ebx, am + 12
-mov dword [ebx], ecx
-mov dword ebx, am + 20
-mov dword [ebx], ecx
+mov dword [ebx], eax
 
 ;获取起始簇号
 xor dword eax, eax
@@ -315,7 +315,7 @@ readFileEnd:
 ; 7 ~ 15       9    忽略
 
 ;----确定Magic---
-mov dword ebx, am + 20
+mov dword ebx, am + 16
 mov dword esi, [ebx];获取文件开始地址
 mov dword eax, [esi]
 cmp dword eax, 0x464C457F
@@ -384,7 +384,7 @@ mov dword ecx, [ebx + 20];获取节长度
 mov dword eax, [ebx + 4];获取节类型
 cmp dword eax, 8
 je .skipCopyFile;如果是NOBITS, 跳过复制文件
-mov dword esi, am + 20
+mov dword esi, am + 16
 mov dword esi, [esi];获取文件起始地址
 mov dword eax, [ebx + 16];获取文件偏移
 add dword esi, eax;偏移
@@ -410,13 +410,16 @@ loop sectionTrvs
 ;----遍历节头表, 为Kernel程序分配内存----
 
 ;分配完成后进入kernel
-mov dword esi, am + 20
+;eax:0x100000
+;ebx:内存地图起始地址
+;ecx:内存地图大小
+mov dword esi, am + 16
 mov dword esi, [esi]
 mov dword eax, [esi + 24]
-mov dword esi, am + 16
-mov dword ebx, [esi]
+mov dword esi, am + 20
+mov dword ecx, [esi]
+mov dword ebx, am + 22
 ;清空寄存器
-xor dword ecx, ecx
 xor dword edx, edx
 xor dword esi, esi
 xor dword edi, edi

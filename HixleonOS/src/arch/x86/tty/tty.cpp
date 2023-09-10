@@ -26,7 +26,7 @@ void ttySetTheme(unsigned char x, unsigned char y, unsigned char fg, unsigned ch
 }
 
 //打印字符串加主题
-void ttyPutStr(unsigned char fg, unsigned char bg, char* str) {
+void ttyPutStr(unsigned char fg, unsigned char bg, const char *str) {
     while (str[0] != '\0') {
         ttyPutChar(fg, bg, str[0]);
         str++;
@@ -82,7 +82,7 @@ void ttyPutChar(char ch) {
 }
 
 //打印字符串
-void ttyPutStr(char *str) {
+void ttyPutStr(const char *str) {
     while (str[0] != '\0') {
         ttyPutChar(str[0]);
         str++;

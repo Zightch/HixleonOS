@@ -23,8 +23,8 @@ void ttySetChar(unsigned char, unsigned char, char);//设置一个位置的字�
 void ttySetTheme(unsigned char, unsigned char, unsigned char, unsigned char);//设置一个位置的主题
 void ttyPutChar(char);//打印单个字符
 void ttyPutChar(unsigned char, unsigned char, char);//打印单个字符加字符主题
-void ttyPutStr(char*);//打印字符串加主题
-void ttyPutStr(unsigned char, unsigned char, char*);//打印字符串
+void ttyPutStr(const char *);//打印字符串加主题
+void ttyPutStr(unsigned char, unsigned char, const char *);//打印字符串
 void ttyScrollUp();//向上滚
 void ttyClear();//清屏
 void ttySetTheme(unsigned char, unsigned char);//设置全局主题

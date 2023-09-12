@@ -1,5 +1,5 @@
-oArgs:=-I include -nostdlib -nostdinc -nodefaultlibs -nostartfiles -fPIC -fPIE -O0 -g
-eArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -fPIC -fPIE -O0 -g -T linker.ld
+oArgs:=-I include -nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -g -static
+eArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -g -T linker.ld -static
 oDir:=obj
 cmd:=i686-elf-g++
 

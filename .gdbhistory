@@ -2,3 +2,48 @@ b *0x83d2
 c
 p/x $eax
 q
+b *0x83d2
+c
+si
+si
+s
+s
+p/x $ecx
+si
+si
+si
+si
+si
+si
+p/x $eax
+p $eax
+si
+p/x $edi
+si
+si
+p/x $ecx
+p/x $eax
+p/x $ebx
+si
+si
+p/x $edx
+x/32xb $ebx
+b boot.S:44
+c
+p/x $esp
+p/x $ebp
+si
+si
+si
+si
+si
+si
+si
+si
+si
+x/32xb 0xC0000000
+x/32xb 0x84fe
+x/128xb 0x84fe
+x/192xb 0x84fe
+c
+q

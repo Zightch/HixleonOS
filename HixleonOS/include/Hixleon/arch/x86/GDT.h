@@ -54,4 +54,4 @@
         SD_PRESENT(1) | SD_AVL(0) | SD_64BITS(0) | SD_32BITS(1) | SD_4K_GRAN(1) \
     )
 
-void initGDT_();
+void initGDT();

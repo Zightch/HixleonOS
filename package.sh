@@ -2,10 +2,6 @@
 export src=HixleonOS
 export arch=x86
 
-cd ${src}
-make clear
-cd ..
-
 rm -rf HixleonOS.img
 rm -rf ${src}/boot/${arch}/LOADER
 rm -rf ${src}/boot/${arch}/mbr

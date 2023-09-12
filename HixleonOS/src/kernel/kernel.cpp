@@ -3,12 +3,12 @@
 #include "Hixleon/arch/x86/GDT.h"
 #include "Hixleon/arch/x86/IDT.h"
 
-void kernelInit_(MemoryMap *memoryMap, unsigned short mapSize) {
-    initGDT_();
-    initIDT_();
+void kernelInit(MemoryMap *memoryMap, unsigned short mapSize) {
+    initGDT();
+    initIDT();
 }
 
-void kernelMain_() {
+void kernelMain() {
     ttyClear();
     ttyPutStr("Hello, HixleonOS!\nLine Test1\nLine Test2\n");
     ttyPutStr(VGA_COLOR_GREEN, VGA_COLOR_BLACK, "Color Test1\n");

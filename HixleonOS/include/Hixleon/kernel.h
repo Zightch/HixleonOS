@@ -7,6 +7,3 @@ class MemoryMap {
     unsigned int type;
 };
 #pragma pack(pop)
-
-void kernelInit_(MemoryMap *, unsigned short);
-void kernelMain_();

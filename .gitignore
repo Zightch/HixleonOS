@@ -2,5 +2,3 @@
 .vscode
 cmake-build-*
 HixleonOS/obj
-.gdb*
-gdb*

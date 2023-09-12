@@ -1,0 +1,11 @@
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+Breakpoint 1 at 0x83d2
+Continuing.
+
+Breakpoint 1, 0x000083d2 in ?? ()
+=> 0x000083d2:	ff e0	jmp    eax
+$1 = 0x100010
+Detaching from pid process 1
+Remote communication error.  Target disconnected.: 连接被对方重设.

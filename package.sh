@@ -16,7 +16,9 @@ nasm ${src}/boot/${arch}/mbr.asm
 dd if=/dev/zero of=HixleonOS.img bs=1M count=4
 dd conv=notrunc if=${src}/boot/${arch}/mbr of=HixleonOS.img
 
+mkdir tmp
 mount HixleonOS.img tmp/
 cp ${src}/boot/${arch}/LOADER tmp/LOADER
 cp ${src}/KERNEL tmp/KERNEL
 umount -R tmp
+rm -rf tmp

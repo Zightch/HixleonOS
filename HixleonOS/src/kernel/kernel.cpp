@@ -1,7 +1,7 @@
-#include "Hixleon/kernel.h"
-#include "Hixleon/arch/x86/tty.h"
-#include "Hixleon/arch/x86/GDT.h"
-#include "Hixleon/arch/x86/IDT.h"
+#include "kernel.h"
+#include "arch/x86/kernel/tty.h"
+#include "arch/x86/kernel/GDT.h"
+#include "arch/x86/kernel/IDT.h"
 
 void kernelInit(MemoryMap *memoryMap, unsigned short mapSize) {
     initGDT();

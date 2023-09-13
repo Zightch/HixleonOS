@@ -47,3 +47,20 @@ x/128xb 0x84fe
 x/192xb 0x84fe
 c
 q
+b kernel.cpp:7
+c
+q
+b kernel.cpp:7
+c
+p memoryMap
+p *memoryMap
+p memoryMap[1]
+p memoryMap[2]
+p memoryMap[3]
+p memoryMap[4]
+p memoryMap[5]
+p memoryMap[6]
+p memoryMap[7]
+s
+c
+q

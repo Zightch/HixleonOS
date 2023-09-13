@@ -1,4 +1,4 @@
-#include "Hixleon/arch/x86/ttyWH.h"
+#include "arch/x86/kernel/ttyWH.h"
 
 .section .text
     .global _Z12ttySetCursorhh

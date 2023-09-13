@@ -34,10 +34,6 @@ namespace HHKInit {
 
 #define PE(flags, peAddr)     (((unsigned int)(peAddr) & 0xFFFFF000) | ((flags) & 0xfff))
 
-// #define PT_ADDR(ptd, ptdIndex)               ((unsigned int*)ptd + (ptdIndex + 1) * 1024)
-// #define SET_PDE(ptd, pdeIndex, pde)          (*((unsigned int*)ptd + pdeIndex)) = pde;
-// #define SET_PTE(ptd, ptdIndex, pteIndex, pte) (*(PT_ADDR(ptd, ptdIndex) + pteIndex)) = pte;
-
 // 页表低12位flags
 #define PG_PRESENT        1
 #define PG_WRITE          (1 << 1)
@@ -46,11 +42,9 @@ namespace HHKInit {
 #define PG_DISABLE_CACHE  (1 << 4)
 #define PG_PDE_4MB        (1 << 7)
 
-#define PG_PREM_RW             PG_PRESENT | PG_WRITE
-
 #define GET_LD_DATA(var) ((unsigned int)&var)
 
-extern unsigned int *hhkInitEnd;
-extern unsigned int *kernelStart;
-extern unsigned int *kernelEnd;
-extern unsigned int *heapStart;
+extern unsigned int hhkInitEnd;
+extern unsigned int kernelStart;
+extern unsigned int kernelEnd;
+extern unsigned int heapStart;

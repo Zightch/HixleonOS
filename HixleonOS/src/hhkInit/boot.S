@@ -15,7 +15,7 @@
     .type main, @function
     main:
         cli # 关中断，直到我们准备好PIC为止
-        movl $stackTop - 8, %esp
+        movl $stackTop - 4, %esp
         movl $stackTop - 4, %ebp
         # 内存地图保存
         pushl %ecx
@@ -37,5 +37,6 @@
         popl %eax
         popl %eax
         popl %ebx
+        movl $kPTD, %ecx
 
         jmp kernelEntry

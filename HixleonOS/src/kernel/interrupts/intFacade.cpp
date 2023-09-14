@@ -1,4 +1,4 @@
-#include "arch/x86/kernel/interrupts/intFacade.h"
+#include "kernel/interrupts/intFacade.h"
 
 typedef void (*IntFn)(IsrParam*);
 

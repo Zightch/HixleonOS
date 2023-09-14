@@ -1,4 +1,4 @@
-#include "arch/x86/kernel/GDT.h"
+#include "kernel/GDT.h"
 
 #define GDT_ENTRY 5
 

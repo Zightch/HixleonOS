@@ -1,4 +1,4 @@
-#include "arch/x86/kernel/tty.h"
+#include "kernel/tty.h"
 
 char *ttyBase = (char*)0xB8000;
 unsigned char ttyTheme = 0x07;

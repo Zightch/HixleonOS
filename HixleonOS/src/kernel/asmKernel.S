@@ -8,11 +8,12 @@
     .global kernelEntry
     .type kernelEntry, @function
     kernelEntry:
-        movl $stackTop - 8, %esp
+        movl $stackTop - 4, %esp
         movl $stackTop - 4, %ebp
+        pushl %ecx
         pushl %ebx
         pushl %eax
-        call _Z10kernelInitP9MemoryMapt
+        call _Z10kernelInitP9MemoryMaptPv
 
         subl $0x06, %esp
 

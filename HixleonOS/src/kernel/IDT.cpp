@@ -1,5 +1,5 @@
-#include "arch/x86/kernel/IDT.h"
-#include "arch/x86/kernel/interrupts/intFacade.h"
+#include "kernel/IDT.h"
+#include "kernel/interrupts/intFacade.h"
 
 #define IDT_ENTRY 32
 

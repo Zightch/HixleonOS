@@ -1,4 +1,4 @@
-#include "arch/x86/kernel/ttyWH.h"
+#include "kernel/ttyWH.h"
 
 .section .text
     .global _Z12ttySetCursorhh

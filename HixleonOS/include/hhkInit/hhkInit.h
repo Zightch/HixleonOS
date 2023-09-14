@@ -13,7 +13,7 @@ class(const class &) = delete; \
 class &operator=(const class &) = delete; \
 private: \
 
-#define PG_MAX_ENTRIES 1024
+#define PE_MAX_NUM 1024
 #define PTE_MAX_NUM 5
 
 namespace HHKInit {
@@ -22,8 +22,8 @@ namespace HHKInit {
     class PageTable {
         NOT_ALLOC_DATA(PageTable)
     public:
-        unsigned int pde[PG_MAX_ENTRIES];//页目录项
-        unsigned int pte[PTE_MAX_NUM][PG_MAX_ENTRIES];//页表表项
+        unsigned int pde[PE_MAX_NUM];//页目录项
+        unsigned int pte[PTE_MAX_NUM][PE_MAX_NUM];//页表表项
     };
 
 #pragma pack(pop)

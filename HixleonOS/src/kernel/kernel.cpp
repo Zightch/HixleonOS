@@ -1,9 +1,9 @@
-#include "kernel.h"
-#include "arch/x86/kernel/tty.h"
-#include "arch/x86/kernel/GDT.h"
-#include "arch/x86/kernel/IDT.h"
+#include "kernel/kernel.h"
+#include "kernel/tty.h"
+#include "kernel/GDT.h"
+#include "kernel/IDT.h"
 
-void kernelInit(MemoryMap *memoryMap, unsigned short mapSize) {
+void kernelInit(MemoryMap *memoryMap, unsigned short mapSize, void *kpg) {
     initGDT();
     initIDT();
 }

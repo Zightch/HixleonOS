@@ -54,4 +54,7 @@ void kernelMain() {
     unsigned int unusable = (memUpper + 1) >> 12;
     physMem::setSectionPageUsage((void *) unusable, (void *) 1048576, true);
 
+    //获取可用页测试
+    void *tmp = physMem::getUsablePage();
+    if (physMem::addrIsUsing(tmp))ttyPutStr("1\n");//如果页被占用, 输出1
 }

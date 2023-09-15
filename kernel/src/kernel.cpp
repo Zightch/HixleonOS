@@ -49,9 +49,9 @@ void kernelMain() {
     physMem::setSectionPageUsage(nullptr, 256, true);
     //0x100000 ~ kernelEnd 已使用
     unsigned int kernelEndPage = (GET_LD_DATA(kernelEnd) - 0xC0000000) >> 12;
-    physMem::setSectionPageUsage((void*)256, (void*)kernelEndPage, true);
+    physMem::setSectionPageUsage((void *) 256, (void *) kernelEndPage, true);
     //除去DRAM以外的其他内存区域标记为已使用(其实为不可用)
     unsigned int unusable = (memUpper + 1) >> 12;
-    physMem::setSectionPageUsage((void*)unusable, (void*)1048576, true);
+    physMem::setSectionPageUsage((void *) unusable, (void *) 1048576, true);
 
 }

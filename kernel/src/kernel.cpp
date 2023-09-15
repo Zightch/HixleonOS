@@ -38,7 +38,7 @@ void kernelMain() {
             break;
         }
         //如果未找到, 内存错误
-        if (i == mapSize) {
+        if (i == mapSize - 1) {
             ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, DRAM memory based on 0x100000 not found\n");
             return;
         }

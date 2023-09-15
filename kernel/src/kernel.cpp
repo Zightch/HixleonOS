@@ -46,15 +46,12 @@ void kernelMain() {
 
     //开始标记已使用的物理内存页
     //0 ~ 0xFFFFF(1MB, 1048576B)已使用
-    for (unsigned int i = 0; i < 256; i++)
-        physMem::setPageUsage((void *) i, true);
+    physMem::setSectionPageUsage(nullptr, 256, true);
     //0x100000 ~ kernelEnd 已使用
-    unsigned int kernelEndPage = (GET_LD_DATA(kernelEnd) - 1 - 0xC0000000) >> 12;
-    for (unsigned int i = 256; i < kernelEndPage; i++)
-        physMem::setPageUsage((void *) i, true);
+    unsigned int kernelEndPage = (GET_LD_DATA(kernelEnd) - 0xC0000000) >> 12;
+    physMem::setSectionPageUsage((void*)256, (void*)kernelEndPage, true);
     //除去DRAM以外的其他内存区域标记为已使用(其实为不可用)
     unsigned int unusable = (memUpper + 1) >> 12;
-    for (unsigned int i = unusable; i < 1048576; i++)
-        physMem::setPageUsage((void *) i, true);
+    physMem::setSectionPageUsage((void*)unusable, (void*)1048576, true);
 
 }

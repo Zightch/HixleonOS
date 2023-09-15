@@ -53,7 +53,6 @@ void kernelMain() {
     unsigned int kernelEndPage = (GET_LD_DATA(kernelEnd) - 1 - 0xC0000000) >> 12;
     for (unsigned int i = 256; i < kernelEndPage; i++)
         physMem::setPageUsage((void*)i, true);
-    
     //除去DRAM以外的其他内存区域标记为已使用(其实为不可用)
     unsigned int unusable = (memUpper + 1) >> 12;
     for (unsigned int i = unusable; i < 1048576; i++)

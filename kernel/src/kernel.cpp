@@ -3,6 +3,7 @@
 #include "GDT.h"
 #include "IDT.h"
 #include "memManager/physMem.h"
+#include "memManager/virtMem.h"
 #include "ld.h"
 
 MemMap *memMap = nullptr;
@@ -46,15 +47,21 @@ void kernelMain() {
 
     //开始标记已使用的物理内存页
     //0 ~ 0xFFFFF(1MB, 1048576B)已使用
-    physMem::setSectionPageUsage(nullptr, 256, true);
+    PhysMem::setSectionPageUsage(nullptr, 256, true);
     //0x100000 ~ kernelEnd 已使用
     unsigned int kernelEndPage = (GET_LD_DATA(kernelEnd) - 0xC0000000) >> 12;
-    physMem::setSectionPageUsage((void *) 256, (void *) kernelEndPage, true);
+    PhysMem::setSectionPageUsage((void *) 256, (void *) kernelEndPage, true);
     //除去DRAM以外的其他内存区域标记为已使用(其实为不可用)
     unsigned int unusable = (memUpper + 1) >> 12;
-    physMem::setSectionPageUsage((void *) unusable, (void *) 1048576, true);
+    PhysMem::setSectionPageUsage((void *) unusable, (void *) 1048576, true);
 
     //获取可用页测试
-    void *tmp = physMem::getUsablePage();
-    if (physMem::addrIsUsing(tmp))ttyPutStr("1\n");//如果页被占用, 输出1
+    void *tmp0 = PhysMem::getUsablePage();
+    if (PhysMem::addrIsUsing(tmp0))ttyPutStr("gup false\n");//如果页被占用, 输出gup false
+
+    //初始化虚拟页管理器
+    //虚拟页转物理页测试
+    VirtMem::map((void *) 0xB0000, (void *) 0xB8);
+    ((char *) 0xB0000000)[50] = 'A';
+    VirtMem::umap((void *) 0xB0000);//解除0xB0000000的映射
 }

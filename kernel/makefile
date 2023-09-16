@@ -1,5 +1,6 @@
-oArgs:=-I include -nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -g -static
-eArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -g -T linker.ld -static
+debug:=-g
+oArgs:=-I include -nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -static ${debug}
+eArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -T linker.ld -static ${debug}
 oDir:=obj
 cmd:=i686-elf-g++
 

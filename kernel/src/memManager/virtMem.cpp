@@ -14,17 +14,17 @@ namespace VirtMem {
     unsigned int pdeEntry(unsigned short pde) {
         if (pde < 1024)
             return ((unsigned int *) 0xFFFFF000)[pde];
-        return 0;
+        return 0xFFFFFFFE;
     }
 
     //获取pte元素
     unsigned int pteEntry(unsigned short pde, unsigned short pte) {
-        if (pde < 1023 && pte < 1024) {
+        if (pde < 1023 && pte < 1024 && (((unsigned int *) 0xFFFFF000)[pde] & 1)) {
             unsigned int ptBase = 0xFFC00000;
             ptBase |= (pde << 12) & 0x003FF000;
             return ((unsigned int *) ptBase)[pte];
         }
-        return 0;
+        return 0xFFFFFFFE;
     }
 
     //设置pde元素
@@ -38,7 +38,7 @@ namespace VirtMem {
 
     //设置pte元素
     bool setPTEEntry(unsigned short pde, unsigned short pte, unsigned int val) {
-        if (pde < 1023 && pte < 1024) {
+        if (pde < 1023 && pte < 1024 && (((unsigned int *) 0xFFFFF000)[pde] & 1)) {
             unsigned int ptBase = 0xFFC00000;
             ptBase |= (pde << 12) & 0x003FF000;
             ((unsigned int *) ptBase)[pte] = val;
@@ -49,16 +49,15 @@ namespace VirtMem {
 
     //虚拟地址地址是否被使用
     bool addrIsUsing(void *addr) {
-        unsigned int pageBaseAddr = (((unsigned int) addr) >> 12) & 0x000FFFFF;
-        return pageIsUsing((void *) pageBaseAddr);
+        unsigned int page = (((unsigned int) addr) >> 12) & 0x000FFFFF;
+        return pageIsUsing(page);
     }
 
     //虚拟页是否被使用
-    bool pageIsUsing(void *page) {
-        unsigned int pageNum = (unsigned int) page;
-        if (pageNum < 1048576) {
-            unsigned short pdeIndex = ((pageNum) & 0x000FFC00) >> 10;
-            unsigned short pteIndex = ((pageNum) & 0x000003FF);
+    bool pageIsUsing(unsigned int page) {
+        if (page < 1048576) {
+            unsigned short pdeIndex = ((page) & 0x000FFC00) >> 10;
+            unsigned short pteIndex = ((page) & 0x000003FF);
             if ((pdeEntry(pdeIndex) & 1) == 0)
                 return false;
             if ((pteEntry(pdeIndex, pteIndex) & 1) == 0)
@@ -71,26 +70,28 @@ namespace VirtMem {
     //虚拟地址转物理地址
     void *virtAddrToPhysAddr(void *addr) {
         //获取虚拟地址的高20位, 作为虚拟页号
-        unsigned int pageBaseAddr = (((unsigned int) addr) >> 12) & 0x000FFFFF;
+        unsigned int page = (((unsigned int) addr) >> 12) & 0x000FFFFF;
         //获取虚拟地址的低12位, 作为页内偏移
         unsigned int pageOffset = ((unsigned int) addr) & 0x00000FFF;
         //根据虚拟页号, 获取对应的物理页号
-        unsigned int physPageNum = (unsigned int) (virtPageToPhysPage((void *) pageBaseAddr));
-        //如果物理页号不为0, 说明存在映射关系
-        if (physPageNum != 0) {
+        int physPageNum = virtPageToPhysPage(page);
+        //如果物理页号合法, 说明存在映射关系
+        if (0 <= physPageNum && physPageNum <= 1048575) {
             //将物理页号左移12位, 得到物理页的基地址
             unsigned int physPageBaseAddr = physPageNum << 12;
             //将物理页的基地址和页内偏移相加, 得到物理地址
             unsigned int physAddr = physPageBaseAddr + pageOffset;
             //返回物理地址
             return (void *) physAddr;
-        } else
-            //如果物理页号为0, 说明不存在映射关系, 返回0
-            return nullptr;
+        } else {
+            //如果物理页号为-1, 说明不存在映射关系, 返回不合法的数据
+            if (pageOffset != 0)return (void *) 0;
+            return (void *) 0x00000FFF;
+        }
     }
 
     //虚拟页转物理页
-    void *virtPageToPhysPage(void *page) {
+    int virtPageToPhysPage(unsigned int page) {
         //获取虚拟页号
         unsigned int pageNum = (unsigned int) page;
         //检查虚拟页号是否在合法范围内
@@ -106,56 +107,55 @@ namespace VirtMem {
                 //如果有效, 获取页表项的高20位, 作为物理页号
                 unsigned int physPageNum = (pteValue >> 12) & 0x000FFFFF;
                 //返回物理页号
-                return (void *) physPageNum;
+                return physPageNum;
             } else
-                //如果无效, 返回0
-                return nullptr;
+                //如果无效, 返回-1
+                return -1;
         } else
-            //如果虚拟页号不在合法范围内, 返回nullptr
-            return nullptr;
+            //如果虚拟页号不在合法范围内, 返回-1
+            return -1;
     }
 
     //映射虚拟页到物理页
-    bool map(void *virtPage, void *physPage) {
-        if (virtPage == nullptr || physPage == nullptr)
-            return false;
-
-        //获取虚拟页号和物理页号
-        unsigned int virtPageNum = (unsigned int) virtPage;
-        unsigned int physPageNum = (unsigned int) physPage;
+    bool map(unsigned int virtPage, unsigned int physPage) {
         //检查虚拟页号与物理页号是否在合法范围内
-        if (virtPageNum < 1048576 && physPageNum < 1048576) {
+        if (virtPage < 1048576 && physPage < 1048576) {
             //计算页目录表和页表的索引
-            unsigned short pdeIndex = ((virtPageNum) & 0x000FFC00) >> 10;
-            unsigned short pteIndex = ((virtPageNum) & 0x000003FF);
+            unsigned short pdeIndex = ((virtPage) & 0x000FFC00) >> 10;
+            unsigned short pteIndex = ((virtPage) & 0x000003FF);
             if ((pdeEntry(pdeIndex) & 1) == 0) {//如果页目录未被使用
-                unsigned int physPTE = (unsigned int) PhysMem::getUsablePage();//获取一个可用物理页
-                PhysMem::setPageUsage((void *) ((physPTE >> 12) & 0x000FFFFF), true);//标记为已使用
-                setPDEEntry(pdeIndex, PE(PE_PRESENT | PE_WRITE, physPTE));//设置PDE的页表物理地址
+                int physPTE = PhysMem::getUsablePage();//获取一个可用物理页
+                if (physPTE < 0 || physPage > 1048575)//内存已满
+                    return false;
+                PhysMem::setPageUsage(physPage, true);//标记为已使用
+                setPDEEntry(pdeIndex, PE(PE_PRESENT | PE_WRITE, (physPTE << 12)));//设置PDE的页表物理地址
+                for (unsigned int i = 0; i < 1024; i++)
+                    setPTEEntry(pdeIndex, i, 0);//清空新分配的表, 防止有垃圾
             }
-            setPTEEntry(pdeIndex, pteIndex, PE(PE_PRESENT | PE_WRITE, physPageNum << 12));//建立映射关系
+            setPTEEntry(pdeIndex, pteIndex, PE(PE_PRESENT | PE_WRITE, physPage << 12));//建立映射关系
+            __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
             return true;
         }
         return false;
     }
 
     //获取连续可用虚拟页
-    unsigned int getUsablePage(unsigned int num) {
+    int getUsablePage(unsigned int num) {
         //检查参数是否合法
         if (num == 0 || num > 1048576)
-            return 0;
+            return -1;
         //定义连续可用虚拟页的数量
         unsigned int count = 0;
         //定义连续可用虚拟页的基页号
         unsigned int base = 0;
         //定义当前查找的虚拟页号
-        unsigned int tmp = usablePageIndexLast;
+        int tmp = usablePageIndexLast;
         //定义是否已经改变过一次迭代方向
         bool isSecond = false;
         //循环查找连续可用虚拟页
         while (true) {
             //检查当前查找的虚拟页号是否在合法范围内
-            if (tmp >= 1048576 || tmp <= 0) {
+            if (tmp >= 1048576 || tmp < 0) {
                 //如果不在合法范围内
                 if (!isSecond) {
                     //如果没有改变过迭代方向, 改变迭代方向, 并回到上一次查询的虚拟页号
@@ -163,11 +163,11 @@ namespace VirtMem {
                     tmp = usablePageIndexLast;
                     isSecond = true;
                 } else
-                    //如果已经改变过迭代方向, 说明没有找到任何连续可用虚拟页, 返回0
-                    return 0;
+                    //如果已经改变过迭代方向, 说明没有找到任何连续可用虚拟页, 返回-1
+                    return -1;
             }
             //检查当前查找的虚拟页是否未被使用
-            if (!pageIsUsing((void *) tmp)) {
+            if (!pageIsUsing(tmp)) {
                 //如果未被使用
                 if (count == 0)
                     //如果连续可用虚拟页的数量为0, 将基页号设置为当前查找的虚拟页号
@@ -188,28 +188,24 @@ namespace VirtMem {
     }
 
     //解除虚拟页的映射
-    bool umap(void *virtPage) {
-        if (virtPage == nullptr)
-            return false;
-
-        //获取虚拟页号
-        unsigned int pageNum = (unsigned int) virtPage;
+    bool unmap(unsigned int virtPage) {
         //检查虚拟页号是否在合法范围内
-        if (pageNum < 1048576) {
+        if (virtPage < 1048576) {
             //计算页目录表和页表的索引
-            unsigned short pdeIndex = ((pageNum) & 0x000FFC00) >> 10;
-            unsigned short pteIndex = ((pageNum) & 0x000003FF);
+            unsigned short pdeIndex = ((virtPage) & 0x000FFC00) >> 10;
+            unsigned short pteIndex = ((virtPage) & 0x000003FF);
             if ((pdeEntry(pdeIndex) & 1) == 0)//如果是无效页表
                 return false;
             setPTEEntry(pdeIndex, pteIndex, 0);
             unsigned short i;
             for (i = 0; i < 1024; i++)
-                if ((pteEntry(pdeIndex, i) & 1) != 0)break;
+                if (pteEntry(pdeIndex, i) & 1)break;
             if (i == 1024) {//如果是个空PTE
-                void *physPTE = (void *) (pdeEntry(pdeIndex) >> 12);
+                unsigned int physPTE = (pdeEntry(pdeIndex) >> 12) & 0x000FFFFF;
                 PhysMem::setPageUsage(physPTE, false);//归还PTE空间
                 setPDEEntry(pdeIndex, 0);//解除PDE对他的引用
             }
+            __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
             return true;
         }
         return false;

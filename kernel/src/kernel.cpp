@@ -4,12 +4,18 @@
 #include "IDT.h"
 #include "memManager/physMem.h"
 #include "memManager/virtMem.h"
+#include "memManager/memManager.h"
 #include "ld.h"
 
 MemMap *memMap = nullptr;
 unsigned short mapSize = 0xFFFF;
 void *kpg = nullptr;
 unsigned int kpgSize = -1;
+
+const char testStr[] = "This document contains all four volumes of the Intel 64 and IA-32 Architectures Software\n"
+"Developer's Manual: Basic Architecture, Order Number 253665; Instruction Set Reference A-Z, Order\n"
+"Number 325383; System Programming Guide, Order Number 325384; Model-Specific Registers, Order\n"
+"Number 335592. Refer to all four volumes when evaluating your design needs.\n";
 
 void kernelInit(MemMap *mm, unsigned short ms, void *k, unsigned int ks) {
     initGDT();
@@ -47,21 +53,23 @@ void kernelMain() {
 
     //开始标记已使用的物理内存页
     //0 ~ 0xFFFFF(1MB, 1048576B)已使用
-    PhysMem::setSectionPageUsage(nullptr, 256, true);
+    PhysMem::setSectionPageUsage(0, 256, true);
     //0x100000 ~ kernelEnd 已使用
     unsigned int kernelEndPage = (GET_LD_DATA(kernelEnd) - 0xC0000000) >> 12;
-    PhysMem::setSectionPageUsage((void *) 256, (void *) kernelEndPage, true);
+    PhysMem::setSectionPageUsage(256, kernelEndPage - 256, true);
     //除去DRAM以外的其他内存区域标记为已使用(其实为不可用)
     unsigned int unusable = (memUpper + 1) >> 12;
-    PhysMem::setSectionPageUsage((void *) unusable, (void *) 1048576, true);
+    PhysMem::setSectionPageUsage(unusable, 1048576 - unusable, true);
 
     //获取可用页测试
-    void *tmp0 = PhysMem::getUsablePage();
-    if (PhysMem::addrIsUsing(tmp0))ttyPutStr("gup false\n");//如果页被占用, 输出gup false
+    unsigned int tmp0 = PhysMem::getUsablePage();
+    if (PhysMem::addrIsUsing((void *) ((tmp0 << 12) + 1)))
+        ttyPutStr("gup false\n");//如果页被占用, 输出gup false
 
     //初始化虚拟页管理器
-    //虚拟页转物理页测试
-    VirtMem::map((void *) 0xB0000, (void *) 0xB8);
-    ((char *) 0xB0000000)[50] = 'A';
-    VirtMem::umap((void *) 0xB0000);//解除0xB0000000的映射
+    //内存分配测试
+    char *heap = (char *) malloc(sizeof(testStr));
+    for (unsigned int i = 0; i < sizeof(testStr); i++)
+        heap[i] = testStr[i];
+    ttyPutStr(heap);
 }

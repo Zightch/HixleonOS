@@ -18,26 +18,24 @@ namespace PhysMem {
     //物理地址地址是否被使用
     bool addrIsUsing(void *addr) {
         unsigned int pageBaseAddr = (((unsigned int) addr) >> 12) & 0x000FFFFF;
-        return pageIsUsing((void *) pageBaseAddr);
+        return pageIsUsing(pageBaseAddr);
     }
 
     //物理页是否被使用
-    bool pageIsUsing(void *page) {
-        unsigned int pageNum = (unsigned int) page;
-        if (pageNum < 1048576) {
-            unsigned int usageTableEntry = (pageNum >> 3) & 0x0001FFFF;
-            unsigned char entryOffset = pageNum & 7;
+    bool pageIsUsing(unsigned int page) {
+        if (page < 1048576) {
+            unsigned int usageTableEntry = (page >> 3) & 0x0001FFFF;
+            unsigned char entryOffset = page & 7;
             return ((physPageUsageTable[usageTableEntry] >> entryOffset) & 1);
         }
         return true;
     }
 
     //设置物理页使用情况
-    bool setPageUsage(void *page, bool isUsing) {
-        unsigned int pageNum = (unsigned int) page;
-        if (pageNum < 1048576) {
-            unsigned int entryIndex = (pageNum >> 3) & 0x0001FFFF;
-            unsigned char entryOffset = pageNum & 7;
+    bool setPageUsage(unsigned int page, bool isUsing) {
+        if (page < 1048576) {
+            unsigned int entryIndex = (page >> 3) & 0x0001FFFF;
+            unsigned char entryOffset = page & 7;
             setBit(physPageUsageTable[entryIndex], entryOffset, isUsing);
             return true;
         }
@@ -45,11 +43,10 @@ namespace PhysMem {
     }
 
     //设置一段物理页使用情况(批量设置)
-    bool setSectionPageUsage(void *begin, unsigned int size, bool isUsing) {
-        unsigned int pageBegin = (unsigned int) begin;
-        if (pageBegin < 1048576 && pageBegin + size <= 1048576) {
-            unsigned int entryIndex = (pageBegin >> 3) & 0x0001FFFF;
-            unsigned char entryOffset = pageBegin & 7;
+    bool setSectionPageUsage(unsigned int begin, unsigned int size, bool isUsing) {
+        if (begin < 1048576 && begin + size <= 1048576) {
+            unsigned int entryIndex = (begin >> 3) & 0x0001FFFF;
+            unsigned char entryOffset = begin & 7;
 
             for (unsigned char i = entryOffset; i < 8; i++)
                 setBit(physPageUsageTable[entryIndex], i, isUsing);
@@ -72,15 +69,8 @@ namespace PhysMem {
         return false;
     }
 
-    //设置一段物理页使用情况(批量设置), 不包括end所在页
-    bool setSectionPageUsage(void *begin, void *end, bool isUsing) {
-        unsigned int pageBegin = (unsigned int) begin;
-        unsigned int pageEnd = (unsigned int) end;
-        return setSectionPageUsage(begin, pageEnd - pageBegin, isUsing);
-    }
-
     //获取一个可用页
-    void *getUsablePage() {
+    int getUsablePage() {
         //保存上一次查询的下标
         int tmp = ((usablePageIndexLast) >> 3) & 0x0001FFF8;
         bool isSecond = false;//用于表示本次查找中第二次改变查询方向
@@ -96,7 +86,7 @@ namespace PhysMem {
                         upiDir = !upiDir;
                         tmp = ((usablePageIndexLast) >> 3) & 0x0001FFF8;
                         isSecond = true;
-                    } else return nullptr;//返回nullptr
+                    } else return -1;//返回-1
                 }
             } else {
                 //如果当前8个字节不都是0xFF, 说明有至少一个可用页, 遍历这64个页找到它
@@ -104,9 +94,9 @@ namespace PhysMem {
                     //计算当前页号
                     unsigned int pageNum = ((tmp << 3) + i) & 0x000FFFFF;
                     //如果当前页未被占用, 返回它, 并更新usablePageIndexLast的值
-                    if (!pageIsUsing((void *) pageNum)) {
-                        usablePageIndexLast = (tmp << 3) + i;
-                        return (void *) (pageNum << 12);
+                    if (!pageIsUsing(pageNum)) {
+                        usablePageIndexLast = pageNum;
+                        return pageNum;
                     }
                 }
             }

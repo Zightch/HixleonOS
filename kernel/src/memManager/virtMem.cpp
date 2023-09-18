@@ -55,15 +55,14 @@ namespace VirtMem {
 
     //虚拟页是否被使用
     bool pageIsUsing(unsigned int page) {
-        if (page < 1048576) {
-            unsigned short pdeIndex = ((page) & 0x000FFC00) >> 10;
-            unsigned short pteIndex = ((page) & 0x000003FF);
-            if ((pdeEntry(pdeIndex) & 1) == 0)
-                return false;
-            if ((pteEntry(pdeIndex, pteIndex) & 1) == 0)
-                return false;
+        if (page >= 1048576)
             return true;
-        }
+        unsigned short pdeIndex = ((page) & 0x000FFC00) >> 10;
+        unsigned short pteIndex = ((page) & 0x000003FF);
+        if ((pdeEntry(pdeIndex) & 1) == 0)
+            return false;
+        if ((pteEntry(pdeIndex, pteIndex) & 1) == 0)
+            return false;
         return true;
     }
 
@@ -95,48 +94,45 @@ namespace VirtMem {
         //获取虚拟页号
         unsigned int pageNum = (unsigned int) page;
         //检查虚拟页号是否在合法范围内
-        if (pageNum < 1048576) {
-            //计算页目录表和页表的索引
-            unsigned short pdeIndex = ((pageNum) & 0x000FFC00) >> 10;
-            unsigned short pteIndex = ((pageNum) & 0x000003FF);
-            //获取对应的页目录项和页表项的值
-            unsigned int pdeValue = pdeEntry(pdeIndex);
-            unsigned int pteValue = pteEntry(pdeIndex, pteIndex);
-            //检查页目录项和页表项是否有效（存在位是否为1）
-            if ((pdeValue & 1) && (pteValue & 1)) {
-                //如果有效, 获取页表项的高20位, 作为物理页号
-                unsigned int physPageNum = (pteValue >> 12) & 0x000FFFFF;
-                //返回物理页号
-                return physPageNum;
-            } else
-                //如果无效, 返回-1
-                return -1;
-        } else
-            //如果虚拟页号不在合法范围内, 返回-1
+        if (pageNum >= 1048576)//如果虚拟页号不在合法范围内, 返回-1
             return -1;
+        //计算页目录表和页表的索引
+        unsigned short pdeIndex = ((pageNum) & 0x000FFC00) >> 10;
+        unsigned short pteIndex = ((pageNum) & 0x000003FF);
+        //获取对应的页目录项和页表项的值
+        unsigned int pdeValue = pdeEntry(pdeIndex);
+        unsigned int pteValue = pteEntry(pdeIndex, pteIndex);
+        //检查页目录项和页表项是否有效(存在位是否为1)
+        if (((pdeValue & 1) == 0) || ((pteValue & 1) == 0))
+            //如果无效, 返回-1
+            return -1;
+        //如果有效, 获取页表项的高20位, 作为物理页号
+        unsigned int physPageNum = (pteValue >> 12) & 0x000FFFFF;
+        //返回物理页号
+        return physPageNum;
     }
 
     //映射虚拟页到物理页
     bool map(unsigned int virtPage, unsigned int physPage) {
         //检查虚拟页号与物理页号是否在合法范围内
-        if (virtPage < 1048576 && physPage < 1048576) {
-            //计算页目录表和页表的索引
-            unsigned short pdeIndex = ((virtPage) & 0x000FFC00) >> 10;
-            unsigned short pteIndex = ((virtPage) & 0x000003FF);
-            if ((pdeEntry(pdeIndex) & 1) == 0) {//如果页目录未被使用
-                int physPTE = PhysMem::getUsablePage();//获取一个可用物理页
-                if (physPTE < 0 || physPage > 1048575)//内存已满
-                    return false;
-                PhysMem::setPageUsage(physPage, true);//标记为已使用
-                setPDEEntry(pdeIndex, PE(PE_PRESENT | PE_WRITE, (physPTE << 12)));//设置PDE的页表物理地址
-                for (unsigned int i = 0; i < 1024; i++)
-                    setPTEEntry(pdeIndex, i, 0);//清空新分配的表, 防止有垃圾
-            }
-            setPTEEntry(pdeIndex, pteIndex, PE(PE_PRESENT | PE_WRITE, physPage << 12));//建立映射关系
-            __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
-            return true;
+        if (virtPage >= 1048576 || physPage >= 1048576)
+            return false;
+
+        //计算页目录表和页表的索引
+        unsigned short pdeIndex = ((virtPage) & 0x000FFC00) >> 10;
+        unsigned short pteIndex = ((virtPage) & 0x000003FF);
+        if ((pdeEntry(pdeIndex) & 1) == 0) {//如果页目录未被使用
+            int physPTE = PhysMem::getUsablePage();//获取一个可用物理页
+            if (physPTE < 0 || physPage > 1048575)//内存已满
+                return false;
+            PhysMem::setPageUsage(physPage, true);//标记为已使用
+            setPDEEntry(pdeIndex, PE(PE_PRESENT | PE_WRITE, (physPTE << 12)));//设置PDE的页表物理地址
+            for (unsigned int i = 0; i < 1024; i++)
+                setPTEEntry(pdeIndex, i, 0);//清空新分配的表, 防止有垃圾
         }
-        return false;
+        setPTEEntry(pdeIndex, pteIndex, PE(PE_PRESENT | PE_WRITE, physPage << 12));//建立映射关系
+        __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
+        return true;
     }
 
     //获取连续可用虚拟页
@@ -157,19 +153,19 @@ namespace VirtMem {
             //检查当前查找的虚拟页号是否在合法范围内
             if (tmp >= 1048576 || tmp < 0) {
                 //如果不在合法范围内
-                if (!isSecond) {
-                    //如果没有改变过迭代方向, 改变迭代方向, 并回到上一次查询的虚拟页号
-                    upiDir = !upiDir;
-                    tmp = usablePageIndexLast;
-                    isSecond = true;
-                } else
+                if (isSecond)
                     //如果已经改变过迭代方向, 说明没有找到任何连续可用虚拟页, 返回-1
                     return -1;
+                //如果没有改变过迭代方向, 改变迭代方向, 并回到上一次查询的虚拟页号
+                upiDir = !upiDir;
+                tmp = usablePageIndexLast;
+                isSecond = true;
+                continue;
             }
             //检查当前查找的虚拟页是否未被使用
             if (!pageIsUsing(tmp)) {
                 //如果未被使用
-                if (count == 0)
+                if (count == 0 || upiDir)
                     //如果连续可用虚拟页的数量为0, 将基页号设置为当前查找的虚拟页号
                     base = tmp;
                 //将连续可用虚拟页的数量增加1
@@ -190,24 +186,23 @@ namespace VirtMem {
     //解除虚拟页的映射
     bool unmap(unsigned int virtPage) {
         //检查虚拟页号是否在合法范围内
-        if (virtPage < 1048576) {
-            //计算页目录表和页表的索引
-            unsigned short pdeIndex = ((virtPage) & 0x000FFC00) >> 10;
-            unsigned short pteIndex = ((virtPage) & 0x000003FF);
-            if ((pdeEntry(pdeIndex) & 1) == 0)//如果是无效页表
-                return false;
-            setPTEEntry(pdeIndex, pteIndex, 0);
-            unsigned short i;
-            for (i = 0; i < 1024; i++)
-                if (pteEntry(pdeIndex, i) & 1)break;
-            if (i == 1024) {//如果是个空PTE
-                unsigned int physPTE = (pdeEntry(pdeIndex) >> 12) & 0x000FFFFF;
-                PhysMem::setPageUsage(physPTE, false);//归还PTE空间
-                setPDEEntry(pdeIndex, 0);//解除PDE对他的引用
-            }
-            __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
-            return true;
+        if (virtPage >= 1048576)
+            return false;
+        //计算页目录表和页表的索引
+        unsigned short pdeIndex = ((virtPage) & 0x000FFC00) >> 10;
+        unsigned short pteIndex = ((virtPage) & 0x000003FF);
+        if ((pdeEntry(pdeIndex) & 1) == 0)//如果是无效页表
+            return false;
+        setPTEEntry(pdeIndex, pteIndex, 0);
+        unsigned short i;
+        for (i = 0; i < 1024; i++)
+            if (pteEntry(pdeIndex, i) & 1)break;
+        if (i == 1024) {//如果是个空PTE
+            unsigned int physPTE = (pdeEntry(pdeIndex) >> 12) & 0x000FFFFF;
+            PhysMem::setPageUsage(physPTE, false);//归还PTE空间
+            setPDEEntry(pdeIndex, 0);//解除PDE对他的引用
         }
-        return false;
+        __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
+        return true;
     }
 }

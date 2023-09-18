@@ -3,9 +3,13 @@
 #include "memManager/virtMem.h"
 
 int heap(unsigned int size) {
+    //如果size不合法
+    if (size >= 1048576)
+        return -1;
+
     //分配可用的虚拟页和物理页
     int pageStart = VirtMem::getUsablePage(size);//获取连续可用虚拟页的起始页号
-    if (!(0 <= pageStart && pageStart <= 1048575))//如果虚拟页不合法
+    if (0 > pageStart || pageStart > 1048575)//如果虚拟页不合法
         return -1;
     for (int i = 0; i < size; i++) {
         int pp = PhysMem::getUsablePage();//获取一个可用物理页
@@ -22,30 +26,29 @@ int heap(unsigned int size) {
         }
         return -1;
     }
+
+    //堆区分配完毕, 页表分配成功
+    unsigned int *heap = (unsigned int *) (pageStart << 12);//获取地址
+    unsigned int heapLast4ByteOffset = (size * 1024) - 1;
+
+    //全填空闲
+    //堆区头部数据(高12位固定为0xFFF, 低20位为堆区占用多少个页)
+    heap[0] = 0xFFF00000 | size;
+    //尾部数据(高12位固定为0xFFF, 低20位为当前堆区向前多少个页为首页)
+    heap[heapLast4ByteOffset] = 0xFFF00000 | (-((int) size));
+
+    //接下来是Implicit free list
+    unsigned int freeSize = heapLast4ByteOffset - 1;
+    heap[1] = freeSize << 2;
+    heap[freeSize] = heap[1];
+
     return pageStart;
 }
 
-void *malloc(unsigned int size) {
-    if (size == 0)return nullptr;
-
-    unsigned int pageNum = (size + 0xFFF) >> 12;//获取所用的页数量(向上取整)
-    int pageStart = heap(pageNum);
-
-    if (!(0 <= pageStart && pageStart <= 1048575))
-        return nullptr;
-
-    //页表分配成功, 开始规划Implicit free list
-    unsigned int *alloc = (unsigned int *) (pageStart << 12);//获取内存地址
-    unsigned int realLoadSize = (((size + 3) & 0xFFFFFFFC) + 4) >> 2;//向上4字节对齐(包含头尾部数据)
-    alloc[0] = (realLoadSize << 2) | 1;//填入头部信息
-
-    //接下来是空闲部分
-    unsigned int allocSize = pageNum << 10;//获取分配的总大小
-    alloc[realLoadSize] = (allocSize - realLoadSize) << 2;//空闲头部
-    alloc[allocSize - 1] = alloc[realLoadSize];//空闲尾部=空闲头部
-    return ((char *) alloc) + 4;//返回可用空间首地址
+void *hlmalloc(unsigned int page, unsigned int size) {
+    return nullptr;
 }
 
-void free(void *) {
+void hlfree(unsigned int page, void *addr) {
 
 }

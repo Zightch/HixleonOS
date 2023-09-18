@@ -8,8 +8,19 @@
  */
 int heap(unsigned int size);
 
+/**
+ * @brief 从指定的堆中分配size个byte的内存
+ *
+ * @param page: unsigned int 堆起始页号
+ * @param size: unsigned int 长度
+ * @return void *: 内存起始地址
+ */
+void *hlmalloc(unsigned int page, unsigned int size);
 
-
-void *malloc(unsigned int size);
-
-void free(void *);
+/**
+ * @brief 从指定的堆中释放已分配的内存
+ *
+ * @param page: unsigned int 堆起始页号
+ * @param addr: void *内存地址
+ */
+void hlfree(unsigned int page, void *addr);

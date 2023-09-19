@@ -13,9 +13,9 @@ int allocHeap(unsigned int size);
  * 
  * @param pageStart: unsigned int 起始页号
  * @param size: unsigned int 页数量
- * @return int: 起始虚拟页号, 如果分配成功会返回0 ~ 1048575之间的合法数字, 如果失败回返回不合法数字比如-1
+ * @return bool: true分配成功, false分配失败
  */
-int allocHeap(unsigned int pageStart, unsigned int size);
+bool allocHeap(unsigned int pageStart, unsigned int size);
 
 /**
  * @brief 从指定的堆中分配size个字节的内存
@@ -49,3 +49,10 @@ void freeHeap(unsigned int page);
  * @param addr: void *内存地址
  */
 void hlfree(unsigned int page, void *addr);
+
+/**
+ * @brief 为指定的堆区进行合并空闲的内存
+ *
+ * @param page: unsigned int 堆起始页号
+ */
+void coalesce(unsigned int page);

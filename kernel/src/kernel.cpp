@@ -48,7 +48,9 @@ int kernelHeapInit(unsigned int num) {
         }
     }
 
-    return allocHeap(heapStart, num);
+    if(allocHeap(heapStart, num))
+        return heapStart;
+    return -1;
 }
 
 void kernelMain() {
@@ -94,5 +96,6 @@ void kernelMain() {
         ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, Alloc heap memory fail!\n");
         return;
     }
-
+    if (!expandHeap(heapStart, 2))
+        ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, heap expand fail!\n");
 }

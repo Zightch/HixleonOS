@@ -2,7 +2,7 @@
 #include "memManager/physMem.h"
 #include "memManager/virtMem.h"
 
-int heap(unsigned int size) {
+int allocHeap(unsigned int size) {
     //如果size不合法
     if (size >= 1048576)
         return -1;
@@ -11,6 +11,24 @@ int heap(unsigned int size) {
     int pageStart = VirtMem::getUsablePage(size);//获取连续可用虚拟页的起始页号
     if (0 > pageStart || pageStart > 1048575)//如果虚拟页不合法
         return -1;
+
+    return allocHeap(pageStart, size);
+}
+
+int allocHeap(unsigned int pageStart, unsigned int size) {
+    //如果size和pageStart有任意一个不合法
+    if (size >= 1048576 || pageStart >= 1048576)
+        return -1;
+
+    {//验证给定的空间是否可用
+        unsigned int heapNum = 0;
+        while (heapNum < size) {
+            if (VirtMem::pageIsUsing(pageStart))
+                return -1;
+            heapNum++;
+        }
+    }
+
     for (int i = 0; i < size; i++) {
         int pp = PhysMem::getUsablePage();//获取一个可用物理页
         PhysMem::setPageUsage(pp, true);//标记为已使用
@@ -50,5 +68,13 @@ void *hlmalloc(unsigned int page, unsigned int size) {
 }
 
 void hlfree(unsigned int page, void *addr) {
+
+}
+
+bool expandHeap(unsigned int page, unsigned int size) {
+    return false;
+}
+
+void freeHeap(unsigned int page) {
 
 }

@@ -11,11 +11,11 @@ int allocHeap(unsigned int size);
 /**
  * @brief 从指定的起始页号向上分配size个页的堆空间
  * 
- * @param pageStart: unsigned int 起始页号
+ * @param page: unsigned int 起始页号
  * @param size: unsigned int 页数量
  * @return bool: true分配成功, false分配失败
  */
-bool allocHeap(unsigned int pageStart, unsigned int size);
+bool allocHeap(unsigned int page, unsigned int size);
 
 /**
  * @brief 从指定的堆中分配size个字节的内存
@@ -39,16 +39,18 @@ bool expandHeap(unsigned int page, unsigned int size);
  * @brief 释放指定的堆空间
  *
  * @param page: unsigned int 堆起始页号
+ * @return bool: true释放成功, false释放失败
  */
-void freeHeap(unsigned int page);
+bool freeHeap(unsigned int page);
 
 /**
  * @brief 从指定的堆中释放已分配的内存
  *
  * @param page: unsigned int 堆起始页号
  * @param addr: void *内存地址
+ * @return bool: true释放成功, false释放失败
  */
-void hlfree(unsigned int page, void *addr);
+bool hlfree(unsigned int page, void *addr);
 
 /**
  * @brief 为指定的堆区进行合并空闲的内存
@@ -56,3 +58,11 @@ void hlfree(unsigned int page, void *addr);
  * @param page: unsigned int 堆起始页号
  */
 void coalesce(unsigned int page);
+
+/**
+ * @brief 获取堆大小, 同时判定头尾数据合法性
+ *
+ * @param page: unsigned int 堆起始页号
+ * @return int: 如果获取成功会返回1 ~ 1048576之间的合法长度数字, 如果失败回返回不合法数字比如-1
+ */
+int heapSize(unsigned int page);

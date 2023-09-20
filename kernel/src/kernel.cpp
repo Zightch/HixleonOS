@@ -91,11 +91,18 @@ void kernelMain() {
     //初始化堆区
     //kernelEnd开始向上找连续可用的虚拟页空间, 默认分配4个页(16KB)
     unsigned int heapNum = 4;
-    int heapStart = kernelHeapInit(heapNum);
-    if (0 > heapStart || heapStart > 1048575) {//如果堆区分配失败
+    int heap = kernelHeapInit(heapNum);
+    if (0 > heap || heap > 1048575) {//如果堆区分配失败
         ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, Alloc heap memory fail!\n");
         return;
     }
-    if (!expandHeap(heapStart, 2))
+    //拓展2个页
+    if (!expandHeap(heap, 2))
         ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, heap expand fail!\n");
+    char *testMem = (char *) hlmalloc(heap, sizeof(testStr));
+    for (int i = 0; i < sizeof(testStr); i++)
+        testMem[i] = testStr[i];
+    ttyPutStr(testMem);
+    hlfree(heap, testMem);
+    freeHeap(heap);
 }

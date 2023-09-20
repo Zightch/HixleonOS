@@ -33,23 +33,23 @@ int kernelHeapInit(unsigned int num) {
 
     //初始化堆区
     //kernelEnd开始向上找连续可用的虚拟页空间
-    unsigned int heapStart = GET_LD_DATA(kernelEnd) >> 12;//虚拟kernel结束页号
+    unsigned int heap = GET_LD_DATA(kernelEnd) >> 12;//虚拟kernel结束页号
     {
         unsigned int heapNum = 0;
         while (heapNum < num) {
-            if (heapStart >= 1048576)
+            if (heap >= 1048576)
                 return -1;
-            if (!VirtMem::pageIsUsing(heapStart))
+            if (!VirtMem::pageIsUsing(heap))
                 heapNum++;
             else {
-                heapStart += heapNum;//跳过无法连续的区域
+                heap += heapNum;//跳过无法连续的区域
                 heapNum = 0;
             }
         }
     }
 
-    if(allocHeap(heapStart, num))
-        return heapStart;
+    if(allocHeap(heap, num))
+        return heap;
     return -1;
 }
 

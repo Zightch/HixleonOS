@@ -3,6 +3,6 @@
 #include "fixedIntNum.h"
 #include "intTable.h"
 
-void asmIsr0();
+extern "C" void asmIsr0();
 
 void interruptHandler(IsrParam*);

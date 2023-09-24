@@ -15296,3 +15296,168 @@ initGDT () at src/arch/x86/kernel/GDT.cpp:15
    0xc01020c8 <_Z7initGDTv+16>:	83 c4 10	add    esp,0x10
 Continuing.
 [Inferior 1 (process 1) exited normally]
+Remote debugging using 127.0.0.1:1234
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+=> 0x0000fff0:	00 00	add    BYTE PTR [eax],al
+Breakpoint 1 at 0x8000
+Continuing.
+
+Breakpoint 1, 0x00008000 in ?? ()
+=> 0x00008000:	00 00	add    BYTE PTR [eax],al
+Detaching from pid process 1
+Remote communication error.  Target disconnected.: 断开的管道.
+Remote debugging using 127.0.0.1:1234
+warning: No executable has been specified and target does not support
+determining executable automatically.  Try using the "file" command.
+0x0000fff0 in ?? ()
+=> 0x0000fff0:	00 00	add    BYTE PTR [eax],al
+Breakpoint 1 at 0x7c00
+Continuing.
+
+Breakpoint 1, 0x00007c00 in ?? ()
+=> 0x00007c00:	eb 3c	jmp    0x7c3e
+0x00007c3e in ?? ()
+=> 0x00007c3e:	66 31 c0	xor    ax,ax
+Value can't be converted to integer.
+Dump of assembler code from 0x7c3e to 0x7c48:
+=> 0x00007c3e:	xor    ax,ax
+   0x00007c41:	xor    dx,dx
+   0x00007c44:	mov    edx,0xeb003d4
+End of assembler dump.
+Dump of assembler code from 0x7c3e to 0x7c86:
+=> 0x00007c3e:	xor    ax,ax
+   0x00007c41:	xor    dx,dx
+   0x00007c44:	mov    edx,0xeb003d4
+   0x00007c49:	out    dx,al
+   0x00007c4a:	mov    edx,0xc03003d5
+   0x00007c4f:	out    dx,al
+   0x00007c50:	mov    edx,0xfb003d4
+   0x00007c55:	out    dx,al
+   0x00007c56:	mov    edx,0xc03003d5
+   0x00007c5b:	out    dx,al
+   0x00007c5c:	xor    di,di
+   0x00007c5f:	mov    eax,0xc08eb800
+   0x00007c64:	mov    eax,0xd0b90700
+   0x00007c69:	pop    es
+   0x00007c6a:	mov    DWORD PTR es:0xe202c783,eax
+   0x00007c71:	clc    
+   0x00007c72:	jmp    0x3166:0x7c77
+   0x00007c79:	ror    BYTE PTR [esi-0x713f7128],0xd0
+   0x00007c80:	mov    fs,eax
+   0x00007c82:	mov    gs,eax
+   0x00007c84:	mov    ax,0x7bfe
+End of assembler dump.
+Dump of assembler code from 0x7c84 to 0x7c94:
+   0x00007c84:	mov    ax,0x7bfe
+   0x00007c88:	add    BYTE PTR [eax],al
+   0x00007c8a:	mov    bp,ax
+   0x00007c8d:	mov    sp,ax
+   0x00007c90:	mov    edi,0xbb667e00
+End of assembler dump.
+No function contains specified address.
+Dump of assembler code from 0x7c90 to 0x7ca0:
+   0x00007c90:	mov    edi,0xbb667e00
+   0x00007c95:	add    DWORD PTR [eax],0xcde80000
+   0x00007c9b:	add    ah,bh
+   0x00007c9d:	xor    bx,bx
+End of assembler dump.
+Breakpoint 2 at 0x7c84
+Continuing.
+
+Breakpoint 2, 0x00007c84 in ?? ()
+=> 0x00007c84:	66 b8 fe 7b	mov    ax,0x7bfe
+0x00007c8a in ?? ()
+=> 0x00007c8a:	66 89 c5	mov    bp,ax
+0x00007c8d in ?? ()
+=> 0x00007c8d:	66 89 c4	mov    sp,ax
+0x00007c90 in ?? ()
+=> 0x00007c90:	bf 00 7e 66 bb	mov    edi,0xbb667e00
+0x00007c93 in ?? ()
+=> 0x00007c93:	66 bb 81 00	mov    bx,0x81
+0x00007c99 in ?? ()
+=> 0x00007c99:	e8 cd 00 fc 66	call   0x66fc7d6b
+No function contains specified address.
+Dump of assembler code from 0x7c99 to 0x7ca1:
+=> 0x00007c99:	call   0x66fc7d6b
+   0x00007c9e:	xor    ebx,ebx
+   0x00007ca0:	mov    esi,ebx
+End of assembler dump.
+0x7c99:	0xe8	0xcd	0x00	0xfc	0x66	0x31	0xdb	0x89
+0x7ca1:	0xde	0xc1	0xe6	0x05	0x81	0xc6	0x00	0x7e
+0x7ca9:	0xbf	0xbe	0x7d	0xb9	0x0b	0x00	0xf3	0xa6
+0x7cb1:	0xe3	0x0a	0x83	0xc3	0x01	0x83	0xfb	0x10
+Cannot find bounds of current function
+Cannot find bounds of current function
+0x00007d69 in ?? ()
+=> 0x00007d69:	ba f7 01 ec 24	mov    edx,0x24ec01f7
+0x00007d6c in ?? ()
+=> 0x00007d6c:	ec	in     al,dx
+Dump of assembler code from 0x7c9c to 0x7ca6:
+   0x00007c9c:	cld    
+   0x00007c9d:	xor    bx,bx
+   0x00007ca0:	mov    esi,ebx
+   0x00007ca2:	shl    esi,0x5
+   0x00007ca5:	add    esi,0xbebf7e00
+End of assembler dump.
+Breakpoint 3 at 0x7c9c
+Continuing.
+
+Breakpoint 3, 0x00007c9c in ?? ()
+=> 0x00007c9c:	fc	cld    
+0x7e00:	0x4c	0x4f	0x41	0x44	0x45	0x52	0x20	0x20
+0x7e08:	0x20	0x20	0x20	0x20	0x00	0xa2	0x88	0x7b
+0x7e10:	0x38	0x57	0x38	0x57	0x00	0x00	0x88	0x7b
+0x7e18:	0x38	0x57	0x03	0x00	0x27	0x05	0x00	0x00
+0x7e00:	76 'L'	79 'O'	65 'A'	68 'D'	69 'E'	82 'R'	32 ' '	32 ' '
+0x7e08:	32 ' '	32 ' '	32 ' '	32 ' '	0 '\000'	-94 '\242'	-120 '\210'	123 '{'
+0x7e10:	56 '8'	87 'W'	56 '8'	87 'W'	0 '\000'	0 '\000'	-120 '\210'	123 '{'
+0x7e18:	56 '8'	87 'W'	3 '\003'	0 '\000'	39 '\''	5 '\005'	0 '\000'	0 '\000'
+0x00007c9d in ?? ()
+=> 0x00007c9d:	66 31 db	xor    bx,bx
+0x00007ca0 in ?? ()
+=> 0x00007ca0:	89 de	mov    esi,ebx
+0x00007ca2 in ?? ()
+=> 0x00007ca2:	c1 e6 05	shl    esi,0x5
+0x00007ca5 in ?? ()
+=> 0x00007ca5:	81 c6 00 7e bf be	add    esi,0xbebf7e00
+0x00007ca9 in ?? ()
+=> 0x00007ca9:	bf be 7d b9 0b	mov    edi,0xbb97dbe
+0x00007cac in ?? ()
+=> 0x00007cac:	b9 0b 00 f3 a6	mov    ecx,0xa6f3000b
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007caf in ?? ()
+=> 0x00007caf:	f3 a6	repz cmps BYTE PTR ds:[esi],BYTE PTR es:[edi]
+0x00007cb1 in ?? ()
+=> 0x00007cb1:	e3 0a	jecxz  0x7cbd
+0x00007cbd in ?? ()
+=> 0x00007cbd:	c1 e3 05	shl    ebx,0x5
+0x00007cc0 in ?? ()
+=> 0x00007cc0:	81 c3 00 7e 8b 47	add    ebx,0x478b7e00
+0x00007cc4 in ?? ()
+=> 0x00007cc4:	8b 47 1a	mov    eax,DWORD PTR [edi+0x1a]
+0x00007cc7 in ?? ()
+=> 0x00007cc7:	bb f7 7d 89 07	mov    ebx,0x7897df7
+$1 = 0x3
+Detaching from pid process 1
+Remote communication error.  Target disconnected.: 断开的管道.

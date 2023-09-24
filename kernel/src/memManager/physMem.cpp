@@ -1,7 +1,7 @@
 #include "memManager/physMem.h"
 
 namespace PhysMem {
-    char physPageUsageTable[131072] = {0};//物理页使用情况表(位图,  一位表示一页的占用情况)
+    char physPageUsageTable[131072] = {0};//物理页使用情况表(位图, 一位表示一页的占用情况)
     unsigned int usablePageIndexLast = 0;//可用页上一次查询的下标(20位)
     bool upiDir = false;//可用页下标迭代方向, false: 向上, true: 向下
 

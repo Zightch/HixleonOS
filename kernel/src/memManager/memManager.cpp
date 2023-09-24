@@ -117,71 +117,6 @@ bool allocHeap(unsigned int page, unsigned int size) {
     return true;
 }
 
-void *hlmalloc(unsigned int page, unsigned int size) {
-    //如果size和page有任意一个不合法
-    if (size == 0 || page > 1048575)
-        return nullptr;
-
-    int pageNum = heapSize(page);
-    if (1 > pageNum || pageNum > 1048576)
-        return nullptr;
-
-    coalesce(page);
-
-    unsigned int *addr = (unsigned int *) (page << 12);//获取地址
-    unsigned int uint32Num = pageNum * 1024;//堆中以4个字节为一个单位有多少个元素
-    size = ((size + 3) >> 2) + 2;//4字节对齐(向上取整), +2因为会有头和尾部数据
-
-    //开始遍历Implicit free list
-    unsigned int i = 1;//当前遍历到的位置
-    while (i < uint32Num - 1) {//如果没有到达尾部
-        unsigned int chunkSize = addr[i] >> 2;//获取当前块的大小
-        bool a = addr[i] & 1;//获取当前块的有效位
-        if (!a && size <= chunkSize) {//如果当前块是空闲的, 并且可以放下所需要的大小
-            addr[i] = (size << 2) | 1;//更新头部
-            addr[i + size - 1] = addr[i];//更新尾部
-            if (chunkSize > size) {//如果块还有空余, 更新空余部分的头部和尾部
-                addr[i + size] = (chunkSize - size) << 2;
-                addr[chunkSize] = addr[i + size];
-            }
-            return &addr[i + 1];//返回可用地址
-        }
-        //如果当前块是占用的或者不能合并, 移动i到下一个块的位置
-        i += chunkSize;
-    }
-
-    return nullptr;
-}
-
-bool hlfree(unsigned int page, void *addr) {
-    //如果addr和page有任意一个不合法
-    if (addr == nullptr || page > 1048575)
-        return false;
-    //addr是否4字节对齐
-    unsigned int addrNum = (unsigned int) addr;//获取addr的数字
-    if ((addrNum & 3) != 0)
-        return false;
-
-    //获取堆长度
-    int pageSize = heapSize(page);
-    if (1 > pageSize || page > 1048576)
-        return false;
-
-    //判断指针是否在堆内
-    unsigned int heapStartAddrNum = page << 12;//获取堆起始地址的数量
-    unsigned int uint8HeapSize = pageSize << 12;//获取堆所占字节数
-    if (addrNum < heapStartAddrNum + 4 || addrNum >= heapStartAddrNum + uint8HeapSize - 4)
-        return false;
-
-    unsigned int *uint32Addr = (unsigned int *) addr;//获取4个字节为一个单位的地址
-    uint32Addr[-1] = uint32Addr[-1] & 0xFFFFFFFE;//清空第0位
-    unsigned int chunkSize = uint32Addr[-1] >> 2;//获取块大小
-    uint32Addr[chunkSize - 2] = uint32Addr[-1];//更新尾部
-
-    coalesce(page);//合并空闲
-    return true;
-}
-
 bool expandHeap(unsigned int page, unsigned int size) {
     //如果size和page有任意一个不合法
     if (size > 1048575 || page > 1048575)
@@ -277,4 +212,69 @@ void coalesce(unsigned int page) {
         //如果当前块是占用的或者不能合并, 移动i到下一个块的位置
         i += size;
     }
+}
+
+void *kmalloc(unsigned int page, unsigned int size) {
+    //如果size和page有任意一个不合法
+    if (size == 0 || page > 1048575)
+        return nullptr;
+
+    int pageNum = heapSize(page);
+    if (1 > pageNum || pageNum > 1048576)
+        return nullptr;
+
+    coalesce(page);
+
+    unsigned int *addr = (unsigned int *) (page << 12);//获取地址
+    unsigned int uint32Num = pageNum * 1024;//堆中以4个字节为一个单位有多少个元素
+    size = ((size + 3) >> 2) + 2;//4字节对齐(向上取整), +2因为会有头和尾部数据
+
+    //开始遍历Implicit free list
+    unsigned int i = 1;//当前遍历到的位置
+    while (i < uint32Num - 1) {//如果没有到达尾部
+        unsigned int chunkSize = addr[i] >> 2;//获取当前块的大小
+        bool a = addr[i] & 1;//获取当前块的有效位
+        if (!a && size <= chunkSize) {//如果当前块是空闲的, 并且可以放下所需要的大小
+            addr[i] = (size << 2) | 1;//更新头部
+            addr[i + size - 1] = addr[i];//更新尾部
+            if (chunkSize > size) {//如果块还有空余, 更新空余部分的头部和尾部
+                addr[i + size] = (chunkSize - size) << 2;
+                addr[chunkSize] = addr[i + size];
+            }
+            return &addr[i + 1];//返回可用地址
+        }
+        //如果当前块是占用的或者不能合并, 移动i到下一个块的位置
+        i += chunkSize;
+    }
+
+    return nullptr;
+}
+
+bool kfree(unsigned int page, void *addr) {
+    //如果addr和page有任意一个不合法
+    if (addr == nullptr || page > 1048575)
+        return false;
+    //addr是否4字节对齐
+    unsigned int addrNum = (unsigned int) addr;//获取addr的数字
+    if ((addrNum & 3) != 0)
+        return false;
+
+    //获取堆长度
+    int pageSize = heapSize(page);
+    if (1 > pageSize || page > 1048576)
+        return false;
+
+    //判断指针是否在堆内
+    unsigned int heapStartAddrNum = page << 12;//获取堆起始地址的数量
+    unsigned int uint8HeapSize = pageSize << 12;//获取堆所占字节数
+    if (addrNum < heapStartAddrNum + 4 || addrNum >= heapStartAddrNum + uint8HeapSize - 4)
+        return false;
+
+    unsigned int *uint32Addr = (unsigned int *) addr;//获取4个字节为一个单位的地址
+    uint32Addr[-1] = uint32Addr[-1] & 0xFFFFFFFE;//清空第0位
+    unsigned int chunkSize = uint32Addr[-1] >> 2;//获取块大小
+    uint32Addr[chunkSize - 2] = uint32Addr[-1];//更新尾部
+
+    coalesce(page);//合并空闲
+    return true;
 }

@@ -12,7 +12,7 @@ cd ..
 nasm boot/${arch}/LOADER.ASM
 nasm boot/${arch}/mbr.asm
 
-dd if=/dev/zero of=HixleonOS.img bs=1M count=4
+dd if=/dev/zero of=HixleonOS.img bs=16M count=1
 dd conv=notrunc if=boot/${arch}/mbr of=HixleonOS.img
 
 mkdir tmp

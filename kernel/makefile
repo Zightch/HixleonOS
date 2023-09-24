@@ -1,10 +1,12 @@
 debug:=-g
-oArgs:=-I include -nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -static ${debug}
-eArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -T linker.ld -static ${debug}
+libs:=
+oArgs:=-I include -I class -nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -static ${debug} ${libs}
+eArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -T linker.ld -static ${debug} ${libs}
 oDir:=obj
 cmd:=i686-elf-g++
 
 src := $(shell find ./src/ -maxdepth 7 -type d)
+src += $(shell find ./class/ -maxdepth 7 -type d)
 
 allCpp += $(foreach dir,${src}, $(wildcard ${dir}/*.cpp))
 allS += $(foreach dir,${src}, $(wildcard ${dir}/*.S))

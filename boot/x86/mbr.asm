@@ -16,19 +16,20 @@ org 0x7c00
 ;0x7e00 ~ 0x7FFF    512B   (0.5KB)      扇区缓存区
 ;0x8000 ~ 0x9FBFF   621567B             文件内容和可用堆区
 
-;4MB磁盘容量
-;FAT1表占用扇区数32
+;FAT16磁盘格式
+;16MB磁盘容量
+;FAT1表占用扇区数128
 ;根目录占用扇区数32
-;数据区起始扇区号65, 对应簇号为2
-;簇号 + 63 = 扇区号
+;数据区起始扇区号161, 对应簇号为2
+;簇号 + 159 = 扇区号
 ;一个扇区最多存16个目录项
 
-;   扇区数     扇区号(范围)         字节偏移(范围)        区域名   
-;       1               0        0x0000 ~ 0x01ff       引导扇区
-;      32          1 ~ 32        0x0200 ~ 0x41ff       FAT1表
-;      --              --                     --       FAT2表
-;      32         33 ~ 64        0x4200 ~ 0x81ff       根目录区
-;    8127     65 ~ 0x1fff      0x8200 ~ 0x3fffff       数据区
+;   扇区数     扇区号(范围)         字节偏移(范围)       区域名   
+;       1                0         0x0000 ~ 0x01FF       引导扇区
+;     128          1 ~ 128        0x0200 ~ 0x101FF       FAT1表
+;      --               --                      --       FAT2表
+;      32        129 ~ 160       0x10200 ~ 0x141FF       根目录区
+;   32607     161 ~ 0x7FFF      0x14200 ~ 0xFFFFFF       数据区
 
 ;短跳转指令(偏移0, 长度3)
 jmp mbrInit
@@ -41,9 +42,9 @@ db 0x01                         ;   13       1     BPB_SecPerClus    每簇扇�
 db 0x01, 0x00                   ;   14       2     BPB_RsvdSecCnt    引导扇区的扇区数
 db 0x01                         ;   16       1     BPB_NumFATs       FAT表个数
 db 0x00, 0x02                   ;   17       2     BPB_RootEntCnt    根目录可容纳的目录项数
-db 0x00, 0x20                   ;   19       2     BPB_TotSec16      扇区总数
+db 0x00, 0x80                   ;   19       2     BPB_TotSec16      扇区总数
 db 0xf8                         ;   21       1     BPB_Media         介质描述符
-db 0x20, 0x00                   ;   22       2     BPB_FATSz16       每个FAT表扇区数
+db 0x80, 0x00                   ;   22       2     BPB_FATSz16       每个FAT表扇区数
 db 0x20, 0x00                   ;   24       2     BPB_SecPerTrk     每磁道扇区数
 db 0x40, 0x00                   ;   26       2     BPB_NumHeads      磁头数
 db 0x00, 0x00, 0x00, 0x00       ;   28       4     BPB_HiddSec       隐藏扇区数
@@ -104,7 +105,7 @@ mov esp, eax
 
 ;读取根目录
 mov di, 0x7e00
-mov ebx, 33
+mov ebx, 129
 call readSector
 
 ;查找文件
@@ -143,7 +144,7 @@ mov bx, usable
 mov bx, [bx] ;从可用内存段里读取临时簇号
 cmp bx, 0xfff7 ;比较0xfff7
 ja readFileEnd ;如果>0xfff7(说明>=0xfff8)跳转到读取文件结束
-add bx, 63 ;bx += 63获取扇区号
+add bx, 159 ;bx += 159获取扇区号
 call readSector
 
 ;读取下一个簇号

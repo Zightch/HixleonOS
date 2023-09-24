@@ -18,15 +18,6 @@ int allocHeap(unsigned int size);
 bool allocHeap(unsigned int page, unsigned int size);
 
 /**
- * @brief 从指定的堆中分配size个字节的内存
- *
- * @param page: unsigned int 堆起始页号
- * @param size: unsigned int 长度
- * @return void *: 内存起始地址
- */
-void *hlmalloc(unsigned int page, unsigned int size);
-
-/**
  * @brief 从指定的堆向上拓展size个页
  *
  * @param page: unsigned int 堆起始页号
@@ -44,15 +35,6 @@ bool expandHeap(unsigned int page, unsigned int size);
 bool freeHeap(unsigned int page);
 
 /**
- * @brief 从指定的堆中释放已分配的内存
- *
- * @param page: unsigned int 堆起始页号
- * @param addr: void *内存地址
- * @return bool: true释放成功, false释放失败
- */
-bool hlfree(unsigned int page, void *addr);
-
-/**
  * @brief 为指定的堆区进行合并空闲的内存
  *
  * @param page: unsigned int 堆起始页号
@@ -66,3 +48,21 @@ void coalesce(unsigned int page);
  * @return int: 如果获取成功会返回1 ~ 1048576之间的合法长度数字, 如果失败回返回不合法数字比如-1
  */
 int heapSize(unsigned int page);
+
+/**
+ * @brief 从指定的堆中分配size个字节的内存
+ *
+ * @param page: unsigned int 堆起始页号
+ * @param size: unsigned int 长度
+ * @return void *: 内存起始地址
+ */
+void *kmalloc(unsigned int page, unsigned int size);
+
+/**
+ * @brief 从指定的堆中释放已分配的内存
+ *
+ * @param page: unsigned int 堆起始页号
+ * @param addr: void *内存地址
+ * @return bool: true释放成功, false释放失败
+ */
+bool kfree(unsigned int page, void *addr);

@@ -122,7 +122,7 @@ mov word ss, ax
 
 ;切换完成, 准备进入Kernel
 ;解析Kernel的ELF32结构
-;am(4)      : 扇区号(33-64, 遍历根目录, 寻找"KERNEL"文件)
+;am(4)      : 扇区号(129-160, 遍历根目录, 寻找"KERNEL"文件)
 ;am + 4(2)  : 读取扇区函数地址
 ;am + 6(2)  : 临时簇号保存
 ;am + 8(4) : 上一次读取的扇区号
@@ -143,7 +143,7 @@ mov word ax, [ebx] ;取出readSector函数地址
 mov dword ebx, am + 4
 mov word [ebx], ax ;把地址转写到am + 4的地址上
 
-mov dword eax, 33
+mov dword eax, 129
 mov dword ebx, am
 mov dword [ebx], eax ;写入扇区号
 
@@ -151,7 +151,7 @@ mov dword [ebx], eax ;写入扇区号
 rootDirTrvs:
 mov dword ebx, am
 mov dword ebx, [ebx]
-cmp dword ebx, 64
+cmp dword ebx, 160
 ja fileNotFind
 mov dword edi, 0x7E00
 call readSector32
@@ -246,7 +246,7 @@ readFileNext:
 ;确定当前簇号所在FAT1表的扇区号
 cmp word ax, 0xFFF7
 ja readFileEnd ;如果>0xfff7(说明>=0xfff8)跳转到读取文件结束
-cmp word ax, 8192
+cmp word ax, 32768
 jnb fileError
 xor dword edx, edx
 mov dword ecx, 0xFF
@@ -270,7 +270,7 @@ mov dword ebx, am + 12
 mov dword edi, [ebx] ;读取断点续写地址
 mov word bx, am + 6
 mov word bx, [ebx] ;从可用内存段里读取临时簇号
-add word bx, 63 ;bx += 63获取扇区号
+add word bx, 159 ;bx += 159获取扇区号
 call readSector32
 mov dword ebx, am + 12
 mov dword [ebx], edi ;更新断点续写地址

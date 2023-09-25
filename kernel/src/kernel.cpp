@@ -4,6 +4,7 @@
 #include "IDT.h"
 #include "memManager/kernelMem.h"
 #include "ByteArray/ByteArray.h"
+#include "tools/numTools.h"
 
 //为了让通过编译的
 extern "C" void __gxx_personality_v0(){}
@@ -54,10 +55,16 @@ void kernelMain() {
         return;
     }
 
-    //类测试
-    ByteArray testClass = "class Test string\n";
-    ttyPutStr(testClass);//打印字符串
-    testClass += "123,321,3*9=27!\n";
-    testClass += '\0';
-    ttyPutStr(testClass);//打印字符串
+    //转字符串测试
+    ByteArray endl("\n\0", 2);
+    ttyPutStr(toByteArray((long long) (123)) + endl);//打印字符串
+    ttyPutStr(toByteArray((long long) (44), 2) + endl);//打印字符串
+    ttyPutStr(toByteArray((long long) (44), 8) + endl);//打印字符串
+    ttyPutStr(toByteArray((long long) (44), 16) + endl);//打印字符串
+
+    ttyPutStr(toByteArray((long long) (-123), 10, 8) + endl);//打印字符串
+    ByteArray tmp = toByteArray((long long) (-44), 2);
+    ttyPutStr(tmp + " " + toByteArray(tmp.size()) + endl);//打印字符串
+    ttyPutStr(toByteArray((long long) (-44), 8) + endl);//打印字符串
+    ttyPutStr(toByteArray((long long) (-44), 16) + endl);//打印字符串
 }

@@ -239,7 +239,7 @@ void *kmalloc(unsigned int page, unsigned int size) {
             addr[i + size - 1] = addr[i];//更新尾部
             if (chunkSize > size) {//如果块还有空余, 更新空余部分的头部和尾部
                 addr[i + size] = (chunkSize - size) << 2;
-                addr[chunkSize] = addr[i + size];
+                addr[chunkSize + i - 1] = addr[i + size];
             }
             return &addr[i + 1];//返回可用地址
         }

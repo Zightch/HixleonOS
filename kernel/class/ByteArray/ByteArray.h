@@ -8,7 +8,7 @@ public:
 
     ByteArray(const char *);
 
-    ByteArray(const char *, unsigned int);
+    ByteArray(const char *, int);
 
     ByteArray &operator=(const ByteArray &);
 
@@ -16,11 +16,11 @@ public:
 
     ~ByteArray();
 
-    unsigned int size() const;
+    int size() const;
 
-    char &operator[](unsigned int);
+    char &operator[](int);
 
-    char operator[](unsigned int) const;
+    char operator[](int) const;
 
     char *data() const;
 
@@ -38,12 +38,14 @@ public:
 
     ByteArray &operator+=(char);
 
+    bool empty() const;
+
 private:
     void joint(const ByteArray &);
 
     char err;
     char *data_ = nullptr;
-    unsigned int size_ = 0;
+    int size_ = 0;
 
     friend bool operator==(const ByteArray &, const ByteArray &);
     friend bool operator==(const char *, const ByteArray &);
@@ -51,6 +53,7 @@ private:
     friend bool operator!=(const ByteArray &, const ByteArray &);
     friend bool operator!=(const char *, const ByteArray &);
     friend bool operator!=(const ByteArray &, const char *);
+    friend ByteArray operator+(const char*, const ByteArray&);
 };
 
 bool operator==(const ByteArray &, const ByteArray &);
@@ -60,3 +63,5 @@ bool operator==(const ByteArray &, const char *);
 bool operator!=(const ByteArray &, const ByteArray &);
 bool operator!=(const char *, const ByteArray &);
 bool operator!=(const ByteArray &, const char *);
+
+ByteArray operator+(const char *, const ByteArray &);

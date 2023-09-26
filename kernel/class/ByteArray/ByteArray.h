@@ -1,5 +1,7 @@
 #pragma once
 
+#include "SharedPtr.h"
+
 class ByteArray {
 public:
     ByteArray();
@@ -65,3 +67,5 @@ bool operator!=(const char *, const ByteArray &);
 bool operator!=(const ByteArray &, const char *);
 
 ByteArray operator+(const char *, const ByteArray &);
+
+typedef SharedPtr<ByteArray> ByteArrayPtr;

@@ -57,14 +57,16 @@ void kernelMain() {
 
     //转字符串测试
     ByteArray endl("\n\0", 2);
-    ttyPutStr(toByteArray((long long) (123)) + endl);//打印字符串
-    ttyPutStr(toByteArray((long long) (44), 2) + endl);//打印字符串
-    ttyPutStr(toByteArray((long long) (44), 8) + endl);//打印字符串
-    ttyPutStr(toByteArray((long long) (44), 16) + endl);//打印字符串
-
-    ttyPutStr(toByteArray((long long) (-123), 10, 8) + endl);//打印字符串
-    ByteArray tmp = toByteArray((long long) (-44), 2);
-    ttyPutStr(tmp + " " + toByteArray(tmp.size()) + endl);//打印字符串
-    ttyPutStr(toByteArray((long long) (-44), 8) + endl);//打印字符串
-    ttyPutStr(toByteArray((long long) (-44), 16) + endl);//打印字符串
+    ttyPutStr("dec test 0: " + toByteArray(3.1415926, 3) + endl);
+    ttyPutStr("dec test 1: " + toByteArray(3.9999999, 3) + endl);
+    ttyPutStr("dec test 2: " + toByteArray(-3.1415926, 4, 10) + endl);
+    //共享智能指针测试
+    ByteArrayPtr sptr;
+    {
+        ByteArrayPtr test0 = sptr;
+        *test0 = "The memory size is: " + toByteArray(dramSize) + " Byte";
+        double dramSizeGB = ((dramSize * 1.0) / 1024.0 / 1024.0 / 1024.0);
+        *test0 += ("(about " + toByteArray(dramSizeGB,2)+"GB)");
+    }
+    ttyPutStr(*sptr + endl);
 }

@@ -54,6 +54,7 @@ void kernelMain() {
         ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, Alloc heap memory fail!\n");
         return;
     }
+    initRefCount();//初始化共享指针的引用计数器
 
     //转字符串测试
     ByteArray endl("\n\0", 2);

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SharedPtr.hpp"
+#include "SharedPtr/SharedPtr.h"
 
 class ByteArray {
 public:

@@ -5,9 +5,9 @@ class SharedPtr final {
 public:
     SharedPtr();                                   //默认构造
     SharedPtr(T *);                                //有参构造
-    SharedPtr(const SharedPtr<T> &);               //拷贝构造(浅拷贝)
+    SharedPtr(const SharedPtr &);               //拷贝构造(浅拷贝)
     ~SharedPtr();                                  //析构函数
-    SharedPtr &operator=(const SharedPtr<T> &);    //赋值函数重载
+    SharedPtr &operator=(const SharedPtr &);    //赋值函数重载
     T *operator->() const;                         //指针运算符重载
     T &operator*() const;                          //取值运算符重载
     int useCount() const;                          //引用数量
@@ -32,7 +32,7 @@ SharedPtr<T>::SharedPtr(T *p) {
 }
 
 template<typename T>
-SharedPtr<T>::SharedPtr(const SharedPtr<T> &obj) {
+SharedPtr<T>::SharedPtr(const SharedPtr &obj) {
     ptr = obj.ptr;
     ptrCount = obj.ptrCount;
     (*ptrCount)++;
@@ -57,7 +57,7 @@ void SharedPtr<T>::unRef() {
 }
 
 template<typename T>
-SharedPtr<T> &SharedPtr<T>::operator=(const SharedPtr<T> &obj) {
+SharedPtr<T> &SharedPtr<T>::operator=(const SharedPtr &obj) {
     unRef();
     ptr = obj.ptr;
     ptrCount = obj.ptrCount;

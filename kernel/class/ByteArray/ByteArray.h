@@ -1,6 +1,6 @@
 #pragma once
 
-#include "SharedPtr.h"
+#include "SharedPtr.hpp"
 
 class ByteArray {
 public:
@@ -43,7 +43,7 @@ public:
     bool empty() const;
 
 private:
-    void joint(const ByteArray &);
+    void joint_(const ByteArray &);
 
     char err;
     char *data_ = nullptr;

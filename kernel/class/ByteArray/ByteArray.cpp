@@ -20,7 +20,7 @@ ByteArray::ByteArray(const char *c) {
 }
 
 ByteArray::ByteArray(const char *c, int size) {
-    if (c == nullptr || size == 0)
+    if (c == nullptr || size <= 0)
         return;
     size_ = size;
     data_ = new char[size_];
@@ -61,19 +61,19 @@ int ByteArray::size() const {
     return size_;
 }
 
-char &ByteArray::operator[](int size) {
-    if (size < size_)
-        return data_[size];
+char &ByteArray::operator[](int index) {
+    if (0 <= index && index < size_)
+        return data_[index];
     return err;
 }
 
-char ByteArray::operator[](int size) const {
-    if (size < size_)
-        return data_[size];
+char ByteArray::operator[](int index) const {
+    if (0 <= index && index < size_)
+        return data_[index];
     return 0;
 }
 
-void ByteArray::joint(const ByteArray &ba) {
+void ByteArray::joint_(const ByteArray &ba) {
     char *tmp = data_;
     size_ += ba.size_;
     data_ = new char[size_];
@@ -94,23 +94,23 @@ ByteArray::operator char*() const {
 
 ByteArray ByteArray::operator+(const ByteArray &ba) {
     ByteArray tmp = *this;
-    tmp.joint(ba);
+    tmp.joint_(ba);
     return tmp;
 }
 
 ByteArray ByteArray::operator+(const char *c) {
     ByteArray tmp = *this;
-    tmp.joint(c);
+    tmp.joint_(c);
     return tmp;
 }
 
 ByteArray &ByteArray::operator+=(const ByteArray &ba) {
-    this->joint(ba);
+    this->joint_(ba);
     return *this;
 }
 
 ByteArray &ByteArray::operator+=(const char *c) {
-    this->joint(c);
+    this->joint_(c);
     return *this;
 }
 
@@ -120,7 +120,7 @@ ByteArray ByteArray::operator+(char c) {
     tmp1.data_ = new char[1];
     tmp1.data_[0] = c;
     tmp1.size_ = 1;
-    tmp0.joint(tmp1);
+    tmp0.joint_(tmp1);
     return tmp0;
 }
 
@@ -129,7 +129,7 @@ ByteArray &ByteArray::operator+=(char c) {
     tmp.data_ = new char[1];
     tmp.data_[0] = c;
     tmp.size_ = 1;
-    this->joint(tmp);
+    this->joint_(tmp);
     return *this;
 }
 
@@ -167,6 +167,6 @@ bool operator!=(const ByteArray &b1, const char *c) {
 
 ByteArray operator+(const char *c, const ByteArray &ba) {
     ByteArray tmp(c);
-    tmp.joint(ba);
+    tmp.joint_(ba);
     return tmp;
 }

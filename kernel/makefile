@@ -1,7 +1,8 @@
 debug:=-g
 libs:=
-oArgs:=-I include -I class -nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -static ${debug} ${libs}
-eArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -T linker.ld -static ${debug} ${libs}
+commonArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -static -msse -mfpmath=sse
+oArgs:=-I include -I class ${commonArgs} ${debug} ${libs}
+eArgs:=${commonArgs} -T linker.ld ${debug} ${libs}
 oDir:=obj
 cmd:=i686-elf-g++
 

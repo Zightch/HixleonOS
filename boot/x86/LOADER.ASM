@@ -120,16 +120,25 @@ mov word gs, ax
 mov word fs, ax
 mov word ss, ax
 
+;初始化cr0的第2位为0
+;初始化cr4的第9位为1
+mov dword eax, cr0
+and dword eax, 0xFFFFFFFB
+mov dword cr0, eax
+mov dword eax, cr4
+or dword eax, 0x00000200
+mov dword cr4, eax
+
 ;切换完成, 准备进入Kernel
 ;解析Kernel的ELF32结构
-;am(4)      : 扇区号(129-160, 遍历根目录, 寻找"KERNEL"文件)
+;am(4)      : 扇区号(129 ~ 160, 遍历根目录, 寻找"KERNEL"文件)
 ;am + 4(2)  : 读取扇区函数地址
 ;am + 6(2)  : 临时簇号保存
-;am + 8(4) : 上一次读取的扇区号
+;am + 8(4)  : 上一次读取的扇区号
 ;am + 12(4) : 文件断点续写地址
 ;am + 16(4) : Kernel文件的起始地址
 ;am + 20(2) : 内存地图长度
-;am + 22 : 内存地图
+;am + 22    : 内存地图
 
 xor dword eax, eax
 mov dword ebx, am + 8

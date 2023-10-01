@@ -56,18 +56,14 @@ void kernelMain() {
     }
     initRefCount();//初始化共享指针的引用计数器
 
-    //转字符串测试
-    ByteArray endl("\n\0", 2);
-    ttyPutStr("dec test 0: " + toByteArray(3.1415926, 3) + endl);
-    ttyPutStr("dec test 1: " + toByteArray(3.9999999, 3) + endl);
-    ttyPutStr("dec test 2: " + toByteArray(-3.1415926, 4, 10) + endl);
-    //共享智能指针测试
-    ByteArrayPtr sptr;
-    {
-        ByteArrayPtr test0 = sptr;
-        *test0 = "The memory size is: " + toByteArray(dramSize) + " Byte";
-        double dramSizeGB = ((dramSize * 1.0) / 1024.0 / 1024.0 / 1024.0);
-        *test0 += ("(about " + toByteArray(dramSizeGB,2)+"GB)");
-    }
-    ttyPutStr(*sptr + endl);
+    ByteArray endl("\n", 2);
+/*    int cr0, cr4;
+    asm volatile ("movl %%cr0, %0": "=r" (cr0));
+    asm volatile ("movl %%cr4, %0": "=r" (cr4));
+    ttyPutStr("cr0: " + toByteArray(cr0, 2, 32) + endl);
+    ttyPutStr("cr4: " + toByteArray(cr4, 2, 32) + endl);*/
+    float dramSizeGiB = dramSize * 1.0f / 1024.0f / 1024.0f / 1024.0f;
+    //ttyPutStr(toByteArray(*((int *) (&dramSizeGiB)), 16) + endl);
+    ttyPutStr("The memory size is: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
+    ttyPutStr("Kernel done.");
 }

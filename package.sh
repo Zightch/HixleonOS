@@ -5,7 +5,7 @@ rm -rf HixleonOS.img
 rm -rf boot/${arch}/LOADER
 rm -rf boot/${arch}/mbr
 
-cd kernel
+cd kernel || exit
 make
 cd ..
 

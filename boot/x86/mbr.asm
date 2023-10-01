@@ -89,7 +89,6 @@ mov [es : di], ax
 add di, 2
 loop cls.for
 
-;0x7c6c
 ;初始化段寄存器
 jmp 0x0000 : mbrStart ; 重置cs寄存器为0
 mbrStart:

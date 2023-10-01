@@ -1,73 +1,45 @@
 #include "tools/numTools.h"
 #include "ByteArray/ByteArray.h"
+#include "tty.h"
 
 //---从网上找的基于32位处理器的64位整数除法和整数取余, 用于通过编译---
 
-unsigned long long ctz (unsigned long long value) {
-    unsigned long long count = 0;
-    while ((value & 1) == 0) {
-        value >>= 1;
-        count++;
-    }
-    return count;
+extern "C" unsigned long long __udivdi3(unsigned long long a, unsigned long long b) {
+    unsigned long long quotient = 0;
+    if (b == 0) __asm__("int $0");
+    for (short i = 63; i > 0; i--)
+        if ((a >> i) >= b) {
+            quotient += (1 << i);
+            a -= (b << i);
+        }
+    return quotient;
 }
 
 extern "C" unsigned long long __umoddi3(unsigned long long a, unsigned long long b) {
-    // 如果b为0, 返回a
-    if (b == 0) return a;
-    // 如果a和b都小于2^32, 直接用32位运算
-    if ((a >> 32) == 0 && (b >> 32) == 0) return (unsigned int) a % (unsigned int) b;
-    // 如果a小于b, 返回a
-    if (a < b) return a;
-    // 如果b为2的幂, 用位运算
-    if ((b & (b - 1)) == 0) return a & (b - 1);
-    // 其他情况, 用循环减法
-    unsigned long long r = a;
-    while (r >= b) r -= b;
-    return r;
-}
-
-extern "C" unsigned long long __udivdi3(unsigned long long a, unsigned long long b) {
-    // 如果b为0, 返回a
-    if (b == 0) return a;
-    // 如果a和b都小于2^32, 直接用32位运算
-    if ((a >> 32) == 0 && (b >> 32) == 0) return (unsigned int) a / (unsigned int) b;
-    // 如果a小于b, 返回0
-    if (a < b) return 0;
-    // 如果b为2的幂, 用位运算
-    if ((b & (b - 1)) == 0) return a >> ctz(b);
-    // 其他情况, 用循环减法
-    unsigned long long q = 0; // 商
-    unsigned long long r = a; // 被除数
-    while (r >= b) {
-        r -= b;
-        q++;
-    }
-    return q;
+    unsigned long long c, f;
+    c = __udivdi3(a, b);
+    f = a - (b * c);
+    return f;
 }
 
 extern "C" long long __divdi3(long long a, long long b) {
-    // 如果b为0, 返回a
-    if (b == 0) return a;
-    // 如果a和b都小于2^32, 直接用32位运算
-    if ((a >> 32) == 0 && (b >> 32) == 0) return (int) a / (int) b;
-    // 如果a和b同号, 用__udivdi3计算绝对值的商
-    if ((a > 0 && b > 0) || (a < 0 && b < 0))
-        return __udivdi3(a < 0 ? -a : a, b < 0 ? -b : b);
-        // 如果a和b异号, 用__udivdi3计算绝对值的商, 并取相反数
-    else return -__udivdi3(a < 0 ? -a : a, b < 0 ? -b : b);
+    long long quotient = 0;
+    if (b == 0) __asm__("int $0");
+    for (short i = 63; i >= 0; i--)
+        if ((a >> i) >= b) {
+            quotient += (1 << i);
+            a -= (b << i);
+        }
+    if ((a ^ b) < 0)
+        quotient = -quotient;
+    return quotient;
 }
 
 extern "C" long long __moddi3(long long a, long long b) {
-    // 如果b为0, 返回a
-    if (b == 0) return a;
-    // 如果a和b都小于2^32, 直接用32位运算
-    if ((a >> 32) == 0 && (b >> 32) == 0) return (int) a % (int) b;
-    // 如果a和b同号, 用__umoddi3计算绝对值的余数
-    if ((a > 0 && b > 0) || (a < 0 && b < 0))
-        return __umoddi3(a < 0 ? -a : a, b < 0 ? -b : b);
-        // 如果a和b异号, 用__umoddi3计算绝对值的余数, 并取相反数
-    else return -__umoddi3(a < 0 ? -a : a, b < 0 ? -b : b);
+    long long c, f;
+    c = __divdi3(a, b);
+    f = a - (b * c);
+    return f;
 }
 
 ByteArray toByteArray(char num, char base, unsigned char fieldWidth, char fillChar) {
@@ -660,7 +632,33 @@ ByteArray toByteArray(unsigned long long num, char base, unsigned char fieldWidt
 }
 
 ByteArray toByteArray(float num, unsigned char acc, unsigned char fieldWidth, char fillChar) {
-    return toByteArray((double) num, acc, fieldWidth, fillChar);
+    float numAbs = num < 0 ? -num : num;
+    int integer = numAbs;
+    float decimals = numAbs - (integer * 1.0f);
+    int decCarry = 0;//小数进位
+    for (short i = 0; i < acc; i++) {
+        decimals *= 10.0f;
+        decCarry *= 10;
+        decCarry += 9;
+    }
+    {//四舍五入
+        int dec = decimals;
+        float decOfDec = decimals - (dec * 1.0f);
+        if (decOfDec >= 0.5f)decimals += 1.0f;
+        if (decimals > decCarry) {//如果超过小数进位
+            decimals -= (decCarry + 1);
+            integer++;
+        }
+    }
+    ByteArray ba = toByteArray(integer) + "." + toByteArray((int) decimals, 10, acc);
+    if (ba.size() < fieldWidth) {
+        ByteArray fill;
+        for (int i = 0; i < fieldWidth - ba.size(); i++)
+            fill += fillChar;
+        if (num < 0)fill[0] = '-';
+        ba = fill + ba;
+    } else if (num < 0)ba = "-" + ba;
+    return ba;
 }
 
 ByteArray toByteArray(double num, unsigned char acc, unsigned char fieldWidth, char fillChar) {

@@ -2,6 +2,7 @@
 #include "tty.h"
 #include "GDT.h"
 #include "IDT.h"
+#include "APIC.h"
 #include "memManager/kernelMem.h"
 #include "ByteArray/ByteArray.h"
 #include "tools/numTools.h"
@@ -48,8 +49,8 @@ void kernelMain() {
     }
 
     //初始化内存
-    //kernelEnd开始向上找连续可用的虚拟页空间, 默认分配4个页(16KB)
-    unsigned int heapNum = 4;
+    //kernelEnd开始向上找连续可用的虚拟页空间, 默认分配32768个页(128MiB)
+    unsigned int heapNum = 32768;
     if (!kernelMemInit(heapNum, dramUpper)) {//如果堆区分配失败
         ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, Alloc heap memory fail!\n");
         return;
@@ -57,13 +58,17 @@ void kernelMain() {
     initRefCount();//初始化共享指针的引用计数器
 
     ByteArray endl("\n", 2);
-/*    int cr0, cr4;
-    asm volatile ("movl %%cr0, %0": "=r" (cr0));
-    asm volatile ("movl %%cr4, %0": "=r" (cr4));
-    ttyPutStr("cr0: " + toByteArray(cr0, 2, 32) + endl);
-    ttyPutStr("cr4: " + toByteArray(cr4, 2, 32) + endl);*/
+    ttyPutStr("Mem map:  Base              Size              Type\n");
+    for (unsigned int i = 0; i < mapSize; i++) {//打印内存地图
+        ByteArray index = toByteArray(i, 16, 8);
+        ByteArray base = toByteArray(memMap[i].base, 16, 16);
+        ByteArray size = toByteArray(memMap[i].size, 16, 16);
+        ByteArray type = toByteArray(memMap[i].type, 16, 8);
+        ttyPutStr(index + "  " + base + "  " + size + "  " + type + endl);
+    }
     float dramSizeGiB = dramSize * 1.0f / 1024.0f / 1024.0f / 1024.0f;
-    //ttyPutStr(toByteArray(*((int *) (&dramSizeGiB)), 16) + endl);
-    ttyPutStr("The memory size is: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
-    ttyPutStr("Kernel done.");
+    ttyPutStr("The DRAM size is: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
+
+    //初始化APIC
+    initAPIC();
 }

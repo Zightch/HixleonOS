@@ -2,7 +2,7 @@
 
 #include "SharedPtr/SharedPtr.h"
 
-class ByteArray {
+class ByteArray final {
 public:
     ByteArray();
 

@@ -18,6 +18,9 @@ bool kernelMemInit(unsigned int num, unsigned int dramUpper) {
     unsigned int unusable = (dramUpper + 1) >> 12;
     PhysMem::setSectionPageUsage(unusable, 1048576 - unusable, true);
 
+    //对等映射0xFEE00000内存(为APIC使用)
+    VirtMem::map(0xFEE00, 0xFEE00);
+
     //如果num不合法
     if (num >= 1048576)
         return false;

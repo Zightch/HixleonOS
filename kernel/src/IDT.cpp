@@ -1,9 +1,11 @@
 #include "IDT.h"
 #include "interrupts/intFacade.h"
 
-#define IDT_ENTRY 32
+#define IDT_ATTR(dpl) ((0x70 << 5) | (dpl & 3) << 13 | 1 << 15)
 
-unsigned long long idt[32];
+#define IDT_ENTRY 256
+
+unsigned long long idt[IDT_ENTRY];
 unsigned short idtLimit = sizeof(idt) - 1;
 
 void setIDT(unsigned short vector, unsigned short segSelector, void(*isr)(), unsigned char dpl) {

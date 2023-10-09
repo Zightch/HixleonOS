@@ -12,10 +12,10 @@
 #define PTE_MAX_NUM 5
 
 #pragma pack(push, 1)
-struct KernelPageTable {
+typedef struct {
     unsigned int pde[PE_MAX_NUM];//页目录项
     unsigned int pte[PTE_MAX_NUM][PE_MAX_NUM];//页表表项
-};
+} KernelPageTable;
 #pragma pack(pop)
 
 void HHK_INIT_TEXT kernelPageInit(KernelPageTable *ptd) {

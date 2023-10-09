@@ -8,7 +8,7 @@
 
 #define LAPIC_DM(DMVal) ((DMVal << 8) & 0x700)
 
-#define LAPIC_MASK(isMask) ((isMask << 16) & 0x100000)
+#define LAPIC_MASK(isMask) ((isMask << 16) & 0x10000)
 
 #define LAPIC_TIG_MODE(mode) ((mode << 15) & 0x8000)
 

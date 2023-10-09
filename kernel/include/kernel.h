@@ -1,9 +1,9 @@
 #pragma once
 
 #pragma pack(push, 1)
-struct MemMap {
+typedef struct {
     unsigned long long base;
     unsigned long long size;
     unsigned int type;
-};
+} MemMap;
 #pragma pack(pop)

@@ -49,8 +49,8 @@ void kernelMain() {
     }
 
     //初始化内存
-    //kernelEnd开始向上找连续可用的虚拟页空间, 默认分配32768个页(128MiB)
-    unsigned int heapNum = 32768;
+    //kernelEnd开始向上找连续可用的虚拟页空间, 默认分配4个页(16kiB)
+    unsigned int heapNum = 4;
     if (!kernelMemInit(heapNum, dramUpper)) {//如果堆区分配失败
         ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, Alloc heap memory fail!\n");
         return;

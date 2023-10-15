@@ -15,31 +15,21 @@ void initAPIC() {
             cpuid(1, eax, ebx, ecx, edx);
             if (((edx >> 9) & 1) == 0) {
                 ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Error, CPU not carry APIC");
-                while (true)
-                    __asm__("hlt");
+                hlt();
             }
         } else
-            ttyPutStr("Warning, this processor does not support the CPUID instruction and will not be able to obtain CPU information\n");
+            ttyPutStr(VGA_COLOR_BROWN, VGA_COLOR_BLACK, "Warning, this processor does not support the CPUID instruction and will not be able to obtain CPU information\n");
     }//检查APIC是否存在
 
-    __asm__(
-            "movl $0xff, %eax\n"
-            "outb %al, $0xa1\n"
-            "outb %al, $0x21"
-            );//禁用8259PIC
+    //禁用8259PIC
+    outb(0xa1, 0xff);
+    outb(0x21, 0xff);
 
-    unsigned int eax, edx;
-    __asm__(
-            "movl $0x1b, %%ecx\n"
-            "rdmsr\n"
-            "orl $0x800, %%eax\n"
-            "wrmsr\n"
-            "movl %%eax, %0\n" // 将eax寄存器值保存到eax变量中
-            "movl %%edx, %1\n" // 将edx寄存器值保存到edx变量中
-            : "=r" (eax), "=r" (edx) // 输出操作数列表
-            : // 输入操作数列表
-            : "%ecx", "%eax", "%edx" // 破坏描述符列表
-            );
+    //硬启用APIC
+    unsigned int IA32_APIC_BASE = rdmsr(0x1b);
+    IA32_APIC_BASE |= 0x800;
+    wrmsr(0x1b, IA32_APIC_BASE);
+
     ByteArray endl("\n", 2);
     //ttyPutStr(toByteArray(edx, 16, 8) + toByteArray(eax, 16, 8) + endl);
 

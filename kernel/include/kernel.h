@@ -7,3 +7,6 @@ typedef struct {
     unsigned int type;
 } MemMap;
 #pragma pack(pop)
+
+extern MemMap *memMap;
+extern unsigned short memMapSize;

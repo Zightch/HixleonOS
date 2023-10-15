@@ -1,6 +1,7 @@
 #include "memManager/virtMem.h"
 #include "memManager/physMem.h"
 #include "page.h"
+#include "cpu.h"
 
 namespace VirtMem {
     unsigned int usablePageIndexLast = 0;//可用页上一次查询的下标(具体页号)
@@ -131,7 +132,7 @@ namespace VirtMem {
                 setPTEEntry(pdeIndex, i, 0);//清空新分配的表, 防止有垃圾
         }
         setPTEEntry(pdeIndex, pteIndex, PE(PE_PRESENT | PE_WRITE, physPage << 12));//建立映射关系
-        __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
+        invplg(virtPage);//刷新TLB
         return true;
     }
 
@@ -202,7 +203,7 @@ namespace VirtMem {
             PhysMem::setPageUsage(physPTE, false);//归还PTE空间
             setPDEEntry(pdeIndex, 0);//解除PDE对他的引用
         }
-        __asm__("invlpg (%0)"::"r"(virtPage << 12) : "memory");//刷新TLB
+        invplg(virtPage);//刷新TLB
         return true;
     }
 }

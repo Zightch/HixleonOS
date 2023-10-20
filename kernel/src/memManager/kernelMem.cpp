@@ -8,6 +8,9 @@
 int kernelHeap = -1;//内核堆区起始页号
 
 bool kernelMemInit(unsigned int num, unsigned int dramUpper) {
+    if (kernelHeap != -1)
+        return false;
+
     //开始标记已使用的物理内存页
     //0 ~ 0xFFFFF(1MB, 1048576B)已使用
     PhysMem::setSectionPageUsage(0, 256, true);

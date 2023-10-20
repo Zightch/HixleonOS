@@ -3,10 +3,11 @@
 #include "GDT.h"
 #include "IDT.h"
 #include "APIC.h"
-#include "ACPI.h"
+#include "ACPI/ACPI.h"
 #include "memManager/kernelMem.h"
 #include "ByteArray/ByteArray.h"
 #include "tools/numTools.h"
+#include "crash.h"
 
 //为了让通过编译的
 extern "C" void __gxx_personality_v0(){}
@@ -44,7 +45,7 @@ void kernelMain() {
         }
         //如果未找到, 内存错误
         if (i == memMapSize - 1) {
-            ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, DRAM memory based on 0x100000 not found\n");
+            crash("Memory error, DRAM memory based on 0x100000 not found\n");
             return;
         }
     }
@@ -53,7 +54,7 @@ void kernelMain() {
     //kernelEnd开始向上找连续可用的虚拟页空间, 默认分配4个页(16kiB)
     unsigned int heapNum = 4;
     if (!kernelMemInit(heapNum, dramUpper)) {//如果堆区分配失败
-        ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Memory error, Alloc heap memory fail!\n");
+        crash("Memory error, Alloc heap memory fail!\n");
         return;
     }
     initRefCount();//初始化共享指针的引用计数器

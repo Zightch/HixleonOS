@@ -7,16 +7,15 @@
 #include "cpu.h"
 #include "tools/numTools.h"
 #include "ByteArray/ByteArray.h"
+#include "crash.h"
 
 void initAPIC() {
     {//检查APIC是否存在
         if (iscpuid()) {
             unsigned int eax, ebx, ecx, edx;
             cpuid(1, eax, ebx, ecx, edx);
-            if (((edx >> 9) & 1) == 0) {
-                ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "Error, CPU not carry APIC");
-                hlt();
-            }
+            if (((edx >> 9) & 1) == 0)
+                crash("Error, CPU not carry APIC");
         } else
             ttyPutStr(VGA_COLOR_BROWN, VGA_COLOR_BLACK, "Warning, this processor does not support the CPUID instruction and will not be able to obtain CPU information\n");
     }//检查APIC是否存在

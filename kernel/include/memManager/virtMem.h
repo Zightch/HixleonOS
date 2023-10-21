@@ -58,4 +58,9 @@ namespace VirtMem {
      * @return bool: true解除成功, false解除失败
      */
     bool unmap(unsigned int virtPage);//解除虚拟页的映射
+
+    /**
+     * @brief 启用nullptr指针(约束页号从1开始, 并解除0号页的映射), 一旦启用不可关闭
+     */
+    void enableNullptr();
 }

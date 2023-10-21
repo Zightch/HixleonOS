@@ -6,6 +6,7 @@
 namespace VirtMem {
     unsigned int usablePageIndexLast = 0;//可用页上一次查询的下标(具体页号)
     bool upiDir = false;//可用页下标迭代方向, false: 向上, true: 向下
+    bool null = false;
     /*根据循环映射, 0xFFFFF000地址为PDE地址, 长度1024
       根据循环映射, 0xFFC00000地址为第一个PTD地址, 长度1024
         同理, 0xFFC01000为第二个PTD地址, 长度为1024, 以此类推
@@ -58,6 +59,8 @@ namespace VirtMem {
     bool pageIsUsing(unsigned int page) {
         if (page >= 1048576)
             return true;
+        if (null && page == 0)
+            return true;
         unsigned short pdeIndex = ((page) & 0x000FFC00) >> 10;
         unsigned short pteIndex = ((page) & 0x000003FF);
         if ((pdeEntry(pdeIndex) & 1) == 0)
@@ -97,6 +100,7 @@ namespace VirtMem {
         //检查虚拟页号是否在合法范围内
         if (pageNum >= 1048576)//如果虚拟页号不在合法范围内, 返回-1
             return -1;
+
         //计算页目录表和页表的索引
         unsigned short pdeIndex = ((pageNum) & 0x000FFC00) >> 10;
         unsigned short pteIndex = ((pageNum) & 0x000003FF);
@@ -117,6 +121,8 @@ namespace VirtMem {
     bool map(unsigned int virtPage, unsigned int physPage) {
         //检查虚拟页号与物理页号是否在合法范围内
         if (virtPage >= 1048576 || physPage >= 1048576)
+            return false;
+        if (null && virtPage == 0)
             return false;
 
         //计算页目录表和页表的索引
@@ -205,5 +211,10 @@ namespace VirtMem {
         }
         invplg(virtPage);//刷新TLB
         return true;
+    }
+
+    void enableNullptr() {
+        unmap(0);
+        null = true;
     }
 }

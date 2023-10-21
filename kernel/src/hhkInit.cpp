@@ -28,7 +28,7 @@ void HHK_INIT_TEXT kernelPageInit(KernelPageTable *ptd) {
 
     // 对hhkInit空间行进对等映射
     unsigned int hhkInitPageNum = (GET_LD_DATA(hhkInitEnd) - 0x100000 + 0x1000 - 1) >> 12;//hhk初始化的代码数据所占页大小
-    if (hhkInitPageNum >= 1024 - 256)while(true);//如果hhkInit占目表项数量超过1024 - 256, 无法进入内核
+    if (hhkInitPageNum >= 1024 - 256)while (true);//如果hhkInit占目表项数量超过1024 - 256, 无法进入内核
     for (unsigned int i = 0; i < hhkInitPageNum; i++)
         ptd->pte[0][256 + i] = PE(PE_PRESENT | PE_WRITE, 0x100000 + (i << 12));
 
@@ -38,7 +38,11 @@ void HHK_INIT_TEXT kernelPageInit(KernelPageTable *ptd) {
     unsigned int kernelPMA = GET_LD_DATA(kernelStart) - 0xC0000000;//高半核起始物理地址
     unsigned int kernelPageEntNum = (GET_LD_DATA(kernelEnd) - GET_LD_DATA(kernelStart) + 0x1000 - 1) >> 12;//高半核所占页表表项大小
     unsigned int kernelPageDirNum = (kernelPageEntNum + 1024 - 1) >> 10;//kernel所占页目录项数量
-    if (kernelPageDirNum > PTE_MAX_NUM - 1)while(true);//如果内核所占目录项数量超过4, 无法进入内核
+    if (kernelPageDirNum > PTE_MAX_NUM - 1) {
+        (*(long long *) 0xB8000) = 0x07000C450C490C48ull;
+        while (true)
+            __asm__("hlt");//如果内核所占目录项数量超过4, 无法进入内核
+    }
     // 将内核所需要的页表注册进页目录
     for (unsigned i = 0; i < kernelPageDirNum; i++)
         ptd->pde[kernelPDE + i] = PE(PE_PRESENT | PE_WRITE, &ptd->pte[i + 1]);

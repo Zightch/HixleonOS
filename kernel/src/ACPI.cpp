@@ -1,4 +1,5 @@
 #include "ACPI/ACPI.h"
+#include "ACPI/APIC.h"
 #include "tty.h"
 #include "kernel.h"
 #include "cpu.h"

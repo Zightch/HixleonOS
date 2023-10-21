@@ -5,6 +5,7 @@
 #include "APIC.h"
 #include "ACPI/ACPI.h"
 #include "memManager/kernelMem.h"
+#include "memManager/virtMem.h"
 #include "ByteArray/ByteArray.h"
 #include "tools/numTools.h"
 #include "crash.h"
@@ -57,7 +58,10 @@ void kernelMain() {
         crash("Memory error, Alloc heap memory fail!\n");
         return;
     }
+    VirtMem::enableNullptr();//启用nullptr指针
     initRefCount();//初始化共享指针的引用计数器
+    //映射0xFEE00000内存到1(为APIC使用)
+    VirtMem::map(1, 0xFEE00);
     ACPI::init();//初始化ACPI
 
     ByteArray endl("\n", 2);

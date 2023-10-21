@@ -1,8 +1,10 @@
 #include "interrupts/IOAPIC.h"
 #include "memManager/virtMem.h"
+#include "ACPI/APIC.h"
+#include "crash.h"
 
 namespace IOAPIC {
-    unsigned char xy = 0x00;
+    unsigned int addr = 0xFEC00000;
 
     unsigned char IRQLowIndex[24] = {
             0x10, 0x12, 0x14, 0x16, 0x18, 0x1A, 0x1C, 0x1E,
@@ -16,16 +18,22 @@ namespace IOAPIC {
     };
 
     unsigned char &index() {
-        return (*(unsigned char *) (0xFEC00000 | (((unsigned int) xy) << 8)));
+        return *(unsigned char *) addr;
     }
 
     unsigned int &data() {
-        return (*(unsigned int *) (0xFEC00010 | (((unsigned int) xy) << 8)));
+        return *(unsigned int *) (addr | 0x10);
     }
 
     void init() {
-        //获取PIIX3中xy的值
-        //对等映射IOAPIC内存
+        //利用ACPI获取IOAPIC地址的值
+        auto context = ACPI::APIC::getContext();
+        if (!context.isReady)
+            crash("Error, IOAPIC context is not ready");
+        addr = context.ioapic.IOAPIC_Address;
+        //映射映射到2号页
+        VirtMem::map(2, addr >> 12);
+        addr = 0x2000 | (addr & 0x00000FFF);
     }
 
     bool setIRQ(unsigned char i, unsigned long long val) {

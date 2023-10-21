@@ -11,3 +11,4 @@ typedef struct {
 #pragma pack(pop)
 
 void isr0(IsrParam*);
+void isr14(IsrParam*);

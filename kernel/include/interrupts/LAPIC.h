@@ -12,6 +12,6 @@
 
 #define LAPIC_TIG_MODE(mode) ((mode << 15) & 0x8000)
 
-#define LAPIC_REG(addr) (*(unsigned int*)0xFEE00##addr)
+#define LAPIC_REG(addr) (*(unsigned int*)0x00001##addr)
 
 #define LAPIC_INT_IN(pin) ((pin << 13) & 0x2000)

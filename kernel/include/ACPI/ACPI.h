@@ -4,8 +4,6 @@
 
 #define ACPI_MADT_SIG_APIC 0x43495041 // "APIC"
 
-#include "APIC.h"
-
 namespace ACPI {
     #pragma pack(push, 1)
     typedef struct {

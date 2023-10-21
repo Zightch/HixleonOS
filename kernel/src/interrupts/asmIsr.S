@@ -1,6 +1,6 @@
 #include "interrupts/fixedIntNum.h"
 
-.macro isrTemplate vector, noErrorCode=1
+.macro isrTemplate vector, noErrorCode = 1
     .global asmIsr\vector
     .type asmIsr\vector, @function
     asmIsr\vector:
@@ -12,7 +12,8 @@
 .endm
 
 .section .text
-    isrTemplate FAULT_DIVISION_ERROR
+    isrTemplate 0
+    isrTemplate 14, noErrorCode = 0
 
     isrWrapper:
         movl %esp, %eax

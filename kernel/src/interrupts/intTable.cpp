@@ -1,8 +1,10 @@
 #include "interrupts/intTable.h"
-#include "tty.h"
-#include "cpu.h"
+#include "crash.h"
 
-void isr0(IsrParam*) {
-    ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, "The divisor is 0\n");
-    hlt();
+void isr0(IsrParam *) {
+    crash("The divisor is 0\n");
+}
+
+void isr14(IsrParam *) {
+    crash("Page fault\n");
 }

@@ -30,7 +30,6 @@ void kernelInit(MemMap *mm, unsigned short ms, void *k, unsigned int ks) {
 
 void kernelMain() {
     ttyClear();
-    ttyPutStr("Hello, HixleonOS!\n");
 
     //寻找1MB开始的DRAM内存
     unsigned int dramBase = 0x100000;//内存基地址
@@ -53,28 +52,25 @@ void kernelMain() {
 
     //初始化内存
     //kernelEnd开始向上找连续可用的虚拟页空间, 默认分配4个页(16kiB)
-    unsigned int heapNum = 4;
-    if (!kernelMemInit(heapNum, dramUpper)) {//如果堆区分配失败
+    if (!kernelMemInit(4, dramUpper)) {//如果堆区分配失败
         crash("Memory error, Alloc heap memory fail!\n");
         return;
     }
+    ACPI::init();//初始化ACPI
     VirtMem::enableNullptr();//启用nullptr指针
     initRefCount();//初始化共享指针的引用计数器
-    //映射0xFEE00000内存到1(为APIC使用)
-    VirtMem::map(1, 0xFEE00);
-    ACPI::init();//初始化ACPI
 
     ByteArray endl("\n", 2);
-    ttyPutStr("Mem map:  Base              Size              Type\n");
+    ttyPutStr("Mem map:\nIndex  Base              Size              Type\n");
     for (unsigned int i = 0; i < memMapSize; i++) {//打印内存地图
-        ByteArray index = toByteArray(i, 16, 8);
+        ByteArray index = toByteArray(i, 10, 5, ' ');
         ByteArray base = toByteArray(memMap[i].base, 16, 16);
         ByteArray size = toByteArray(memMap[i].size, 16, 16);
         ByteArray type = toByteArray(memMap[i].type, 16, 8);
         ttyPutStr(index + "  " + base + "  " + size + "  " + type + endl);
     }
     float dramSizeGiB = dramSize * 1.0f / 1024.0f / 1024.0f / 1024.0f;
-    ttyPutStr("The DRAM size is: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
+    ttyPutStr("Addressable DRAM size: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
 
     //初始化APIC
     initAPIC();

@@ -2,7 +2,10 @@
 
 typedef void (*IntFn)(IsrParam*);
 
-IntFn intTable[255] = {isr0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, isr14};
+IntFn intTable[255] = {
+        isr0, 0, 0, 0, 0, 0, 0, 0, // 0 - 7
+        0, 0, 0, 0, 0, 0, isr14, 0, // 8 - 15
+};
 
 unsigned int intTableSize = sizeof(intTable);
 

@@ -41,14 +41,7 @@ namespace ACPI {
         unsigned long long LICA;// Local Interrupt Controller Address
     } XSDT;
     */
-
-   typedef struct {
-        EADH header;
-        unsigned int LICA;// Local Interrupt Controller Address
-        unsigned flags;
-    } MADT;
     #pragma pack(pop)
 
     void init();
-    RSDP getRSDP();
 }

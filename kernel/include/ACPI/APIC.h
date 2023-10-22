@@ -1,5 +1,7 @@
 #pragma once
 
+#include "ACPI.h"
+
 #define ACPI_MADT_APIC_LAPIC 0x0  // Local APIC
 #define ACPI_MADT_APIC_IOAPIC 0x1 // I/O APIC
 #define ACPI_MADT_APIC_INTSO 0x2  // Interrupt Source Override
@@ -7,6 +9,12 @@
 namespace ACPI {
     namespace APIC {
         #pragma pack(push, 1)
+        typedef struct {
+            EADH header;
+            unsigned int LICA;// Local Interrupt Controller Address
+            unsigned flags;
+        } MADT;
+
         typedef struct {
             unsigned char Type;
             unsigned char Length;

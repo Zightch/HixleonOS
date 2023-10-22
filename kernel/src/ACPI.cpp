@@ -14,6 +14,33 @@ namespace ACPI {
     RSDP *rsdp = INVALID_REDP;
     APIC::Context apicContext;
 
+    void parseAPIC(APIC::MADT *madt) {
+        unsigned int icsIterator = (unsigned int) madt + sizeof(APIC::MADT);
+        unsigned int icsEnd = (unsigned int) madt + madt->header.Length;
+        while (icsIterator < icsEnd) {
+            auto item = (APIC::Header *) icsIterator;
+            switch (item->Type) {
+                case ACPI_MADT_APIC_LAPIC: {
+                    break;
+                }
+                case ACPI_MADT_APIC_IOAPIC: {
+                    auto ioapic = (APIC::IOAPIC *) item;
+                    apicContext.ioapic = *ioapic;
+                    break;
+                }
+                case ACPI_MADT_APIC_INTSO: {
+                    auto intSO = (APIC::IntSO *) item;
+                    apicContext.intSO[apicContext.intOSSize++] = *intSO;
+                    break;
+                }
+                default:
+                    break;
+            }
+            icsIterator += item->Length;
+        }
+        apicContext.isReady = true;
+    }
+
     void findRSDP() {
         for (unsigned short i = 0; i < memMapSize; i++) {
             if (memMap[i].type != 2) continue;
@@ -26,12 +53,6 @@ namespace ACPI {
                     rsdp = tmp;
             }
         }
-    }
-
-    RSDP getRSDP() {
-        if (rsdp == INVALID_REDP)
-            return {};
-        return *rsdp;
     }
 
     void init() {
@@ -65,34 +86,9 @@ namespace ACPI {
             }
             auto eadh = (EADH * )((virtPage1 << 12) | (tmp & 0x00000FFF));
             switch (eadh->Signature) {
-                case ACPI_MADT_SIG_APIC: {
-                    auto madt = (MADT *) eadh;
-                    unsigned int icsIterator = (unsigned int) madt + sizeof(MADT);
-                    unsigned int icsEnd = (unsigned int) madt + madt->header.Length;
-                    while (icsIterator < icsEnd) {
-                        auto item = (APIC::Header *) icsIterator;
-                        switch (item->Type) {
-                            case ACPI_MADT_APIC_LAPIC: {
-                                break;
-                            }
-                            case ACPI_MADT_APIC_IOAPIC: {
-                                auto ioapic = (APIC::IOAPIC *) item;
-                                apicContext.ioapic = *ioapic;
-                                break;
-                            }
-                            case ACPI_MADT_APIC_INTSO: {
-                                auto intSO = (APIC::IntSO *) item;
-                                apicContext.intSO[apicContext.intOSSize++] = *intSO;
-                                break;
-                            }
-                            default:
-                                break;
-                        }
-                        icsIterator += item->Length;
-                    }
-                    apicContext.isReady = true;
+                case ACPI_MADT_SIG_APIC:
+                    parseAPIC((APIC::MADT *) eadh);
                     break;
-                }
                 default:
                     break;
             }

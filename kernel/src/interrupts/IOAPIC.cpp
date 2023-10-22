@@ -2,6 +2,7 @@
 #include "memManager/virtMem.h"
 #include "ACPI/APIC.h"
 #include "crash.h"
+#include "tty.h"
 
 namespace IOAPIC {
     unsigned int addr = 0xFEC00000;

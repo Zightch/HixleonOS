@@ -557,7 +557,7 @@ memoryErrorStr:
 db 'The memory is Error.', 0x00
 
 loadErrorStr:
-db 'An error occurred while loading the kernel, error code: 0x12', 0x00
+db 'Loading kernel fail.', 0x00
 
 am:
 ;GDTR数据, 对齐之后和用于存放程序数据

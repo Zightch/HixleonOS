@@ -13,6 +13,8 @@
 
 namespace IOAPIC {
     void init();
-    bool setIRQ(unsigned char i, unsigned long long val);
-    unsigned long long getIRQ(unsigned char i);
+
+    bool setIRQ(unsigned char, unsigned long long);
+
+    unsigned long long getIRQ(unsigned char);
 }

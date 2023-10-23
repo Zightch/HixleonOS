@@ -2,7 +2,7 @@
 #include "tty.h"
 #include "GDT.h"
 #include "IDT.h"
-#include "APIC.h"
+#include "int/APIC/APIC.h"
 #include "ACPI/ACPI.h"
 #include "memManager/kernelMem.h"
 #include "memManager/virtMem.h"
@@ -61,7 +61,7 @@ void kernelMain() {
     initRefCount();//初始化共享指针的引用计数器
 
     ByteArray endl("\n", 2);
-    ttyPutStr("Mem map:\nIndex  Base              Size              Type\n");
+    ttyPutStr("Index  Base              Size              Type\n");
     for (unsigned int i = 0; i < memMapSize; i++) {//打印内存地图
         ByteArray index = toByteArray(i, 10, 5, ' ');
         ByteArray base = toByteArray(memMap[i].base, 16, 16);
@@ -73,5 +73,6 @@ void kernelMain() {
     ttyPutStr("Addressable DRAM size: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
 
     //初始化APIC
-    initAPIC();
+    APIC::init();
+
 }

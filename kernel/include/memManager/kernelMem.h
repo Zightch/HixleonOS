@@ -4,10 +4,10 @@
  * @brief 初始化内核内存, 包括物理页的初始化, 堆区的初始化
  * 
  * @param size: unsigned int 堆区所需页数量
- * @param dramUpper: unsigned int DRAM最大寻址
+ * @param _1MiBUpper: unsigned int 1Mib起始地址的可用最大寻址
  * @return bool: true分配成功, false分配失败
  */
-bool kernelMemInit(unsigned int num, unsigned int dramUpper);
+bool kernelMemInit(unsigned int num, unsigned int _1MiBUpper);
 
 /**
  * @brief 内核堆区malloc

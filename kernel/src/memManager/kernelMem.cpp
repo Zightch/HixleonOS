@@ -7,7 +7,7 @@
 
 int kernelHeap = -1;//内核堆区起始页号
 
-bool kernelMemInit(unsigned int num, unsigned int dramUpper) {
+bool kernelMemInit(unsigned int num, unsigned int _1MiBUpper) {
     if (kernelHeap != -1)
         return false;
 
@@ -18,7 +18,7 @@ bool kernelMemInit(unsigned int num, unsigned int dramUpper) {
     unsigned int physKernelEndPage = (GET_LD_DATA(kernelEnd) - 0xC0000000) >> 12;
     PhysMem::setSectionPageUsage(256, physKernelEndPage - 256, true);
     //除去DRAM以外的其他内存区域标记为已使用(其实为不可用)
-    unsigned int unusable = (dramUpper + 1) >> 12;
+    unsigned int unusable = (_1MiBUpper + 1) >> 12;
     PhysMem::setSectionPageUsage(unusable, 1048576 - unusable, true);
 
     //如果num不合法

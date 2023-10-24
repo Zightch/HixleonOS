@@ -74,5 +74,5 @@ void kernelMain() {
 
     //初始化APIC
     APIC::init();
-
+    (*(int*)0) = 0;
 }

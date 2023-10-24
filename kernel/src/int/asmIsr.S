@@ -12,8 +12,7 @@
 .endm
 
 .section .text
-    isrTemplate 0
-    isrTemplate 14, noErrorCode = 0
+    #include "asmIsrTable"
 
     isrWrapper:
         movl %esp, %eax

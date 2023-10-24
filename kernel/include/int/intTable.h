@@ -10,5 +10,6 @@ typedef struct {
 } IsrParam;
 #pragma pack(pop)
 
-void isr0(IsrParam*);
-void isr14(IsrParam*);
+typedef void (*IntFn)(IsrParam*);
+
+void setIntFn(unsigned char, IntFn);

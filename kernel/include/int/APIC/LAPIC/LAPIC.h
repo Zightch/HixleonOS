@@ -38,7 +38,7 @@
 #define LAPIC_LVT_LINT0 0x350
 #define LAPIC_LVT_LINT1 0x360
 #define LAPIC_LVT_ERROR 0x370
-#define LAPIC_TIMER_LVT 0x320
+#define LAPIC_LVT_TIMER 0x320
 #define LAPIC_TIMER_ICR 0x380 // Initial Count
 #define LAPIC_TIMER_CCR 0x390 // Current Count
 #define LAPIC_TIMER_DCR 0x3E0 // Divide Configuration

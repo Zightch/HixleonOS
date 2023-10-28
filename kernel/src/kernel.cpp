@@ -65,26 +65,25 @@ void kernelMain() {
     initRefCount();//初始化共享指针的引用计数器
 
     ByteArray endl("\n", 2);
-    unsigned int dramSize = _1MiBSize;
+    auto dramSize = _1MiBSize;
     auto memMapTmp = new MemMap[memMapSize];
-    ttyPutStr(VGA_COLOR_LIGHT_BROWN, VGA_COLOR_BLACK, "Index  Base              Size              Type\n");
+    ttyPutStr("Index  Base              Size              Type\n");
     for (unsigned int i = 0; i < memMapSize; i++) {//打印内存地图
         memMapTmp[i] = memMap[i];
         ByteArray index = toByteArray(i, 10, 5, ' ');
         ByteArray base = toByteArray(memMap[i].base, 16, 16);
         ByteArray size = toByteArray(memMap[i].size, 16, 16);
         ByteArray type = toByteArray(memMap[i].type, 16, 8);
-        unsigned char f;
-        if (memMap[i].base < 0x100000000ull)
-            f = memMap[i].type == 1 ? VGA_COLOR_LIGHT_GREEN : VGA_COLOR_LIGHT_BLUE;
-        else
-            f = VGA_COLOR_BROWN;
-        ttyPutStr(f, VGA_COLOR_BLACK, index + "  " + base + "  " + size + "  " + type + endl);
         //顺便找到除1MB以外的type==1的内存段将其物理页使用设置为false
-        if (memMap[i].base != 0x100000 && memMap[i].type == 1 && memMap[i].base < 0x100000000ull) {
-            PhysMem::setSectionPageUsage(memMap[i].base >> 12, memMap[i].size >> 12, false);
-            dramSize += memMap[i].size;
+        if (memMap[i].base < 0x100000000ull) {//如果可以访问(可抵达)
+            if (memMap[i].base != 0x100000 && memMap[i].type == 1) {
+                auto pageNum = (memMap[i].size >> 12);
+                if (pageNum > 0x00100000) pageNum = 0x00100000;
+                PhysMem::setSectionPageUsage((memMap[i].base + 0xFFF) >> 12, pageNum, false);
+                dramSize += (pageNum << 12) - (memMap[i].base & 0xFFF);
+            }
         }
+        ttyPutStr(index + "  " + base + "  " + size + "  " + type + endl);
     }
     memMap = memMapTmp;//更新memMap存储地址
     float dramSizeGiB = dramSize * 1.0f / 1024.0f / 1024.0f / 1024.0f;
@@ -93,5 +92,5 @@ void kernelMain() {
 
     //初始化APIC
     APIC::init();
-    (*(int*)0) = 0;
+    (*(int *) 0) = 0;
 }

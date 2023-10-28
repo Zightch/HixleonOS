@@ -75,13 +75,11 @@ void kernelMain() {
         ByteArray size = toByteArray(memMap[i].size, 16, 16);
         ByteArray type = toByteArray(memMap[i].type, 16, 8);
         //顺便找到除1MB以外的type==1的内存段将其物理页使用设置为false
-        if (memMap[i].base < 0x100000000ull) {//如果可以访问(可抵达)
-            if (memMap[i].base != 0x100000 && memMap[i].type == 1) {
-                auto pageNum = (memMap[i].size >> 12);
-                if (pageNum > 0x00100000) pageNum = 0x00100000;
-                PhysMem::setSectionPageUsage((memMap[i].base + 0xFFF) >> 12, pageNum, false);
-                dramSize += (pageNum << 12) - (memMap[i].base & 0xFFF);
-            }
+        if (memMap[i].base != 0x100000 && memMap[i].type == 1 && memMap[i].base < 0x100000000ull) {
+            auto pageNum = (memMap[i].size >> 12);
+            if (pageNum > 0x00100000) pageNum = 0x00100000;
+            PhysMem::setSectionPageUsage((memMap[i].base + 0xFFF) >> 12, pageNum, false);
+            dramSize += (pageNum << 12) - (memMap[i].base & 0xFFF);
         }
         ttyPutStr(index + "  " + base + "  " + size + "  " + type + endl);
     }

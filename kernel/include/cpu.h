@@ -1,39 +1,44 @@
 #pragma once
 
-void cpuid(int func, unsigned int& eax, unsigned int& ebx, unsigned int& ecx, unsigned int& edx);
+namespace CPU {
+    void cpuid(int func, unsigned int& eax, unsigned int& ebx, unsigned int& ecx, unsigned int& edx);
 
-bool iscpuid();//判断cpuid指令是否可用
+    bool iscpuid();//判断cpuid指令是否可用
 
-void hlt();
+    void hlt();
 
-unsigned int cr0();
+    unsigned int cr0();
 
-unsigned int cr2();
+    unsigned int cr2();
 
-unsigned int cr3();
+    unsigned int cr3();
 
-void cr0(unsigned int);
+    void cr0(unsigned int);
 
-void cr2(unsigned int);
+    void cr2(unsigned int);
 
-void cr3(unsigned int);
+    void cr3(unsigned int);
 
-void invplg(unsigned int);
+    void eflags(unsigned int);
+    unsigned int eflags();
 
-void enableInterrupt();
+    void invplg(unsigned int);
 
-void disableInterrupt();
+    void enableInterrupt();
 
-void invtlb();
+    void disableInterrupt();
 
-unsigned long long rdmsr(unsigned int);
+    void invtlb();
 
-void wrmsr(unsigned int, unsigned long long);
+    unsigned long long rdmsr(unsigned int);
 
-void outb(unsigned short, unsigned char);
-void outw(unsigned short, unsigned short);
-void outl(unsigned short, unsigned int);
+    void wrmsr(unsigned int, unsigned long long);
 
-unsigned char inb(unsigned short);
-unsigned short inw(unsigned short);
-unsigned int inl(unsigned short);
+    void outb(unsigned short, unsigned char);
+    void outw(unsigned short, unsigned short);
+    void outl(unsigned short, unsigned int);
+
+    unsigned char inb(unsigned short);
+    unsigned short inw(unsigned short);
+    unsigned int inl(unsigned short);
+}

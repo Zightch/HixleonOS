@@ -5,8 +5,7 @@ auto strTemp = "Interrupt : --\n"
                "    EIP   : --------\n"
                "    CS    : ----\n"
                "    ELFAGS: --------\n"
-               "Error code: --------\n"
-               "Kernel panic!\n";
+               "Error code: --------\n";
 
 void intUndef(IsrParam *ip) {
     char ts[110] = {0};

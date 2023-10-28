@@ -138,11 +138,11 @@ void ttySetCursor(unsigned char x, unsigned char y) {
     if (offsetTmp >= TTY_HEIGHT * TTY_WIDTH)
         return;
 
-    outb(0x03d4, 0x0f);//设置为光标低8位
-    outb(0x03d5, offsetTmp);
+    CPU::outb(0x03d4, 0x0f);//设置为光标低8位
+    CPU::outb(0x03d5, offsetTmp);
 
-    outb(0x03d4, 0x0e);//设置为光标高8位
-    outb(0x03d5, offsetTmp >> 8);
+    CPU::outb(0x03d4, 0x0e);//设置为光标高8位
+    CPU::outb(0x03d5, offsetTmp >> 8);
 
     ttyOffset = offsetTmp;
 }

@@ -11,9 +11,9 @@
 namespace APIC {
     void init() {
         {//检查APIC是否存在
-            if (iscpuid()) {
+            if (CPU::iscpuid()) {
                 unsigned int eax, ebx, ecx, edx;
-                cpuid(1, eax, ebx, ecx, edx);
+                CPU::cpuid(1, eax, ebx, ecx, edx);
                 if (((edx >> 9) & 1) == 0)
                     crash("Error, CPU not carry APIC");
             } else
@@ -21,13 +21,13 @@ namespace APIC {
         }//检查APIC是否存在
 
         //禁用8259PIC
-        outb(0xa1, 0xff);
-        outb(0x21, 0xff);
+        CPU::outb(0xa1, 0xff);
+        CPU::outb(0x21, 0xff);
 
         //硬启用APIC
-        auto IA32_APIC_BASE = rdmsr(0x1b);
+        auto IA32_APIC_BASE = CPU::rdmsr(0x1b);
         IA32_APIC_BASE |= 0x800;
-        wrmsr(0x1b, IA32_APIC_BASE);
+        CPU::wrmsr(0x1b, IA32_APIC_BASE);
 
         //初始化LAPIC
         LAPIC::init();

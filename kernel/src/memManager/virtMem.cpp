@@ -138,7 +138,7 @@ namespace VirtMem {
                 setPTEEntry(pdeIndex, i, 0);//清空新分配的表, 防止有垃圾
         }
         setPTEEntry(pdeIndex, pteIndex, PE(PE_PRESENT | PE_WRITE, physPage << 12));//建立映射关系
-        invplg(virtPage);//刷新TLB
+        CPU::invplg(virtPage);//刷新TLB
         return true;
     }
 
@@ -209,7 +209,7 @@ namespace VirtMem {
             PhysMem::setPageUsage(physPTE, false);//归还PTE空间
             setPDEEntry(pdeIndex, 0);//解除PDE对他的引用
         }
-        invplg(virtPage);//刷新TLB
+        CPU::invplg(virtPage);//刷新TLB
         return true;
     }
 

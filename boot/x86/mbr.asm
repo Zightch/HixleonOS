@@ -85,7 +85,7 @@ mov es, ax
 mov ax, 0x0700
 mov cx, 2000
 cls.for:
-mov [es : di], ax
+mov es : [di], ax
 add di, 2
 loop cls.for
 
@@ -189,7 +189,7 @@ print.for:
 mov al, [si] ;ds:si取出一个字节
 cmp al, 0 ;比较al与0
 jz print.end ;如果相等跳转到.end
-mov [es : di], ax
+mov es : [di], ax
 add si, 1
 add di, 2
 jmp print.for ;跳转到for

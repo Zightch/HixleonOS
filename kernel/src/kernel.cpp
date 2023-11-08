@@ -11,13 +11,6 @@
 #include "tools/numTools.h"
 #include "crash.h"
 
-//为了让通过编译的
-extern "C" {
-    void __gxx_personality_v0() {}
-    void _Unwind_Resume() {}
-    void __cxa_throw_bad_array_new_length() {}
-}
-
 MemMap *memMap = nullptr;
 unsigned short memMapSize = 0xFFFF;
 void *kpg = nullptr;
@@ -68,7 +61,7 @@ void kernelMain() {
     auto dramSize = _1MiBSize;
     auto memMapTmp = new MemMap[memMapSize];
     ttyPutStr("Index  Base              Size              Type\n");
-    for (unsigned int i = 0; i < memMapSize; i++) {//打印内存地图
+    for (unsigned short i = 0; i < memMapSize; i++) {//打印内存地图
         memMapTmp[i] = memMap[i];
         ByteArray index = toByteArray(i, 10, 5, ' ');
         ByteArray base = toByteArray(memMap[i].base, 16, 16);
@@ -86,6 +79,16 @@ void kernelMain() {
     memMap = memMapTmp;//更新memMap存储地址
     float dramSizeGiB = dramSize * 1.0f / 1024.0f / 1024.0f / 1024.0f;
     ttyPutStr("Addressable DRAM size: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
+    //将小于1MiB内可用物理页解除映射关系
+    for (unsigned short i = 0; memMap[i].base < 0x100000; i++) {
+        if (memMap[i].type == 1) {
+            auto base = (memMap[i].base + 0xFFF) >> 12;
+            auto size = memMap[i].size >> 12;
+            if (base == 0) base = 3;//跳过nullptr, LAPIC, IOAPIC
+            for (auto j = base; j < size; j++)
+                VirtMem::unmap(j);
+        }
+    }
     //至此内存管理器全部初始化完成
 
     //初始化APIC

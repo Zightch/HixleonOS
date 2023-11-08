@@ -1,5 +1,9 @@
 ENTRY(main)
 SECTIONS {
+    __gxx_personality_v0 = 0;
+    _Unwind_Resume = 0;
+    __cxa_throw_bad_array_new_length = 0;
+
     . = 0x00100000;
 
     .hhkInitText BLOCK(4K) : {

@@ -37,6 +37,7 @@ namespace ACPI {
                     break;
             }
             icsIterator += item->Length;
+            if (apicContext.intOSSize >= ACPI_APIC_INTSO_MAX) break;
         }
         apicContext.isReady = true;
     }

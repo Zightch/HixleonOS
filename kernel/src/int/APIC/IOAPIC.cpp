@@ -24,7 +24,7 @@ namespace IOAPIC {
         if (!context.isReady)
             crash("Error, IOAPIC context is not ready");
         addr = context.ioapic.IOAPIC_Address;
-        //映射映射到2号页
+        //映射到2号页
         VirtMem::map(2, addr >> 12);
         addr = 0x2000 | (addr & 0x00000FFF);
     }
@@ -49,6 +49,6 @@ namespace IOAPIC {
 
     unsigned int &reg(unsigned char i) {
         (*(unsigned char *) addr) = i;
-        return *(unsigned int *) (addr | 0x10);
+        return *(unsigned int *) (addr + 0x10);
     }
 }

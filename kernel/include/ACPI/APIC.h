@@ -5,6 +5,7 @@
 #define ACPI_MADT_APIC_LAPIC 0x0  // Local APIC
 #define ACPI_MADT_APIC_IOAPIC 0x1 // I/O APIC
 #define ACPI_MADT_APIC_INTSO 0x2  // Interrupt Source Override
+#define ACPI_APIC_INTSO_MAX 24
 
 namespace ACPI {
     namespace APIC {
@@ -25,7 +26,7 @@ namespace ACPI {
             unsigned char IOAPIC_ID;
             unsigned char Reserved;
             unsigned int IOAPIC_Address;
-            unsigned int GIS_Offset; // The global system interrupt offset for this IOAPIC. (Kind of IRQ offset for a slave IOAPIC)
+            unsigned int GSI_Offset; // The global system interrupt offset for this IOAPIC. (Kind of IRQ offset for a slave IOAPIC)
         } IOAPIC;
 
         typedef struct {
@@ -39,7 +40,7 @@ namespace ACPI {
         typedef struct {
             bool isReady = false;
             IOAPIC ioapic;
-            IntSO intSO[24];
+            IntSO intSO[ACPI_APIC_INTSO_MAX];
             unsigned int intOSSize = 0;
         } Context;
         #pragma pack(pop)

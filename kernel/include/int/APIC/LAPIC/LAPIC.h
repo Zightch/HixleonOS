@@ -6,7 +6,7 @@
 #define LAPIC_DM_EXT_INT  0b111
 #define LAPIC_DM_INIT     0b101
 
-#define LAPIC_TM_ONE_SHOT     0b00
+#define LAPIC_TM_ONESHOT      0b00
 #define LAPIC_TM_PERIODIC     0b01
 #define LAPIC_TM_TSC_DEADLINE 0b10
 

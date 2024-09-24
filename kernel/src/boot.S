@@ -1,4 +1,10 @@
+#include "grub/multiboot.h"
 #define KPG_SIZE (10 * 4096)
+
+.section .multiboot
+    .int MB_MAGIC
+    .int MB_ALIGNED_4K_MEM_MAP
+    .int CHECKSUM(MB_ALIGNED_4K_MEM_MAP)
 
 .section .kpg, "wa", @nobits
     kpg:
@@ -17,7 +23,9 @@
         cli # 关中断，直到我们准备好PIC为止
         movl $stackTop - 4, %esp
         movl $stackTop - 4, %ebp
-        # 内存地图保存
+        # 根据启动方式判定是grub还是legacy
+        # TODO
+        # legacy内存地图保存
         pushl %ecx
         pushl %ebx
         # 调用hhkInit

@@ -661,6 +661,7 @@ ByteArray toByteArray(float num, unsigned char acc, unsigned char fieldWidth, ch
     return ba;
 }
 
+//该函数无法在32位机上运行, 但是可以通过编译
 ByteArray toByteArray(double num, unsigned char acc, unsigned char fieldWidth, char fillChar) {
     double numAbs = num < 0 ? -num : num;
     long long integer = numAbs;

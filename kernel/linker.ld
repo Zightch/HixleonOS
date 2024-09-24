@@ -7,6 +7,7 @@ SECTIONS {
     . = 0x00100000;
 
     .hhkInitText BLOCK(4K) : {
+        * (.multiboot)
         obj/src/arch/x86/hhkInit/*.o (.hhkInitText)
     }
     .hhkInitBss BLOCK(4K) : {

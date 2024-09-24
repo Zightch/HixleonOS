@@ -10,7 +10,7 @@
 构建
 1. 在克隆仓库后打开终端
 2. cd到项目所在目录
-3. 执行`package.sh`
+3. 执行`package-XXX.sh`, 其中`XXX`对应不同的引导方式
 4. 执行`qemu-system-i386 HixleonOS.img -m 3G`
 
 物理机运行
@@ -23,7 +23,7 @@
 
 ## 说明
 * 本操作系统使用Legacy MBR引导方式, FAT16文件系统  
-  具体内容在[./boot/x86/](/boot/x86/)
+  具体内容在[./boot/](./boot/)
 * 本操作系统使用Legacy IDE磁盘控制器, 将无法在NVMe等更高级的磁盘上运行  
   会导致`The loader was not found. File in "/LOADER".`  
   这也就意味着如果你使用的是SATA, 需要开机时进BIOS设置SATA控制器为Legacy IDE

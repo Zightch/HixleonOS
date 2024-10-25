@@ -1,6 +1,7 @@
 .idea
 .vscode
 cmake-build-*
+build
 kernel/obj
 .gdbhistory
 gdb.txt

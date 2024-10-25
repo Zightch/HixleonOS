@@ -4,9 +4,7 @@ rm -rf HixleonOS.img
 rm -rf boot/legacy/LOADER
 rm -rf boot/legacy/mbr
 
-cd kernel || exit
 make
-cd ..
 
 nasm boot/legacy/LOADER.ASM
 nasm boot/legacy/mbr.asm

@@ -8,16 +8,16 @@ SECTIONS {
 
     .hhkInitText BLOCK(4K) : {
         * (.multiboot)
-        obj/src/arch/x86/hhkInit/*.o (.hhkInitText)
+        * (.hhkInitText)
     }
     .hhkInitBss BLOCK(4K) : {
-        obj/src/arch/x86/hhkInit/*.o (hhkInitBss)
+        * (.hhkInitBss)
     }
     .hhkInitData BLOCK(4K) : {
-        obj/src/arch/x86/hhkInit/*.o (.hhkInitData)
+        * (.hhkInitData)
     }
     .hhkInitRodata BLOCK(4K) : {
-        obj/src/arch/x86/hhkInit/*.o (.hhkInitRodata)
+        * (.hhkInitRodata)
     }
     hhkInitEnd = ALIGN(4k);
 
@@ -25,25 +25,19 @@ SECTIONS {
 
     .text BLOCK(4K) : AT(ADDR(.text) - 0xC0000000) {
         kernelStart = .;
-        obj/src/arch/x86/kernel/*.o (.text)
-        obj/src/kernel/*.o (.text)
+        * (.text)
     }
     .bss BLOCK(4K) : AT(ADDR(.bss) - 0xC0000000) {
-        obj/src/arch/x86/kernel/*.o (.bss)
-        obj/src/kernel/*.o (.bss)
+        * (.bss)
     }
     .data BLOCK(4K) : AT(ADDR(.data) - 0xC0000000) {
-        obj/src/arch/x86/kernel/*.o (.data)
-        obj/src/kernel/*.o (.data)
+        * (.data)
     }
     .rodata BLOCK(4K) : AT(ADDR(.rodata) - 0xC0000000) {
-        obj/src/arch/x86/kernel/*.o (.rodata)
-        obj/src/kernel/*.o (.rodata)
+        * (.rodata)
     }
     .kpg BLOCK(4K) : AT(ADDR(.kpg) - 0xC0000000) {
-        obj/src/arch/x86/hhkInit/*.o (.kpg)
-        obj/src/arch/x86/kernel/*.o (.kpg)
-        obj/src/kernel/*.o (.kpg)
+        * (.kpg)
     }
     kernelEnd = ALIGN(4k);
 }

@@ -2,5 +2,5 @@
 .vscode
 cmake-build-*
 kernel/obj
-kernel/.gdbhistory
-kernel/gdb.txt
+.gdbhistory
+gdb.txt

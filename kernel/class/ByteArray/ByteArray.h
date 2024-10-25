@@ -8,7 +8,7 @@ public:
 
     ByteArray(const ByteArray &);
 
-    ByteArray(const char *);
+    explicit ByteArray(const char *);
 
     ByteArray(const char *, int);
 
@@ -26,28 +26,28 @@ public:
 
     char *data() const;
 
-    operator char*() const;
+    explicit operator char*() const;
 
-    ByteArray operator+(const ByteArray &);
+    ByteArray operator+(const ByteArray &) const;
 
-    ByteArray operator+(const char *);
+    ByteArray operator+(const char *) const;
 
     ByteArray &operator+=(const ByteArray &);
 
     ByteArray &operator+=(const char *);
 
-    ByteArray operator+(char);
+    ByteArray operator+(char) const;
 
     ByteArray &operator+=(char);
 
     bool empty() const;
 
 private:
-    void joint_(const ByteArray &);
+    void joint(const ByteArray &);
 
-    char err;
-    char *data_ = nullptr;
-    int size_ = 0;
+    char err = 0;
+    char *content = nullptr;
+    int length = 0;
 
     friend bool operator==(const ByteArray &, const ByteArray &);
     friend bool operator==(const char *, const ByteArray &);

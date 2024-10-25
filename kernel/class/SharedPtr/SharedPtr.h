@@ -9,7 +9,7 @@ template<typename T>
 class SharedPtr final {
 public:
     SharedPtr();                                   //默认构造
-    SharedPtr(T *);                                //有参构造
+    explicit SharedPtr(T *);                       //有参构造
     SharedPtr(const SharedPtr &);                  //拷贝构造(浅拷贝)
     ~SharedPtr();                                  //析构函数
     SharedPtr &operator=(const SharedPtr &);       //赋值函数重载
@@ -51,10 +51,10 @@ template<typename T>
 void SharedPtr<T>::unRef() {
     if (ptr == nullptr)
         return;
-    if ((*SharedRefCount).contain((unsigned int) ptr)) {
+    if (SharedRefCount->contain((unsigned int) ptr)) {
         (*SharedRefCount)[(unsigned int) ptr]--;
         if ((*SharedRefCount)[(unsigned int) ptr] == 0) {
-            (*SharedRefCount).remove((unsigned int) ptr);
+            SharedRefCount->remove((unsigned int) ptr);
             delete ptr;
             ptr = nullptr;
         }
@@ -63,6 +63,7 @@ void SharedPtr<T>::unRef() {
 
 template<typename T>
 SharedPtr<T> &SharedPtr<T>::operator=(const SharedPtr &obj) {
+    if (this == &obj)return *this;
     unRef();
     ptr = obj.ptr;
     (*SharedRefCount)[(unsigned int) ptr]++;
@@ -81,7 +82,7 @@ T &SharedPtr<T>::operator*() const {
 
 template<typename T>
 int SharedPtr<T>::useCount() const {
-    if ((*SharedRefCount).contain((unsigned int) ptr))
+    if (SharedRefCount->contain((unsigned int) ptr))
         return (*SharedRefCount)[(unsigned int) ptr];
     return 0;
 }

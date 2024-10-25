@@ -74,17 +74,17 @@ void kernelMain() {
             PhysMem::setSectionPageUsage((memMap[i].base + 0xFFF) >> 12, pageNum, false);
             dramSize += (pageNum << 12) - (memMap[i].base & 0xFFF);
         }
-        ttyPutStr(index + "  " + base + "  " + size + "  " + type + endl);
+        ttyPutStr((index + "  " + base + "  " + size + "  " + type + endl).data());
     }
     memMap = memMapTmp;//更新memMap存储地址
-    float dramSizeGiB = dramSize * 1.0f / 1024.0f / 1024.0f / 1024.0f;
-    ttyPutStr("Addressable DRAM size: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl);
+    float dramSizeGiB = (float)dramSize / 1024.0f / 1024.0f / 1024.0f;
+    ttyPutStr(("Addressable DRAM size: " + toByteArray(dramSize) + "Byte (about " + toByteArray(dramSizeGiB, 2) + "GiB)" + endl).data());
     //将小于1MiB内可用物理页解除映射关系
     for (unsigned short i = 0; memMap[i].base < 0x100000; i++) {
         if (memMap[i].type == 1) {
             auto base = (memMap[i].base + 0xFFF) >> 12;
             auto size = memMap[i].size >> 12;
-            if (base == 0) base = 3;//跳过nullptr, LAPIC, IOAPIC
+            if (base == 0)base = 3;// 跳过nullptr, LAPIC, IOAPIC
             for (auto j = base; j < size; j++)
                 VirtMem::unmap(j);
         }
@@ -93,5 +93,5 @@ void kernelMain() {
 
     //初始化APIC
     APIC::init();
-    (*(int *) 0) = 0;
+    *(int *) 0 = 0;
 }

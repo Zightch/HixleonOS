@@ -1,157 +1,163 @@
 #include "ByteArray.h"
 
-ByteArray::ByteArray() {}
+ByteArray::ByteArray() = default;
 
 ByteArray::ByteArray(const ByteArray &ba) {
-    data_ = new char[ba.size_];
-    for (int i = 0; i < ba.size_; i++)
-        data_[i] = ba.data_[i];
-    size_ = ba.size_;
+    if (ba.length == 0 || ba.content == nullptr)return;
+    content = new char[ba.length];
+    for (int i = 0; i < ba.length; i++)
+        content[i] = ba.content[i];
+    length = ba.length;
 }
 
 ByteArray::ByteArray(const char *c) {
     if (c == nullptr)
         return;
-    while (c[size_++]);
-    size_--;
-    data_ = new char[size_];
-    for (int i = 0; i < size_; i++)
-        data_[i] = c[i];
+    while (c[length] != 0)length++;
+    content = new char[length];
+    for (int i = 0; i < length; i++)
+        content[i] = c[i];
 }
 
 ByteArray::ByteArray(const char *c, int size) {
     if (c == nullptr || size <= 0)
         return;
-    size_ = size;
-    data_ = new char[size_];
-    for (int i = 0; i < size_; i++)
-        data_[i] = c[i];
+    length = size;
+    content = new char[length];
+    for (int i = 0; i < length; i++)
+        content[i] = c[i];
 }
 
 ByteArray &ByteArray::operator=(const ByteArray &ba) {
-    delete[]data_;
-    data_ = new char[ba.size_];
-    for (int i = 0; i < ba.size_; i++)
-        data_[i] = ba.data_[i];
-    size_ = ba.size_;
+    if (this == &ba)return *this;
+    delete[]content;
+    content = new char[ba.length];
+    for (int i = 0; i < ba.length; i++)
+        content[i] = ba.content[i];
+    length = ba.length;
     return *this;
 }
 
 ByteArray &ByteArray::operator=(const char *c) {
-    delete[]data_;
-    data_ = nullptr;
-    size_ = 0;
+    delete[]content;
+    content = nullptr;
+    length = 0;
     if (c == nullptr)
         return *this;
-    while (c[size_++]);
-    size_--;
-    data_ = new char[size_];
-    for (int i = 0; i < size_; i++)
-        data_[i] = c[i];
+    while (c[length] != 0)length++;
+    content = new char[length];
+    for (int i = 0; i < length; i++)
+        content[i] = c[i];
     return *this;
 }
 
 ByteArray::~ByteArray() {
-    delete[]data_;
-    data_ = nullptr;
-    size_ = 0;
+    delete[]content;
+    content = nullptr;
+    length = 0;
 }
 
 int ByteArray::size() const {
-    return size_;
+    return length;
 }
 
 char &ByteArray::operator[](int index) {
-    if (0 <= index && index < size_)
-        return data_[index];
+    if (0 <= index && index < length)
+        return content[index];
     return err;
 }
 
 char ByteArray::operator[](int index) const {
-    if (0 <= index && index < size_)
-        return data_[index];
+    if (0 <= index && index < length)
+        return content[index];
     return 0;
 }
 
-void ByteArray::joint_(const ByteArray &ba) {
-    char *tmp = data_;
-    size_ += ba.size_;
-    data_ = new char[size_];
-    for (int i = 0; i < size_ - ba.size_; i++)
-        data_[i] = tmp[i];
-    delete[]tmp;
-    for (int i = size_ - ba.size_, j = 0; i < size_; i++, j++)
-        data_[i] = ba.data_[j];
+void ByteArray::joint(const ByteArray &ba)
+{
+    if (ba.length == 0 || ba.content == nullptr)return;
+    const char *tmp = content;
+    length += ba.length;
+    content = new char[length];
+    if (tmp != nullptr)
+    {
+        for (int i = 0; i < length - ba.length; i++)
+            content[i] = tmp[i];
+        delete[]tmp;
+    }
+    for (int i = length - ba.length, j = 0; i < length; i++, j++)
+        content[i] = ba.content[j];
 }
 
 char *ByteArray::data() const {
-    return data_;
+    return content;
 }
 
 ByteArray::operator char*() const {
-    return data_;
+    return content;
 }
 
-ByteArray ByteArray::operator+(const ByteArray &ba) {
+ByteArray ByteArray::operator+(const ByteArray &ba) const {
     ByteArray tmp = *this;
-    tmp.joint_(ba);
+    tmp.joint(ba);
     return tmp;
 }
 
-ByteArray ByteArray::operator+(const char *c) {
+ByteArray ByteArray::operator+(const char *c) const {
     ByteArray tmp = *this;
-    tmp.joint_(c);
+    tmp.joint(ByteArray(c));
     return tmp;
 }
 
 ByteArray &ByteArray::operator+=(const ByteArray &ba) {
-    this->joint_(ba);
+    this->joint(ba);
     return *this;
 }
 
 ByteArray &ByteArray::operator+=(const char *c) {
-    this->joint_(c);
+    this->joint(ByteArray(c));
     return *this;
 }
 
-ByteArray ByteArray::operator+(char c) {
+ByteArray ByteArray::operator+(char c) const {
     ByteArray tmp0 = *this;
     ByteArray tmp1;
-    tmp1.data_ = new char[1];
-    tmp1.data_[0] = c;
-    tmp1.size_ = 1;
-    tmp0.joint_(tmp1);
+    tmp1.content = new char[1];
+    tmp1.content[0] = c;
+    tmp1.length = 1;
+    tmp0.joint(tmp1);
     return tmp0;
 }
 
 ByteArray &ByteArray::operator+=(char c) {
     ByteArray tmp;
-    tmp.data_ = new char[1];
-    tmp.data_[0] = c;
-    tmp.size_ = 1;
-    this->joint_(tmp);
+    tmp.content = new char[1];
+    tmp.content[0] = c;
+    tmp.length = 1;
+    this->joint(tmp);
     return *this;
 }
 
 bool ByteArray::empty() const {
-    return size_ == 0;
+    return length == 0;
 }
 
 bool operator==(const ByteArray &b1, const ByteArray &b2) {
-    if (b1.size_ != b2.size_)
+    if (&b1 == &b2)return true;
+    if (b1.length != b2.length)
         return false;
     for (int i = 0; i < b1.size(); i++)
-        if (b1.data_[i] != b2.data_[i])return false;
+        if (b1.content[i] != b2.content[i])return false;
     return true;
 }
 
 bool operator==(const char *c, const ByteArray &b2) {
-    ByteArray b1 = c;
+    ByteArray b1 = ByteArray(c);
     return b1 == b2;
 }
 
 bool operator==(const ByteArray &b1, const char *c) {
-    ByteArray b2 = c;
+    ByteArray b2 = ByteArray(c);
     return b1 == b2;
 }
 
@@ -167,6 +173,6 @@ bool operator!=(const ByteArray &b1, const char *c) {
 
 ByteArray operator+(const char *c, const ByteArray &ba) {
     ByteArray tmp(c);
-    tmp.joint_(ba);
+    tmp.joint(ba);
     return tmp;
 }

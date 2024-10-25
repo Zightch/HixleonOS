@@ -63,18 +63,22 @@ bool hlfree(void *addr) {
     return kfree(kernelHeap, addr);
 }
 
-void *operator new(long unsigned int size) {
+void *operator new(unsigned long size) {
     return hlmalloc(size);
 }
 
-void operator delete(void *addr, long unsigned int) {
+void operator delete(void *addr, unsigned int) noexcept {
     hlfree(addr);
 }
 
-void *operator new[](long unsigned int size) {
+void operator delete(void *addr, unsigned long) noexcept {
+    hlfree(addr);
+}
+
+void *operator new[](unsigned long size) {
     return hlmalloc(size);
 }
 
-void operator delete[](void *addr) {
+void operator delete[](void *addr) noexcept {
     hlfree(addr);
 }

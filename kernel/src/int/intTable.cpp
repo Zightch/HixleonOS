@@ -12,37 +12,37 @@ void intUndef(IsrParam *ip) {
     for (int i = 0; i < 110; i++)
         ts[i] = strTemp[i];
 
-    ts[12] = (ip->vector >> 4) & 0x0F;
+    ts[12] = (char)((ip->vector >> 4) & 0x0F);
     if (ts[12] < 10) ts[12] += 48;
     else ts[12] += 55;
-    ts[13] = ip->vector & 0x0F;
+    ts[13] = (char)(ip->vector & 0x0F);
     if (ts[13] < 10) ts[13] += 48;
     else ts[13] += 55;
 
     for (int i = 7; i >= 0; i--) {
         int index = 34 - i;
-        ts[index] = (ip->eip >> (i * 4)) & 0x0F;
+        ts[index] = (char)((ip->eip >> (i * 4)) & 0x0F);
         if (ts[index] < 10) ts[index] += 48;
         else ts[index] += 55;
     }
 
     for (int i = 3; i >= 0; i--) {
         int index = 51 - i;
-        ts[index] = (ip->cs >> (i * 4)) & 0x0F;
+        ts[index] = (char)((ip->cs >> (i * 4)) & 0x0F);
         if (ts[index] < 10) ts[index] += 48;
         else ts[index] += 55;
     }
 
     for (int i = 7; i >= 0; i--) {
         int index = 72 - i;
-        ts[index] = (ip->eflags >> (i * 4)) & 0x0F;
+        ts[index] = (char)((ip->eflags >> (i * 4)) & 0x0F);
         if (ts[index] < 10) ts[index] += 48;
         else ts[index] += 55;
     }
 
     for (int i = 7; i >= 0; i--) {
         int index = 93 - i;
-        ts[index] = (ip->errCode >> (i * 4)) & 0x0F;
+        ts[index] = (char)((ip->errCode >> (i * 4)) & 0x0F);
         if (ts[index] < 10) ts[index] += 48;
         else ts[index] += 55;
     }

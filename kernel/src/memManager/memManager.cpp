@@ -36,18 +36,18 @@ int heapSize(unsigned int page) {
     if (page > 1048575)
         return -1;
 
-    unsigned int *addr = (unsigned int *) (page << 12);//获取地址
+    auto addr = (unsigned int *) (page << 12);//获取地址
 
     //检查合法性
     unsigned int head = addr[0];//获取堆区头部数据
     if (((head >> 20) & 0x0FFF) != 0xFFF)//验证其高12位合法性
         return -1;
-    int pageNum = head & 0x000FFFFF;//获取堆所占页数量
+    int pageNum = (int)(head & 0x000FFFFF);//获取堆所占页数量
     unsigned int uint32Num = pageNum * 1024;//堆中以4个字节为一个单位有多少个元素
     unsigned int tail = addr[uint32Num - 1];//获取尾部数据
     if (((tail >> 20) & 0x0FFF) != 0xFFF)//验证其高12位合法性
         return -1;
-    int tailPageNum = tail & 0x000FFFFF;
+    int tailPageNum = (int)(tail & 0x000FFFFF);
     if (((-pageNum) & 0x000FFFFF) != tailPageNum)
         return -1;
 
@@ -92,7 +92,7 @@ bool allocHeap(unsigned int page, unsigned int size) {
         //否则说明内存已满
         PhysMem::setPageUsage(pp, false);//还原状态
         for (int j = i - 1; j >= 0; j--) {//释放已经建立映射的页
-            int pp = VirtMem::virtPageToPhysPage(page + j);
+            pp = VirtMem::virtPageToPhysPage(page + j);
             VirtMem::unmap(page + j);
             PhysMem::setPageUsage(pp, false);
         }
@@ -100,7 +100,7 @@ bool allocHeap(unsigned int page, unsigned int size) {
     }
 
     //堆区分配完毕, 页表分配成功
-    unsigned int *heap = (unsigned int *) (page << 12);//获取地址
+    auto heap = (unsigned int *) (page << 12);//获取地址
     unsigned int uint32Num = size * 1024;
 
     //全填空闲
@@ -126,7 +126,7 @@ bool expandHeap(unsigned int page, unsigned int size) {
     if (1 > pageNum || pageNum > 1048576)
         return false;
 
-    unsigned int *addr = (unsigned int *) (page << 12);//获取地址
+    auto addr = (unsigned int *) (page << 12);//获取地址
     unsigned int oldUint32Num = pageNum * 1024;//拼接前堆中以4个字节为一个单位有多少个元素
 
     //开始分配
@@ -164,9 +164,6 @@ bool freeHeap(unsigned int page) {
     if (1 > pageNum || pageNum > 1048576)
         return false;
 
-    unsigned int *addr = (unsigned int *) (page << 12);//获取地址
-    unsigned int uint32Num = pageNum * 1024;//堆中以4个字节为一个单位有多少个元素
-
     //开始释放堆空间
     for (int i = 0; i < pageNum; i++) {
         int pp = VirtMem::virtPageToPhysPage(page + i);//获取物理页号
@@ -186,7 +183,7 @@ void coalesce(unsigned int page) {
     if (1 > pageNum || pageNum > 1048576)
         return;
 
-    unsigned int *addr = (unsigned int *) (page << 12);//获取地址
+    auto addr = (unsigned int *) (page << 12);//获取地址
     unsigned int uint32Num = pageNum * 1024;//堆中以4个字节为一个单位有多少个元素
 
     //开始遍历Implicit free list
@@ -225,7 +222,7 @@ void *kmalloc(unsigned int page, unsigned int size) {
 
     coalesce(page);
 
-    unsigned int *addr = (unsigned int *) (page << 12);//获取地址
+    auto addr = (unsigned int *) (page << 12);//获取地址
     unsigned int uint32Num = pageNum * 1024;//堆中以4个字节为一个单位有多少个元素
     size = ((size + 3) >> 2) + 2;//4字节对齐(向上取整), +2因为会有头和尾部数据
 
@@ -270,7 +267,7 @@ bool kfree(unsigned int page, void *addr) {
     if (addrNum < heapStartAddrNum + 4 || addrNum >= heapStartAddrNum + uint8HeapSize - 4)
         return false;
 
-    unsigned int *uint32Addr = (unsigned int *) addr;//获取4个字节为一个单位的地址
+    auto uint32Addr = (unsigned int *) addr;//获取4个字节为一个单位的地址
     uint32Addr[-1] = uint32Addr[-1] & 0xFFFFFFFE;//清空第0位
     unsigned int chunkSize = uint32Addr[-1] >> 2;//获取块大小
     uint32Addr[chunkSize - 2] = uint32Addr[-1];//更新尾部

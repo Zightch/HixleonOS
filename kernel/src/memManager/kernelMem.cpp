@@ -36,7 +36,7 @@ bool kernelMemInit(unsigned int num, unsigned int _1MiBUpper) {
             if (!VirtMem::pageIsUsing(kernelHeap))
                 heapNum++;
             else {
-                kernelHeap += heapNum;//跳过无法连续的区域
+                kernelHeap += (int)heapNum;//跳过无法连续的区域
                 heapNum = 0;
             }
         }

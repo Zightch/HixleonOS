@@ -1,7 +1,7 @@
 #include "tty.h"
 #include "cpu.h"
 
-char *ttyBase = (char*)0xB8000;
+unsigned char *ttyBase = (unsigned char*)0xB8000;
 unsigned char ttyTheme = 0x07;
 unsigned short ttyOffset = 0;
 
@@ -20,8 +20,8 @@ void ttySetTheme(unsigned char x, unsigned char y, unsigned char fg, unsigned ch
     ttyGetCursor(tmpX, tmpY);
     ttySetCursor(x, y);
     char theme = 0x07;
-    if ((0 <= fg && fg <= 15) && (0 <= bg && bg <= 15))
-        theme = ((bg << 4) & 0xF0) | (fg & 0x0F);
+    if (fg <= 15 && bg <= 15)
+        theme = (char)(((bg << 4) & 0xF0) | (fg & 0x0F));
     ttyBase[2 * ttyOffset + 1] = theme;
     ttySetCursor(tmpX, tmpY);
 }
@@ -37,14 +37,12 @@ void ttyPutStr(unsigned char fg, unsigned char bg, const char *str) {
 //打印单个字符加字符主题
 void ttyPutChar(unsigned char fg, unsigned char bg, char c) {
     char theme = 0x07;
-    if ((0 <= fg && fg <= 15) && (0 <= bg && bg <= 15))
-        theme = ((bg << 4) & 0xF0) | (fg & 0x0F);
+    if (fg <= 15 && bg <= 15)
+        theme = (char)(((bg << 4) & 0xF0) | (fg & 0x0F));
+    if ((c < 32 || c > 126) && c != '\n')c = '?';
     if (c == '\n') {
         ttyOffset /= TTY_WIDTH;
         ttyOffset += 1;
-        ttyOffset *= TTY_WIDTH;
-    } else if (c == '\r') {
-        ttyOffset /= TTY_WIDTH;
         ttyOffset *= TTY_WIDTH;
     } else {
         ttyBase[2 * ttyOffset] = c;
@@ -62,12 +60,10 @@ void ttyPutChar(unsigned char fg, unsigned char bg, char c) {
 
 //打印单个字符
 void ttyPutChar(char ch) {
+    if ((ch < 32 || ch > 126) && ch != '\n')ch = '?';
     if (ch == '\n') {
         ttyOffset /= TTY_WIDTH;
         ttyOffset += 1;
-        ttyOffset *= TTY_WIDTH;
-    } else if (ch == '\r') {
-        ttyOffset /= TTY_WIDTH;
         ttyOffset *= TTY_WIDTH;
     } else {
         ttyBase[2 * ttyOffset] = ch;
@@ -119,8 +115,8 @@ void ttyClear() {
 //设置全局主题
 void ttySetTheme(unsigned char fg, unsigned char bg) {
     char theme = 0x07;
-    if ((0 <= fg && fg <= 15) && (0 <= bg && bg <= 15))
-        theme = ((bg << 4) & 0xF0) | (fg & 0x0F);
+    if (fg <= 15 && bg <= 15)
+        theme = (char)(((bg << 4) & 0xF0) | (fg & 0x0F));
     for (unsigned short i = 0; i < TTY_WIDTH * TTY_HEIGHT; i++)
         ttyBase[2 * i + 1] = theme;
     ttyTheme = theme;

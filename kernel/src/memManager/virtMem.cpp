@@ -88,7 +88,7 @@ namespace VirtMem {
             return (void *) physAddr;
         } else {
             //如果物理页号为-1, 说明不存在映射关系, 返回不合法的数据
-            if (pageOffset != 0)return (void *) 0;
+            if (pageOffset != 0)return nullptr;
             return (void *) 0x00000FFF;
         }
     }
@@ -96,7 +96,7 @@ namespace VirtMem {
     //虚拟页转物理页
     int virtPageToPhysPage(unsigned int page) {
         //获取虚拟页号
-        unsigned int pageNum = (unsigned int) page;
+        auto pageNum = (unsigned int) page;
         //检查虚拟页号是否在合法范围内
         if (pageNum >= 1048576)//如果虚拟页号不在合法范围内, 返回-1
             return -1;
@@ -114,7 +114,7 @@ namespace VirtMem {
         //如果有效, 获取页表项的高20位, 作为物理页号
         unsigned int physPageNum = (pteValue >> 12) & 0x000FFFFF;
         //返回物理页号
-        return physPageNum;
+        return (int)physPageNum;
     }
 
     //映射虚拟页到物理页
@@ -152,7 +152,7 @@ namespace VirtMem {
         //定义连续可用虚拟页的基页号
         unsigned int base = 0;
         //定义当前查找的虚拟页号
-        int tmp = usablePageIndexLast;
+        int tmp = (int)usablePageIndexLast;
         //定义是否已经改变过一次迭代方向
         bool isSecond = false;
         //循环查找连续可用虚拟页
@@ -165,7 +165,7 @@ namespace VirtMem {
                     return -1;
                 //如果没有改变过迭代方向, 改变迭代方向, 并回到上一次查询的虚拟页号
                 upiDir = !upiDir;
-                tmp = usablePageIndexLast;
+                tmp = (int)usablePageIndexLast;
                 isSecond = true;
                 continue;
             }
@@ -179,7 +179,7 @@ namespace VirtMem {
                 count++;
                 //如果连续可用虚拟页的数量等于参数指定的数量, 返回基页号
                 if (count == num)
-                    return base;
+                    return (int)base;
             } else {
                 //如果已被使用, 将连续可用虚拟页的数量和基页号重置为0
                 count = 0;

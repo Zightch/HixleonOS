@@ -10,7 +10,7 @@ namespace PhysMem {
             return false;
         unsigned char tmp = 1;
         tmp <<= bit;
-        ch = tf ? (ch | tmp) : (ch & (~tmp));
+        ch = (char)(tf ? (ch | tmp) : (ch & (~tmp)));
         return true;
     }
 
@@ -54,12 +54,12 @@ namespace PhysMem {
         unsigned int sectionNum = (size >> 3) + entryIndex;
 
         for (unsigned int i = entryIndex; i < sectionNum; i++)
-            physPageUsageTable[i] = isUsing ? 0xFF : 0x00;
+            physPageUsageTable[i] = (char)(isUsing ? 0xFF : 0x00);
 
         size -= ((sectionNum - entryIndex) << 3);
         entryIndex = sectionNum;
 
-        for (unsigned char i = 0; i < size; i++)
+        for (unsigned char i = 0; i < (char)size; i++)
             setBit(physPageUsageTable[entryIndex], i, isUsing);
 
         return true;
@@ -68,7 +68,7 @@ namespace PhysMem {
     //获取一个可用页
     int getUsablePage() {
         //保存上一次查询的下标
-        int tmp = ((usablePageIndexLast) >> 3) & 0x0001FFF8;
+        int tmp = (int)(((usablePageIndexLast) >> 3) & 0x0001FFF8);
         bool isSecond = false;//用于表示本次查找中第二次改变查询方向
         //循环查找可用页
         while (true) {
@@ -80,7 +80,7 @@ namespace PhysMem {
                     if (!isSecond) {
                         //如果不在合法范围内, 改变迭代方向, 并回到上一次查询的下标
                         upiDir = !upiDir;
-                        tmp = ((usablePageIndexLast) >> 3) & 0x0001FFF8;
+                        tmp = (int)(((usablePageIndexLast) >> 3) & 0x0001FFF8);
                         isSecond = true;
                     } else return -1;//返回-1
                 }
@@ -92,7 +92,7 @@ namespace PhysMem {
                     //如果当前页未被占用, 返回它, 并更新usablePageIndexLast的值
                     if (!pageIsUsing(pageNum)) {
                         usablePageIndexLast = pageNum;
-                        return pageNum;
+                        return (int)pageNum;
                     }
                 }
             }

@@ -1,11 +1,7 @@
 #include "ACPI/ACPI.h"
 #include "ACPI/APIC.h"
-#include "tty.h"
 #include "kernel.h"
-#include "cpu.h"
 #include "memManager/virtMem.h"
-#include "memManager/physMem.h"
-#include "memManager/kernelMem.h"
 #include "crash.h"
 
 #define INVALID_REDP (RSDP*)0xFFFFFFFF

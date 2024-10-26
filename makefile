@@ -1,4 +1,4 @@
-commonArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -static -fpermissive -g -ffreestanding -fomit-frame-pointer
+commonArgs:=-nostdlib -nostdinc -nodefaultlibs -nostartfiles -O0 -static -fpermissive -g -ffreestanding -fno-omit-frame-pointer
 oArgs:=-I ./kernel/include -I ./kernel/class -I ./boot ${commonArgs}
 eArgs:=-T ./kernel/linker.ld ${commonArgs}
 oDir:=./kernel/obj

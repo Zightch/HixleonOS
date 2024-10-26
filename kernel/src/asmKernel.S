@@ -10,9 +10,13 @@
     kernelEntry:
         movl $stackTop - 4, %esp
         movl $stackTop - 4, %ebp
+        # kpgSize
         pushl %edx
+        # kpg
         pushl %ecx
+        # mmap_length
         pushl %ebx
+        # mmap_addr
         pushl %eax
         call _Z10kernelInitP6MemMaptPvj
 

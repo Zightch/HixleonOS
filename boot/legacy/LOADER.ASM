@@ -537,6 +537,7 @@ mov dword eax, esi
 out dx, byte al ;设置光标低8位
 
 pause:
+cli
 hlt;暂停CPU
 jmp pause
 

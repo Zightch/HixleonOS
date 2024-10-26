@@ -8,3 +8,5 @@ kernel/KERNEL
 kernel/Kernel.symbol
 .cache
 HixleonOS-grub.img
+HixleonOS-grub.iso
+HixleonOS-legacy.img

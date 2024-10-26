@@ -5,5 +5,8 @@
 void crash(const char* str) {
     ttyPutStr(VGA_COLOR_LIGHT_RED, VGA_COLOR_BLACK, str);
     while (true)
+    {
+        CPU::disableInterrupt();
         CPU::hlt();
+    }
 }

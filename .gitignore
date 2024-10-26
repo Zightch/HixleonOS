@@ -1,5 +1,4 @@
 .idea
-.vscode
 cmake-build-*
 build
 kernel/obj
@@ -7,3 +6,5 @@ kernel/obj
 gdb.txt
 kernel/KERNEL
 kernel/Kernel.symbol
+.cache
+HixleonOS-grub.img

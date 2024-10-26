@@ -24,10 +24,18 @@
         movl $stackTop - 4, %esp
         movl $stackTop - 4, %ebp
         # 根据启动方式判定是grub还是legacy
-        # TODO
+        cmpl $MB_FINISH_EAX, %eax
+        jne legacySaveMemMap
+        # grub保存内存地图
+        grubSaveMemMap:
+            # TODO
+            
+        jmp callHHKInit
         # legacy内存地图保存
-        pushl %ecx
-        pushl %ebx
+        legacySaveMemMap:
+            pushl %ecx
+            pushl %ebx
+        callHHKInit:
         # 调用hhkInit
         pushl $KPG_SIZE
         pushl $(kpg - 0xC0000000)

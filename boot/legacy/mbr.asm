@@ -205,6 +205,7 @@ mov ax, si
 out dx, al ; 设置光标低8位
 
 pause:
+cli
 hlt
 jmp pause
 

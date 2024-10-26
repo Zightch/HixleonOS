@@ -28,6 +28,7 @@ SECTIONS {
         * (.text)
     }
     .bss BLOCK(4K) : AT(ADDR(.bss) - 0xC0000000) {
+        * (COMMON)
         * (.bss)
     }
     .data BLOCK(4K) : AT(ADDR(.data) - 0xC0000000) {

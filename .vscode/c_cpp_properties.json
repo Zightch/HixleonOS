@@ -1,0 +1,26 @@
+{
+    "configurations": [
+        {
+            "name": "HixleonOS",
+            "includePath": [
+                "${workspaceFolder}/boot/grub",
+                "${workspaceFolder}/kernel/class",
+                "${workspaceFolder}/kernel/include"
+            ],
+            "compilerArgs": [
+                "-nostdlib",
+                "-nostdinc",
+                "-nodefaultlibs",
+                "-nostartfiles",
+                "-O0",
+                "-static",
+                "-fpermissive",
+                "-g",
+                "-ffreestanding"
+            ],
+            "compilerPath": "/opt/i686-elf/bin/i686-elf-g++",
+            "cppStandard": "gnu++17"
+        }
+    ],
+    "version": 4
+}

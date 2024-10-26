@@ -4,7 +4,14 @@
 ## 构建项目
 ### 前情提要
 1. 首先确保你的电脑是Linux或有一台Linux的虚拟机
-2. 系统中具有nasm, i686-elf-g++, qemu, make软件
+2. 系统中具有软件
+   * g++
+   * nasm
+   * i686-elf-g++
+   * make
+   * kpartx
+   * grub2
+   * xorriso
 
 ### 准备好后
 构建

@@ -2,6 +2,8 @@
 
 rm -rf HixleonOS-grub.img
 
+make
+
 dd if=/dev/zero of=HixleonOS-grub.img bs=256M count=1
 
 fdisk HixleonOS-grub.img << EOF

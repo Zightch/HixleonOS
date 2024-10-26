@@ -1,6 +1,9 @@
 #!/bin/bash
 
 rm -rf HixleonOS-grub.iso
+
+make
+
 mkdir -p iso/boot/grub
 cp boot/grub/grub.cfg iso/boot/grub
 cp kernel/KERNEL iso

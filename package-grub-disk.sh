@@ -8,7 +8,10 @@ fi
 
 export DEVICE=$1
 
-make
+make clean
+
+make mkdir
+make -j$(nproc)
 
 # 删除分区表
 sudo fdisk $DEVICE << EOF

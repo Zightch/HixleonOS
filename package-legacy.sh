@@ -3,8 +3,10 @@
 rm -rf HixleonOS-legacy.img
 rm -rf boot/legacy/LOADER
 rm -rf boot/legacy/mbr
+make clean
 
-make
+make mkdir
+make -j$(nproc)
 
 nasm boot/legacy/LOADER.ASM
 nasm boot/legacy/mbr.asm

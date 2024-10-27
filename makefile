@@ -16,7 +16,7 @@ oS += $(patsubst %.S, %.o, ${allS})
 OBJS += $(addprefix ${oDir}/, ${oCpp})
 OBJS += $(addprefix ${oDir}/, ${oS})
 
-Kernel: clean mkdir ${OBJS}
+Kernel: ${OBJS}
 	${cmd} ${OBJS} -o ./kernel/Kernel.bin ${eArgs}
 	objcopy --strip-debug ./kernel/Kernel.bin ./kernel/KERNEL
 	objcopy --only-keep-debug ./kernel/Kernel.bin ./kernel/Kernel.symbol

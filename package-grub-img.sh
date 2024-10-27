@@ -1,8 +1,10 @@
 #!/bin/bash
 
 rm -rf HixleonOS-grub.img
+make clean
 
-make
+make mkdir
+make -j$(nproc)
 
 dd if=/dev/zero of=HixleonOS-grub.img bs=256M count=1
 

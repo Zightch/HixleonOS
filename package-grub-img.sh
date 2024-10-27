@@ -15,7 +15,7 @@ p
 
 a
 t
-83
+6
 p
 w
 EOF
@@ -23,7 +23,7 @@ EOF
 sudo losetup /dev/loop7 HixleonOS-grub.img
 sudo kpartx -av /dev/loop7
 
-sudo mkfs.ext2 /dev/mapper/loop7p1
+sudo mkfs.fat -F 16 -I /dev/mapper/loop7p1
 mkdir tmp
 sudo mount /dev/mapper/loop7p1 tmp
 

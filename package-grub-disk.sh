@@ -10,26 +10,29 @@ export DEVICE=$1
 
 make
 
-# 清除原有分区表
-sudo dd if=/dev/zero of=$DEVICE bs=512 count=3 conv=notrunc
+# 删除分区表
+sudo fdisk $DEVICE << EOF
+o
+p
+w
+EOF
 
 # 构建分区表
 sudo fdisk $DEVICE << EOF
-o
 n
 p
 1
 
-
++2G
 a
 t
-83
+6
 p
 w
 EOF
 
 export PART=${DEVICE}1
-sudo mkfs.fat -F 32 -I $PART
+sudo mkfs.fat -F 16 -I $PART
 mkdir tmp
 sudo mount $PART tmp
 

@@ -14,7 +14,7 @@
     kpg:
         .skip KPG_SIZE, 0
 
-.section .hhkInitData, "a"
+.section .hhkInitData, "wa"
     multibootMMapLength:
         .skip 4, 0
     multibootMMapData:

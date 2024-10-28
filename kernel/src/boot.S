@@ -23,6 +23,9 @@
 .section .hhkInitRodata, "a"
     mmapLengthTooLongStr:
         .asciz "Memory map length too long!"
+#    tmpNullGDT:
+#        .long 0
+#        .long 0
 
 .section .hhkInitBss, "wa", @nobits /* 临时栈 */
     .align 16
@@ -37,6 +40,27 @@
         cli # 关中断，直到我们准备好PIC为止
         movl $stackTop - 4, %esp
         movl $stackTop - 4, %ebp
+
+#        # 重置段寄存器
+#        movl $0, %edx
+#        movw %dx, %ss
+#        movw %dx, %ds
+#        movw %dx, %es
+#        movw %dx, %fs
+#        movw %dx, %gs
+#
+#        pushw $0
+#        pushl $recoverTmpGDT
+#        retf
+#
+#        recoverTmpGDT:
+#        # 恢复临时GDT
+#        subl $6, %esp
+#        movl $tmpNullGDT, 2(%esp)
+#        movl $7, %edx
+#        movw %ax, (%esp)
+#        lgdt (%esp)
+
         # 根据启动方式判定是grub还是legacy
         cmpl $MB_FINISH_EAX, %eax
         jne legacySaveMemMap

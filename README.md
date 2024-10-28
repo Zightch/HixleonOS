@@ -1,42 +1,47 @@
 # HixleonOS
-一个使用汇编和C/C++实现的简易操作系统  
+一个使用汇编和C/C++实现的简易的32位操作系统  
 
 ## 构建项目
-### 前情提要
+### 环境
 1. 首先确保你的电脑是Linux或有一台Linux的虚拟机
-2. 系统中具有软件
+2. 安装软件包
    * g++
    * nasm
-   * i686-elf-g++
    * make
    * kpartx
-   * grub2
    * xorriso
+   * grub2
+   * grub-efi-ia32
+   * grub-efi-amd64 (可选)
+   * parted (可选)
+3. 安装其他软件包
+    * [i686-elf](https://sxjc1.staticplant.top:6001/i686-elf.tar.gz)  
 
-### 准备好后
-构建
-1. 在克隆仓库后打开终端
-2. cd到项目所在目录
-3. 执行`package-XXX.sh`, 其中`XXX`对应不同的引导方式
-4. 执行`qemu-system-i386 HixleonOS.img -m 3G`
+   将如上软件包放置/opt下, 并加入环境变量
+4. (可选) 下载qemu uefi固件
+   * [OVMF-amd64.fd](https://sxjc1.staticplant.top:6001/OVMF-amd64.fd) (适用于`qemu-system-x86_64`)
+   * [OVMF-ia32.fd](https://sxjc1.staticplant.top:6001/OVMF-ia32.fd) (适用于`qemu-system-i386`)
 
-物理机运行
-1. 插入IDE/SATA硬盘, 可以使用`IDE/SATA To USB`转接器进行外接
-2. 使用`fdisk -l`寻找你的硬盘(这里假设你的磁盘是/dev/sda)
-3. 使用`dd if=HixleonOS.img of=/dev/sda`将操作系统写入硬盘
-4. 将硬盘移到测试用物理机上, 开机
+### 构建
+1. cd到项目所在目录
+2. 执行`./package-XXX.sh`, 其中`XXX`对应不同的方式  
+
+### 运行
+针对不同的package方式, 有不同的运行特性
+* `package-grub-iso.sh`直接打包iso  
+  通过刻录U盘后或`qemu`可启动
+* `package-legacy.sh`直接打包img  
+  现代计算机无法运行  
+  可以通过dd写盘到老式ide磁盘在老式电脑上启动
+* `package-grub-img.sh`接受一个参数为`platform`  
+  `platform`对应为`grub-install`的`--target`  
+  通过`qemu`启动
+* `package-grub-disk.sh`接受两个参数为`platform`和`device`  
+  `platform`对应为`grub-install`的`--target`  
+  `device`对应为你要安装到哪个磁盘设备  
+  完成安装后可在现代计算机上运行
 
 若物理机显示内容与虚拟机相似, 即表示运行无误
-
-## 说明
-* 本操作系统使用Legacy MBR引导方式, FAT16文件系统  
-  具体内容在[./boot/](./boot/)
-* 本操作系统使用Legacy IDE磁盘控制器, 将无法在NVMe等更高级的磁盘上运行  
-  会导致`The loader was not found. File in "/LOADER".`  
-  这也就意味着如果你使用的是SATA, 需要开机时进BIOS设置SATA控制器为Legacy IDE
-* 本操作系统为32位操作系统, 最大寻址到4GB
-* 本系统仅限于学习和交流开发使用, 不可进行商业用途  
-* 如有疑问, [请联系作者](#联系方式)
 
 ## 联系方式
 QQ: 2166825850  
